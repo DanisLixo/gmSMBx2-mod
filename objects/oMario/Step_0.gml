@@ -5,18 +5,21 @@ ku = keyboard_check(global.keyu)
 
 kj = keyboard_check(global.keyj)
 ka = keyboard_check(global.keya)
+kh = keyboard_check(global.keyh)
 
 kjp = keyboard_check_pressed(global.keyj)
 kap = keyboard_check_pressed(global.keya)
+khp = keyboard_check_pressed(global.keyh)
 
 kar = keyboard_check_released(global.keya)
+khr = keyboard_check_released(global.keyh)
 
 kup = keyboard_check_pressed(global.keyu)
 kdp = keyboard_check_pressed(global.keyd)
 
 
 if global.chatfocus = true
-{kr=0;kl=0;kd=0;kj=0;ka=0;kjp=0;kar=0;kdp=0;}
+{kr=0;kl=0;kd=0;kj=0;ka=0;kjp=0;kar=0;kdp=0;kh=0;khp=0;khr=0;}
 
 if instance_exists(oClient)
 {
@@ -183,6 +186,9 @@ switch(state)
 	case ps.dance0:
 		ps_dance0();
 	break;
+	case ps.nah:
+		ps_nah();
+	break;
 }
 
 
@@ -194,7 +200,7 @@ if global.rtxmode = true or global.schutmode = true
 	{image_xscale = -1;}
 }
 
-
+if kjp {retrochance = random(100)}
 
 
 

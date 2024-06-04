@@ -20,8 +20,8 @@ function bgm(bgmstr,loops)
 	}
 	
 	if is_string(bgmstr) && global.musicchannels = true && global.player != "Peter Griffin" &&
-		global.player != "Martin" && global.player != "Anton"
-		&& bgmstr != "Levelend" && bgmstr != "Castleend" && bgmstr != "Lobby"
+		global.player != "Martin" && global.player != "Anton" && global.player != "Duke" && global.player != "Pokey"
+		&& bgmstr != "Levelend" && bgmstr != "Castleend" && bgmstr != "Lobby" && bgmstr != "Retro" && bgmstr != "Warning"
 	{
 		audio_stop_sound(global.ch[0]);
 		audio_stop_sound(global.ch[1]);
@@ -56,12 +56,21 @@ function bgm(bgmstr,loops)
 				else if bgmstr = "Levelend" or bgmstr = "Castleend"	{mus = musFamilyguyLevelend;}
 				else {mus = musFamilyGuy;}
 			}
+			if global.player = "Pokey"
+			{
+				if bgmstr = "GO"	{mus = musKRL;}
+				else if bgmstr = "Starman"	{mus = musHerewego;}
+				else if bgmstr = "Levelend" or bgmstr = "Castleend"	{mus = musHereweend;}
+				else {mus = musPokeymato;}
+			}
 			if (bgmstr = "OW" or bgmstr = "UW" or bgmstr = "UG" or bgmstr = "CS")
 			{
 				if global.player = "Anton"
 				{mus = musAnton;}
 				if global.player = "Martin"
 				{mus = musMartin;}
+				if global.player = "Duke"
+				{mus = musJohnnyTest;}
 			}
 			
 			global.ch[4] = audio_play_sound(mus,1,loops,global.volbgm);

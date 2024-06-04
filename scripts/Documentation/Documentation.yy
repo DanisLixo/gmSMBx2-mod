@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "Documentation",
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "SpriteData",
-    "path": "folders/Scripts/SpriteData.yy",
+  "$GMScript":"",
+  "%Name":"Documentation",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Documentation",
+  "parent":{
+    "name":"SpriteData",
+    "path":"folders/Scripts/SpriteData.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

@@ -18,6 +18,10 @@ function ms(spritestring)
 	{return sGoldron;}
 	if global.player = "Peter Griffin"
 	{return sPeterGriffin;}
+	if global.player = "Duke"
+	{return sDuke;}
+	if global.player = "Pokey"
+	{return sPokey;}
 	
 	if sprite_exists(asset_get_index(spritestring))
 	{return asset_get_index(spritestring);}
@@ -49,8 +53,9 @@ function do_jump()
 		else
 		{sfx(sndJumpbig,1);}
 		
-		spr = ms("sMario_{}_jump");
-		ind = 0;
+		if oMario.retrochance <= 2 and global.player =  "Dawn" and powerup = "s" {spr = ms("sMario_s_retrojump"); ind = 0;}
+		else if global.player = "Sonic" {spr = ms("sMario_{}_spinjump"); ind = 0; collide()}
+		else {spr = ms("sMario_{}_jump"); ind = 0}
 		
 		if state = ps.shoulderbash
 		{spr = ms("sMario_{}_shoulderbash"); ind = 1;}
@@ -65,22 +70,33 @@ function do_jump()
 
 function do_fire()
 {
-	if firetimer = 0 && kap && powerup = "f" && instance_number(oFireball) <= 2
+	if firetimer = 0 && kap && powerup = "f" && instance_number(oFireball) <= 1
 	{
-		instance_create_depth(x,bbox_top+6,depth,oFireball).facing = sign(image_xscale);
+		if global.player =  "Pokey" && instance_number(oHatThrow) < oGame.hats
+		{instance_create_depth(x,bbox_top+6,depth,oHatThrow).facing = sign(image_xscale);
 		firetimer = 10;
-		sfx(sndFireballthrown,1);
+		sfx(sndFireballthrown,1);}
+		
+		else if global.player !=  "Pokey" and global.player !=  "1pixelmario"
+		{instance_create_depth(x,bbox_top+6,depth,oFireball).facing = sign(image_xscale);
+		firetimer = 10;
+		sfx(sndFireballthrown,1);}
 	}
 }
 
 function ps_normal()
 {
+	if crouch = false {spin = false;}
+	
+	audio_stop_sound(sndOpacandastar)
+	style = 0
 	holdjump = -1;
 	
 	var moveh = kr-kl
 	
 	if moveh != 0
 	{
+		if global.player != "Sonic" {
 		var accel = 0.08
 		var maxhspd = 1.5
 		
@@ -89,6 +105,16 @@ function ps_normal()
 		
 		if global.environment = e.underwater
 		{maxhspd = 0.8;}
+		}
+		
+		else {
+			var accel = 0.06
+			var maxhspd = 3.2
+			
+			if global.environment = e.underwater
+			{maxhspd = 1;}
+		}
+		
 		
 		if abs(hspd) < maxhspd && moveh = 1
 		{hspd += accel;}
@@ -96,7 +122,6 @@ function ps_normal()
 		{hspd -= accel;}
 		if !ka && abs(hspd) > maxhspd
 		{hspd -= accel*moveh;}
-		
 		if sign(hspd) != 0
 		{image_xscale = sign(hspd);}
 		
@@ -115,9 +140,10 @@ function ps_normal()
 	}
 
 	if hspd != 0 or !grounded
-	{spr = ms("sMario_{}_walk"); ind += abs(hspd)/7; if place_meeting(x+sign(hspd),y,oCol) {ind += 0.15;}}
-	else
-	{spr = ms("sMario_{}_idle"); ind = 0;}
+	{spr = ms("sMario_{}_walk"); ind += abs(hspd)/7; if place_meeting(x+sign(hspd),y,oCol) {ind += 0.15;}
+	 if hspd >= 3 && global.player = "Sonic" {spr = ms("sMario_{}_run"); ind += 0.2}}
+	else if global.commandenys = true && kh {state = ps.nah}
+	else {spr = ms("sMario_{}_idle"); ind = 0;}
 	
 	do_fire();
 	do_jump();
@@ -132,14 +158,18 @@ function ps_normal()
 	collide()
 	
 	
-	if kd && powerup != "s" && firetimer = 0
+	if kd && powerup != "s" && global.player != "Dawn" && global.player != "Sonic" && firetimer = 0 
+	{state = ps.crouch;}
+	if kd && firetimer = 0 && (global.player = "Dawn" or global.player = "Sonic")
 	{state = ps.crouch;}
 	if kup
 	{state = ps.dance0;}
-	if kdp && instance_place(x,y,oPipeentrance) && grounded && moveh = 0
+	if kd && instance_place(x,y,oPipeentrance) && grounded
 	{
 		state = ps.enterpipedown; pipeinforoom = instance_place(x,y,oPipeentrance).troom; sfx(sndWarp,1);
-		if powerup != "s"
+		if powerup != "s" && global.player != "Dawn"
+		{spr = ms("sMario_{}_crouch");}
+		if global.player = "Dawn"
 		{spr = ms("sMario_{}_crouch");}
 	}
 	if kr && instance_place(x,y,oPipeentranceright) && instance_place(x+1,y,oCol) && grounded
@@ -163,8 +193,9 @@ function ps_normal()
 
 function ps_jump()
 {
-	if global.environment = e.underwater 
+	if global.environment = e.underwater and global.player != "Sonic"
 	{state = ps.swim;}
+	else if global.player = "Sonic" and kj {do_jump()}
 	
 	var moveh = kr-kl
 
@@ -196,7 +227,7 @@ function ps_jump()
 		shoulderbash = -10;
 		if kd
 		{state = ps.crouch;}
-		else
+		else if !kd
 		{state = ps.normal;}
 	}
 	
@@ -214,11 +245,17 @@ function ps_jump()
 	
 	do_fire();
 	
-	if global.player = "Luigi" {ind += 0.4;}
+	if global.player = "Luigi" or global.player = "Sonic" {ind += 0.4;}
 	if global.player = "Martin" {ind += 0.3;}
 	
 	collide();
 	
+	if global.player = "Dawn" {
+		if vspd >= -0.5 and retrochance > 2 and !grounded and not instance_place(x,y,oBeanstalk) and !kd {
+			spr = ms("sMario_{}_fall"); ind += 0.4;
+		if vspd < -0.5 {spr = ms("sMario_{}_jump"); ind = 0;}
+		}
+	}
 	
 	if instance_place(x,y,oBeanstalk)
 	{x = instance_place(x,y,oBeanstalk).x+8; y -= 1; state = ps.climb;}
@@ -294,6 +331,12 @@ function ps_enterpipedown()
 	
 	if !place_meeting(x,y,oPipeentrance)
 	{room_goto(pipeinforoom);}
+	
+	if global.player = "Dawn" {
+	spr = ms("sMario_{}_downpipe");
+	ind = 0;
+	ind += 0.4;
+	}
 }
 
 function ps_enterpiperight()
@@ -325,13 +368,19 @@ function ps_exitpipeup()
 function ps_crouch()
 {
 	sprite_index = sMariomask0
-	
 	do_jump()
 	
-	if !grounded 
-	{state = ps.jump;}
-	
-	spr = ms("sMario_{}_crouch");
+	if global.player != "Sonic"
+	{
+		if global.commandenys = true and khp {state = ps.nah}
+		else {spr = ms("sMario_{}_crouch");}
+	}
+	else
+	{
+		if global.commandenys = true and khp {state = ps.nah}
+		else if hspd = 0 {spr = ms("sMario_{}_crouch"); spin = false;}
+		else if hspd > 0 {spr = ms("sMario_{}_spinjump"); spin = true; ind += 0.15}
+	}
 	
 	var deccel = 0.05
 	if abs(hspd) - deccel <= 0
@@ -343,8 +392,34 @@ function ps_crouch()
 	
 	collide();
 	
-	if !kd or powerup = "s"
-	{state = ps.normal;}
+	if !kd or powerup = "s" && (global.player != "Dawn" or global.player != "Sonic")
+	{
+		if spin = true {state = ps.crouch}
+		else {state = ps.normal;}}
+	
+	if !grounded 
+	{state = ps.jump;}
+	
+	//if grounded and hspd = 0 and kjp {state = ps.spin}
+}
+
+function ps_spin()
+{
+	sprite_index = sMariomask0
+	if hspd = 0 {spr = ms("sMario_{}_crouch"); spin = false;}
+	else if hspd > 0 {spr = ms("sMario_{}_spinjump"); spin = true; ind += 0.15}
+	
+	crouch = true
+	
+	collide();
+	
+	if !kd
+	{
+		if spin = true {state = ps.crouch}
+	}
+	
+	if !grounded 
+	{state = ps.jump;}
 }
 
 function ps_grow()
@@ -361,33 +436,8 @@ function ps_grow()
 	spr = ms("sMario_s_grow")
 	
 	if ind >= sprite_get_number(spr)-1
-	{state = ps.normal; powerup = "b";}
-	
-	if global.player = "Goldron" or global.player = "Anton" or global.player = "Peter Griffin"
-	{sfx(sndPowerup,1); state = ps.normal; powerup = "b";}
-	
-}
-function ps_firetransform()
-{
-	if spr != ms("sMario_s_grow")
-	{
-		ind = 0;
-		sfx(sndPowerup,1);
-	}
-	
-	powerup = "f"
-	
-	invincible = -2;
-	
-	ind += 0.3;
-	
-	spr = ms("sMario_s_grow")
-	
-	if ind >= sprite_get_number(spr)-1
-	{
-		state = ps.normal; powerup = "f";
-		
-		if kjp or jumpbuffer > 0
+	{state = ps.normal; powerup = "b";
+	if kj or jumpbuffer > 0
 		{
 			jumpbuffer = 0;
 		
@@ -404,11 +454,60 @@ function ps_firetransform()
 		
 			holdjump = 30;
 		}
+		
+		if kj {do_jump()}
+		
+		}
+	
+	if global.player = "Goldron" or global.player = "Anton" or global.player = "Peter Griffin" or global.player = "Duke" or global.player = "Pokey"
+	{sfx(sndPowerup,1); state = ps.normal; powerup = "b";}
+}
+function ps_firetransform()
+{
+	if spr != ms("sMario_s_grow")
+	{
+		ind = 0;
+		sfx(sndPowerup,1);
 	}
 	
-	if global.player = "Goldron" or global.player = "Anton" or global.player = "Peter Griffin"
-	{sfx(sndPowerup,1); state = ps.normal;}
+	powerup = "f"
 	
+	invincible = -2;
+	
+	ind += 0.3;
+	
+	if kj {do_jump()}
+	
+	spr = ms("sMario_s_grow")
+	
+	if ind >= sprite_get_number(spr)-1
+	{
+		state = ps.normal; powerup = "f";
+		
+		if kj or jumpbuffer > 0
+		{
+			jumpbuffer = 0;
+		
+			if powerup = "s"
+			{sfx(sndJump,1);}
+			else
+			{sfx(sndJumpbig,1);}
+		
+			vspd = -3 -(abs(hspd)/6);
+			state = ps.jump;
+			spr = ms("sMario_{}_jump");
+		
+			ind = 0;
+		
+			holdjump = 30;
+		}
+		
+		if kj {do_jump()}
+	}
+	
+	if global.player = "Goldron" or global.player = "Anton" or global.player = "Peter Griffin" or global.player = "Duke" or global.player = "Pokey"
+	{sfx(sndPowerup,1); state = ps.normal;}
+	if global.player = "Pokey" {} 
 }
 
 function ps_shrink()
@@ -426,18 +525,20 @@ function ps_shrink()
 	if ind >= sprite_get_number(spr)-1
 	{state = ps.normal; powerup = "s";}
 	
-	if global.player = "Goldron" or global.player = "Anton" or global.player = "Peter Griffin"
+	if global.player = "Goldron" or global.player = "Anton" or global.player = "Peter Griffin" or global.player = "Duke" or global.player = "Pokey"
 	{sfx(sndWarp,1); state = ps.normal; powerup = "s";}
 }
 
 function ps_flagpoledescend()
 {
 	flagpoletimer ++;
-	
 	hspd = 0;
 	vspd = 0;
 	
-	spr = ms("sMario_{}_climb");
+	if oMario.dancechance <= 5 && (powerup = "b" or powerup = "f") && (global.player = "Mario" or global.player = "Luigi")
+	{spr = ms("sMario_{}_polydance");}
+	else
+	{spr = ms("sMario_{}_climb");}
 	
 	invincible = -2;
 	
@@ -508,17 +609,19 @@ function ps_castleending()
 		{spr = ms("sMario_{}_walk"); ind += abs(hspd)/7; if place_meeting(x+sign(hspd),y,oCol) {ind += 0.15;}}
 		else if hspd = 0 && grounded
 		{spr = ms("sMario_{}_idle"); ind = 0;}
-		
 		if !place_meeting(x,y,oToad)
 		{hspd = 1.5;}
 		else if abs(hspd) > 0
-		{if hspd - 0.2 <= 0 {hspd = 0;} else {hspd -= 0.2;}}
+		{
+			if hspd - 0.2 <= 0 {hspd = 0;} else {hspd -= 0.2;}
+		}
 		
 		
 		collide()
 	}
 	else
 	{hspd = abs(hspd); vspd = 0;}
+	if khp and hspd = 0 {state = ps.nah}
 }
 
 function ps_swim()
@@ -591,6 +694,8 @@ function ps_swimidle()
 	
 	if grounded
 	{state = ps.normal;}
+	
+	if khp {state = ps.nah}
 }
 
 function ps_shoulderbash()
@@ -678,14 +783,28 @@ function ps_dance0()
 	
 	if (keyboard_check_pressed(global.keyr) - keyboard_check_pressed(global.keyl) )!= 0 or kjp
 	{state = ps.normal;}
-	if kdp && powerup != "s"
+	if kdp && powerup != "s" && global.player != "Dawn" && global.player != "Sonic"
 	{state = ps.crouch;}
-	
+	if kdp && (global.player = "Dawn" or global.player = "Sonic")
+	{state = ps.crouch;}
+	if khp {state = ps.nah}
 	spr = ms("sMario_{}_dance0");
+	if global.opacandastar = true && style = 0
+	{sfx(sndOpacandastar,1); style = 1}
 	if sprite_get_number(spr) > 200
 	{ind += 0.5;}
 	ind += 0.5;
-
-	
 	collide();
+}
+
+function ps_nah()
+{
+	if ind < 4
+	{ind += 0.25}
+	spr = ms("sMario_{}_nah"); 
+	if khr && castleendingtrigger = true {state = ps.castleending}
+	if khr {state = ps.normal}
+	if kjp {state = ps.jump}
+	if ku {state = ps.dance0}
+	if kap {do_fire()}
 }

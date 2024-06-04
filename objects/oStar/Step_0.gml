@@ -19,3 +19,8 @@ if mario_freeze() != 1
 	}
 }
 
+if (oMario.image_xscale = 1 && (instance_place(x-1,y,oMario) or instance_place(x,y-3,oMario)) or (oMario.image_xscale = -1 && (instance_place(x+1,y,oMario) or instance_place(x,y+3,oMario)))) && oMario.hspd <= 0.5 && global.moveobjs = true && oMario.state = ps.nah
+{	
+	face = -face
+	sfx(sndBump,0);
+}

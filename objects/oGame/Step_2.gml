@@ -1,4 +1,4 @@
-if instance_exists(oMario) && oMario.starman > 120 && (!audio_is_playing(musStarman_c0) && !audio_is_playing(musStarman) && !audio_is_playing(musFamilyGuyStarman))
+if instance_exists(oMario) && oMario.starman > 120 && (!audio_is_playing(musStarman_c0) && !audio_is_playing(musStarman) && !audio_is_playing(musFamilyGuyStarman) && !audio_is_playing(musHerewego))
 {
 	bgm("Starman",true);
 }
@@ -30,7 +30,7 @@ else
 
 
 // handle time
-if global.time > 0 && mario_freeze() = 0 && loadscreen = -1
+if global.time > 0 && mario_freeze() = 0 && loadscreen = -1 && paused = false
 {global.time --;}
 
 
@@ -74,10 +74,27 @@ if keyboard_check_pressed(vk_f11)
 // TIME UP
 if global.race = false
 {
-	if global.time <= timeunits(100) && global.time >= 0 && timeup >= 0
-	{timeup ++;}
-	if timeup > 100
+	if global.time <= timeunits(100) && global.time >= 0 && timeup >= 0 && room != rmLeveltransition
+		{timeup ++;
+		if instance_exists(oMario) && (oMario.state = ps.castleending or oMario.state = ps.flagpolefinish)
+		{warned = 2;}
+		}
+		
+	if timeup == 5 && warned = 0 {
+		audio_pause_sound(global.ch[0])
+		audio_pause_sound(global.ch[1])
+		audio_pause_sound(global.ch[2])
+		audio_pause_sound(global.ch[3])
+		bgm("Warning",false);
+		}
+	if timeup > 180 or warned = 1
 	{
+		warned = 1;
+		
+		audio_resume_sound(global.ch[0])
+		audio_resume_sound(global.ch[1])
+		audio_resume_sound(global.ch[2])
+		audio_resume_sound(global.ch[3])
 		var pitch = 1.3
 	
 	
@@ -89,6 +106,7 @@ if global.race = false
 		audio_sound_pitch(global.ch[2],pitch)
 		audio_sound_pitch(global.ch[3],pitch)
 		audio_sound_pitch(global.ch[4],pitch)
+		}
 	}
 
 	if global.time = 0 && instance_exists(oMario) &&
@@ -99,11 +117,8 @@ if global.race = false
 		oMario.state = ps.title or
 		oMario.state = ps.die)
 	{oMario.state = ps.die;}
-}
-else
-{global.time = 999;}
 
-
+if room = rmLeveltransition or room = rmTitle {warned = 0}
 
 
 

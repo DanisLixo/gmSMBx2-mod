@@ -21,7 +21,8 @@ enum es
 	shellhit,
 	die,
 	patrolwinged,
-	frozen
+	frozen,
+	egg
 }
 
 state = es.patrol

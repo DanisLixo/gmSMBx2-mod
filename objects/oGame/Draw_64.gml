@@ -1,5 +1,5 @@
 if room = rmServer
-{exit;}
+{;}
 
 
 
@@ -44,7 +44,7 @@ if room != rmTitle && global.debug = true
 			
 			
 			debugsel += keyboard_check_pressed(global.keyd) - keyboard_check_pressed(global.keyu)
-			debugsel = clamp(debugsel,0,6);
+			debugsel = clamp(debugsel,0,7);
 			
 			
 			
@@ -54,9 +54,10 @@ if room != rmTitle && global.debug = true
 			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*2+cy,"SCHUTMODE"); boolbox(global.schutmode,1);
 			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*3+cy,"FREECAM"); boolbox(global.freecam,2);
 			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*4+cy,"TRIPPYMODE"); boolbox(global.trippymode,3);
-			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*5+cy,"ENVIRONMENT"); boolbox(-1,4);
-			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*6+cy,"WARP"); boolbox(-1,5);
-			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*7+cy,"PLAYER"); boolbox(-1,6);
+			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*5+cy,"COMMANDER"); boolbox(global.commandenys,4);
+			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*6+cy,"ENVIRONMENT"); boolbox(-1,5);
+			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*7+cy,"WARP"); boolbox(-1,6);
+			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*8+cy,"PLAYER"); boolbox(-1,7);
 			
 			draw_set_font(FNT);
 			
@@ -68,12 +69,13 @@ if room != rmTitle && global.debug = true
 					case 1: global.schutmode = !global.schutmode; break;
 					case 2: global.freecam = !global.freecam; break;
 					case 3: global.trippymode = !global.trippymode; break;
-					case 4: if global.environment != e.snow {global.environment += 1;} else {global.environment = -1;} break;
-					case 5: 
+					case 4: global.commandenys = !global.commandenys; break;
+					case 5: if global.environment != e.snow {global.environment += 1;} else {global.environment = -1;} break;
+					case 6: 
 						var _gr = get_string("ROOM NAME","rm1_1");
 						if room_exists(asset_get_index(_gr))	{room_goto(asset_get_index(_gr));}
 					break;
-					case 6: global.player = get_string("PLAYER NAME","Mario") break;
+					case 7: global.player = get_string("PLAYER NAME (IN-GAME CHARACTERS ONLY)","Mario") break;
 				}
 			}
 		}
@@ -89,7 +91,7 @@ if room != rmTitle && global.debug = true
 	if global.schutmode = true	{draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*2+cy,"SCHUTMODE");}
 	*/
 	
-	draw_text(cx+(tile*3),cy+tile*2+tile,"FPS - "+string(fps));
+	if global.showfps = true {draw_text(cx+(tile*3),cy+tile*2+tile,"FPS - "+string(fps))}
 	
 	draw_text_color(cx+(tile*3),cy+tile*4+tile,"HOLD ESC RETURN TO TITLE",c_red,c_red,c_red,c_red,(resetcheck/100)+(0.5*sign(resetcheck)));
 	

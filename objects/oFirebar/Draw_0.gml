@@ -26,3 +26,11 @@ if m
 	m.gethit = 1;
 }
 
+if global.moveobjs && oMario.state = ps.nah
+{
+	if oMario.khp {sfx(sndBump,0)}
+	if oMario.image_xscale = 1
+		{if dir = "ccw" {dir = "cw"}}
+	if oMario.image_xscale = -1
+		{if dir = "cw" {dir = "ccw"}}
+}

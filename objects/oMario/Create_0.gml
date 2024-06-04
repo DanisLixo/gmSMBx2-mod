@@ -2,10 +2,11 @@ hspd = 0;
 vspd = 0;
 grounded = false;
 collidecode = false;
-
-global.stars = 0;
+global.stars = 0
 
 my_id = global.clientid
+dancechance = random(100)
+retrochance = random(100)
 
 enum ps
 {
@@ -17,6 +18,7 @@ enum ps
 	enterpiperight,
 	exitpipeup,
 	crouch,
+	spin,
 	grow,
 	shrink,
 	flagpoledescend,
@@ -30,9 +32,9 @@ enum ps
 	climb,
 	emerge,
 	dance0,
+	nah,
 	title
-}
-
+} 
 state = ps.normal
 if room = rmTitle
 {state = ps.title;}
@@ -44,7 +46,7 @@ if instance_exists(oGame)
 
 palindex = global.paletteindex
 
-spr =  ms("sMario_{}_idle");
+spr =  ms("sMario_{}_idle")
 ind = 0;
 
 scale = 1
@@ -64,6 +66,8 @@ starman = 0;
 castleendingtrigger = false;
 shoulderbash = 0;
 climb = 0;
+spin = false
+firepal = false
 
 starman = 0;
 
@@ -79,3 +83,4 @@ if !place_meeting(x,y+1,oCol)
 
 if instance_exists(oBeanstalk) && instance_nearest(x,y,oBeanstalk).emerge = true && distance_to_object(instance_nearest(x,y,oBeanstalk)) <= 32
 {state = ps.emerge; depth = instance_nearest(x,y,oBeanstalk).depth-10; x = instance_nearest(x,y,oBeanstalk).x+8; y = room_height+16; }
+

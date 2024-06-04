@@ -1,6 +1,4 @@
-
 depth = dep;
-
 
 // handle tile palette
 var tbr = layer_get_id("Tiles_brown")
@@ -20,7 +18,33 @@ if layer_exists(tbg)
 if room = rmServer
 {exit;}
 
-
+if room != rmTitle and room != rmLobby and room != rmLeveltransition and room != rmServer and room != rmArena_0 {
+	if keyboard_check_pressed(ord("P")) {
+		sfx(sndPause,0);
+		
+		if paused = false {
+			instance_deactivate_all(true); 
+			paused = true;
+			audio_pause_sound(global.ch[0]);
+			audio_pause_sound(global.ch[1]);
+			audio_pause_sound(global.ch[2]);
+			audio_pause_sound(global.ch[3]);
+			audio_pause_sound(global.ch[4]);
+			
+			}
+		else {
+			instance_activate_all(); 
+			paused = false;
+			
+			audio_resume_sound(global.ch[0]);
+			audio_resume_sound(global.ch[1]);
+			audio_resume_sound(global.ch[2]);
+			audio_resume_sound(global.ch[3]);
+			audio_resume_sound(global.ch[4]);
+			
+			}
+	}
+}
 
 /// handle gui
 draw_set_font(FNT)
@@ -54,7 +78,10 @@ if !instance_exists(oIsArena) && room != rmTitle && room != rmLobby
 {
 	draw_text((SCREENW-(256/2))+(tile*2)+cx,cy+tile,"WORLD")
 	if global.level != 0 
-	{draw_text((SCREENW-(256/2))+(tile*2)+tile+cx,cy+tile+tile,string(global.world)+"-"+string(global.level))}
+	{
+		if room = rmExtra or room = rmExtra_sky or room = rmExtra_under {draw_text((SCREENW-(256/2))+(tile*2)+cx,cy+tile+tile,"EXTRA")}
+		else {draw_text((SCREENW-(256/2))+(tile*2)+tile+cx,cy+tile+tile,string(global.world)+"-"+string(global.level))}
+	}
 }
 if instance_exists(oIsArena)
 {
@@ -126,9 +153,4 @@ if global.race = true && instance_exists(oRacemanager)
 	ds_grid_destroy(relist);
 }
 
-
-
-
-
 draw_set_font(-1);
-

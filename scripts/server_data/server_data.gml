@@ -55,7 +55,7 @@ function server_data() {
 		
 		#region Movement
 		case network.move:			//If we recieve the move enum, this event will occur
-			var player_id =			buffer_read(packet, buffer_u16);	//Read the contents of the buffer IN THE ORDER IT WAS SENT
+			var player_idd =			buffer_read(packet, buffer_u16);	//Read the contents of the buffer IN THE ORDER IT WAS SENT
 			var player_x =			buffer_read(packet, buffer_s16);
 			var player_y =			buffer_read(packet, buffer_s16);
 			var player_xscale =		buffer_read(packet, buffer_f16);
@@ -72,7 +72,7 @@ function server_data() {
 			var buff = buffer_create(32, buffer_grow, 1);
 			buffer_seek(buff, buffer_seek_start, 0);
 			buffer_write(buff, buffer_u8, network.move);
-			buffer_write(buff, buffer_u16, player_id);
+			buffer_write(buff, buffer_u16, player_idd);
 			buffer_write(buff, buffer_s16, player_x);
 			buffer_write(buff, buffer_s16, player_y);
 			buffer_write(buff, buffer_f16, player_xscale);

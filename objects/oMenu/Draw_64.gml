@@ -22,8 +22,9 @@ else
 	draw_rectangle(0,0,SCREENW,SCREENH,false);
 	draw_set_color(-1);
 	draw_set_alpha(1);
+	draw_sprite_ext(sThefucktextgavemeideas, 0, SCREENW/10, 32, SCREENW/20, SCREENH/20,0, c_white, 1)
 	
-	xx = SCREENW/3.5;
+	xx = 64;
 	yy = 64;
 	tsep = 16;
 }
@@ -38,6 +39,8 @@ if section = 3
 	
 	var scale = 4;
 	if p = sPeterGriffin {scale = 0.5;}
+	if p = sDuke {scale = 0.5;}
+	if p = sPokey {scale = 0.5;}
 	
 	shader_set(shdColorswap)
 		apply_palette(global.palettesprite,global.paletteindex,1)
@@ -90,10 +93,35 @@ for (var i = 0; i < optionsnum[section]; i ++;)
 		draw_text(xx+(8*11),yy+(i*tsep)-4,global.port)
 		draw_set_font(FNT)
 	}
+	else if menu[# section, i] = "DISCORD PFP - "
+	{
+		var ex = "SHOW"
+		if global.showpfp = false {ex = "HIDE";}
+		draw_text(xx,yy+(i*tsep),menu[# section, i]+ex)
+	}
+	else if menu[# section, i] = "SHOW FPS - "
+	{
+		var ex = "YES"
+		if global.showfps = false {ex = "NO";}
+		draw_text(xx,yy+(i*tsep),menu[# section, i]+ex)
+	}
+	else if menu[# section, i] = "ASPECT RATIO - "
+	{
+		var ex = "16:9"
+		if global.aspectratio = 1 {ex = "1:1";}
+		if global.aspectratio = 2 {ex = "21:9";}
+		draw_text(xx,yy+(i*tsep),menu[# section, i]+ex)
+	}
 	else if menu[# section, i] = "SOUND MODE - "
 	{
 		var ex = "CLASSIC"
 		if global.musicchannels = false {ex = "MODERN";}
+		draw_text(xx,yy+(i*tsep),menu[# section, i]+ex)
+	}
+	else if menu[# section, i] = "PLAY GANGNAM - "
+	{
+		var ex = "YES"
+		if global.opacandastar = false {ex = "NO I HATE GANGNAM STYOE!!!!!";}
 		draw_text(xx,yy+(i*tsep),menu[# section, i]+ex)
 	}
 	else if menu[# section, i] = "PLAYER - "
@@ -102,6 +130,21 @@ for (var i = 0; i < optionsnum[section]; i ++;)
 	{draw_text(xx,yy+(i*tsep),menu[# section, i]+string_upper(global.paletteindex));}
 	else if menu[# section, i] = "MAX PLAYERS - "
 	{draw_text(xx,yy+(i*tsep),menu[# section, i]+string_upper(global.maxplayers));}
+	else if menu[# section, i] = "COMMAND ENEMIES - "
+	{
+		var ex = "YES"
+		if global.moveenys = false {ex = "NO";}
+		draw_text(xx,yy+(i*tsep),menu[# section, i]+ex)}
+	else if menu[# section, i] = "COMMAND MOVABLE OBJS - "
+	{
+		var ex = "YES"
+		if global.moveobjs = false {ex = "NO";}
+		draw_text(xx,yy+(i*tsep),menu[# section, i]+ex)}
+	else if menu[# section, i] = "COMMAND STATICS - "
+	{
+		var ex = "YES"
+		if global.movestatics = false {ex = "NO";}
+		draw_text(xx,yy+(i*tsep),menu[# section, i]+ex)}
 	else if section = 8 && menu[# section, i] != "BACK"
 	{
 		var gobal  = global.keyu
@@ -113,6 +156,7 @@ for (var i = 0; i < optionsnum[section]; i ++;)
 			case "RIGHT":   gobal=global.keyr		break;
 			case "ACTION":  gobal=global.keya		break;
 			case "JUMP":    gobal=global.keyj		break;
+			case "HOLDACT": gobal=global.keyh		break;
 		}
 		
 		draw_text(xx,yy+(i*tsep),menu[# section, i]);
@@ -232,7 +276,65 @@ if menu[# section, sel] = "SOUND MODE - "
 	{global.musicchannels = false; savesettings()}
 }
 
+if menu[# section, sel] = "DISCORD PFP - "
+{
+	if p = -1
+	{global.showpfp = true; savesettings()}
+	else if p = 1
+	{global.showpfp = false; savesettings()}
+}
 
+if menu[# section, sel] = "SHOW FPS - "
+{
+	if p = -1
+	{global.showfps = true; savesettings()}
+	else if p = 1
+	{global.showfps = false; savesettings()}
+}
+
+if menu[# section, sel] = "ASPECT RATIO - "
+{
+	if p = -1
+	{global.aspectratio = 0; savesettings()}
+	else if p = 1
+	{global.aspectratio = 1; savesettings()}
+	if keyboard_check_pressed(vk_f12)
+	{global.aspectratio = 2; savesettings()}
+	
+	draw_sprite(fuckText,0,SCREENW/2,SCREENH/1.25)
+}
+
+if menu[# section, sel] = "PLAY GANGNAM - "
+{
+	if p = -1
+	{global.opacandastar = true; savesettings()}
+	else if p = 1
+	{global.opacandastar = false; savesettings()}
+}
+
+if menu[# section, sel] = "COMMAND ENEMIES - "
+{
+	if p = -1
+	{global.moveenys = true; savesettings()}
+	else if p = 1
+	{global.moveenys = false; savesettings()}
+}
+
+if menu[# section, sel] = "COMMAND MOVABLE OBJS - "
+{
+	if p = -1
+	{global.moveobjs = true; savesettings()}
+	else if p = 1
+	{global.moveobjs = false; savesettings()}
+}
+
+if menu[# section, sel] = "COMMAND STATICS - "
+{
+	if p = -1
+	{global.movestatics = true; savesettings()}
+	else if p = 1
+	{global.movestatics = false; savesettings()}
+}
 
 #endregion
 
@@ -240,17 +342,20 @@ if keyboard_check_pressed(global.keyj)
 {
 	switch(menu[# section, sel])
 	{
+		case "EXTRA LEVEL":
+			room_goto(extrawillsendmetothisroom);
+			global.time = timeunits(500)
+		break;
 		case "1 PLAYER GAME":
 			room_goto(playwillsendmetothisroom);
 			global.time = timeunits(400)
-			sfx(sndStomp,0);
 		break;
 		case "NETWORK GAME":
 			section = 1;
 			sel = 0;
 			sfx(sndStomp,0);
 		break
-		case "OPTION":
+		case "OPTIONS":
 			section = 2;
 			sel = 0;
 			sfx(sndStomp,0);
@@ -260,10 +365,11 @@ if keyboard_check_pressed(global.keyj)
 			else if section = 5		{section = 1; sel = 1;}
 			else if section = 3		{section = 2; sel = 0;}
 			else if section = 6		{section = 2; sel = 2;}
-			else if section = 2		{section = 0; sel = 2;}
+			else if section = 2		{section = 0; sel = 3;}
 			else if section = 1		{section = 0; sel = 1;}
 			else if section = 7		{section = 2; sel = 1;}
 			else if section = 8		{section = 2; sel = 3;}
+			else if section = 9		{section = 2; sel = 4;}
 			else					{section = 0; sel = 0;}
 		
 			sfx(sndBump,0);
@@ -335,9 +441,16 @@ if keyboard_check_pressed(global.keyj)
 			var ypos = (displayh / 2) - (SCREENH*scrsizemult)/2;
 			window_set_rectangle(xpos,ypos,SCREENW*scrsizemult,SCREENH*scrsizemult);
 		break;
-		case "HIDE - SHOW DISCORD PFP":
-		
-			global.hidepfp = !global.hidepfp;
+		case "DISCORD PFP - ":
+			global.showpfp = !global.showpfp;
+			savesettings()
+		break;
+		case "SHOW FPS - ":
+			global.showfps = !global.showfps;
+			savesettings()
+		break;
+		case "ASPECT RATIO - ":
+			global.aspectratio = !global.aspectratio;
 			savesettings()
 		break;
 		
@@ -364,6 +477,14 @@ if keyboard_check_pressed(global.keyj)
 		case "JUMP":
 			setcontrol("keyj")
 		break
+		case "HOLDACT":
+			setcontrol("keyh")
+		break
+		case "MOD SETTINGS":
+			section = 9;
+			sel = 0;
+			sfx(sndStomp,0);
+		break;
 	}
 }
 

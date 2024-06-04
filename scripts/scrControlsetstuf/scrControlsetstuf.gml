@@ -25,7 +25,7 @@ function keycode_to_string(_key,_return_uppercase)
 		case vk_f9:			 _r = "f9"			break;
 		case vk_f10:		 _r = "f10"			break;
 		case vk_f11:		 _r = "f11"			break;
-		case vk_f12:		 _r = "f1"			break;
+		case vk_f12:		 _r = "f12"			break;
 		case vk_home:		 _r = "home"		break;
 		case vk_insert:		 _r = "insert"		break;
 		case vk_lalt:		 _r = "lalt"		break;

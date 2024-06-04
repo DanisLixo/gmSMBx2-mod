@@ -1,4 +1,3 @@
-
 if mario_freeze()	{exit;}
 
 event_inherited();
@@ -28,8 +27,3 @@ switch(state)
 	
 	break;
 }
-
-
-
-
-

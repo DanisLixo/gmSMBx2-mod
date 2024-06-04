@@ -44,7 +44,7 @@ if room_width > SCREENW
 
 	if instance_exists(oAxe)
 	{x = clamp(x,SCREENW/2,oAxe.x+32-SCREENW/2);}
-	if instance_exists(oMario) && oMario.state = ps.castleending && !instance_exists(oBowser) && x < room_width-SCREENW/2
+	if instance_exists(oMario) && oMario.state = ps.castleending && (!instance_exists(oBowser) or oBowser.state = -1) && x < room_width-SCREENW/2
 	{x += 2.5;}
 }
 else

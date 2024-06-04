@@ -22,3 +22,7 @@ multicointimer = room_speed*4
 multicoinstart = false;
 
 triggerbreak = false;
+
+g = 1;
+gspd = 1;
+moving = false

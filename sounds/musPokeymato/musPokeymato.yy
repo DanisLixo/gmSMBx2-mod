@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"musPokeymato",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":1,
+  "conversionMode":0,
+  "duration":180.4776,
+  "name":"musPokeymato",
+  "parent":{
+    "name":"addition",
+    "path":"folders/Sounds/addition.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"musPokeymato.wav",
+  "type":0,
+  "volume":1.0,
+}

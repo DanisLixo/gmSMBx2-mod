@@ -1,6 +1,6 @@
 depth = 299
 
-if instance_exists(oMario) && !(oMario.x > bbox_left - 20 && oMario.x < bbox_right + 20)
+if instance_exists(oMario) && !(oMario.x > bbox_left - 20 && oMario.x < bbox_right + 20) && moving = false
 	&& st = 1
 {
 	st = 2;
@@ -42,9 +42,5 @@ if m && oMario.invincible = 0
 {
 	m.gethit = 1;
 }
-
-
-
-
 
 

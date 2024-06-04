@@ -1,3 +1,4 @@
 if image_index >= 3.5
-{instance_destroy();}
+{instance_destroy();
+	arrow = false}
 

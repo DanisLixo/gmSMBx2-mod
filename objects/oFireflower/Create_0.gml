@@ -24,4 +24,6 @@ pufunc = function()
 	instance_destroy();
 }
 
-face = 1;
+g = 1;
+gspd = 1;
+moving = false

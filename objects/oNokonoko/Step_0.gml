@@ -37,7 +37,7 @@ switch(state)
 	
 	if grounded
 	{vspd = -4;}
-	
+
 	if !grounded
 	{vspd -= 0.2;}
 
@@ -47,6 +47,7 @@ switch(state)
 	break;
 	case es.shell:
 	
+		hspd = 0
 		
 		if shellcooldown <= 0
 		{shellcooldown --;}
@@ -79,7 +80,9 @@ switch(state)
 	case es.shellhit:
 		
 		if place_meeting(x+facingdir,y,oCol)  && !place_meeting(x+facingdir,y,oSlope)
-		{facingdir = -facingdir;}
+		{facingdir = -facingdir;
+			sfx(sndBump,0)
+		}
 		
 		hspd = 3*facingdir
 		
@@ -87,7 +90,7 @@ switch(state)
 		sprite_index = sNokonoko_shell
 		
 		var m = instance_place(x,y,oMario)
-		if m && m.grounded = false && stomptype <= 1 && m.vspd >= 0 && shellcooldown <= 0
+		if m && m.grounded = false && stomptype <= 2 && shellcooldown <= 0 //&& m.vspd >= 0
 		{
 			m.vspd = -3;
 			points(100,true);

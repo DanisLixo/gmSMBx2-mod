@@ -1,4 +1,7 @@
+var style = 0
+
 if global.player = "Goldron"
+
 {
 	if hspd != 0 && grounded
 	{yoff = -abs(sin(x/10))*5}
@@ -12,22 +15,35 @@ if global.player = "Goldron"
 scale = 1;
 
 if global.player = "Peter Griffin"	{scale = 0.2;}
+if global.player = "Duke"	{scale = 0.2;}
+if global.player = "Pokey" && powerup = "s" {scale = 0.2;}
+if global.player = "Pokey" && powerup != "s"	{scale = 0.2;}
+if global.player = "Pokey" && powerup = "f" && !instance_exists(oHatThrow) {draw_sprite_ext(sFireHat, -1, x, y-20, 1, 1, 0, c_white, 1);}
 if global.player = "Anton" && powerup = "s"	{scale = 0.6}
 
 
+//👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍
+
+if palindex = 2 and powerup != "f" {firepal = true;}
+
 if powerup = "f"
-{palindex = 2;}
+{
+	if firepal = true {palindex = 1;}
+	else {palindex = 2;}
+}
 else
 {palindex = global.paletteindex;}
 
-
+if powerup = "s" {oGame.hats = 1}
+//if global.player = "1pixelmario" and powerup = "f" {spr = ms("sMario_{}_idle");}
 
 shader_set(shdColorswap);
-	apply_palette(global.palettesprite,palindex,image_alpha)
-
-	if firetimer > 0 && global.player != "Peter Griffin"
+apply_palette(global.palettesprite,palindex,image_alpha)
+if firetimer > 0 && global.player != "Peter Griffin" && global.player != "Duke" && global.player != "Pokey" && global.player != "1pixelmario"
 	{
-		var fs = ms("sMario_{}_fire")
+		if global.player != "Duke"
+		{if global.player != "Pokey" or !(global.player = "Sonic" and state = ps.jump)
+		{var fs = ms("sMario_{}_fire")
 		var fsw = sprite_get_width(fs); var fsh = sprite_get_height(fs);
 		draw_sprite_part_ext(fs,ind,0,0,fsw,fsh-8,x-(image_xscale*fsw/2),y-fsh+yoff,
 		(image_xscale*scale),(image_yscale*scale),image_blend,image_alpha);
@@ -37,14 +53,12 @@ shader_set(shdColorswap);
 		{cs = ms("sMario_{}_fire");}
 		var csw = sprite_get_width(cs); var csh = sprite_get_height(cs);
 		draw_sprite_part_ext(cs,ind,0,csh-9,csw,9,x-(image_xscale*fsw/2),y-8+yoff,
-		(image_xscale*scale),(image_yscale*scale),image_blend,image_alpha);
+		(image_xscale*scale),(image_yscale*scale),image_blend,image_alpha);}}
 	}
 	else
 	{
 		draw_sprite_ext(spr,ind,x,y+yoff,round(image_xscale)*scale,image_yscale*scale,image_angle,image_blend,image_alpha)
 	}
-	
-shader_reset();
 
 if starman != 0
 {
@@ -100,4 +114,10 @@ if instance_exists(oIsArena)
 	
 	if instance_place(x,y,oSuperstar)
 	{global.stars ++; instance_destroy(instance_place(x,y,oSuperstar))}
+}
+
+if room = rmTitle 
+{
+if instance_place(x+15, y, oGoomba) {state = ps.nah}  
+else {state = ps.title}  
 }

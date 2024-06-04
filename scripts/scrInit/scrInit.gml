@@ -1,17 +1,44 @@
 function timeunits(amt)
 {return (TIMESEC*room_speed)*amt}
 
-
 function init()
 {
 	randomize();
 	
-
-	#macro SCREENW 416 // 384 // 256
-	#macro SCREENH 232 // 232/240
+	var sav = "gmsmbsave.ini"
+	
+	if file_exists(sav)
+	{
+		ini_open(sav);
+		var secETC = "etc";
+		var aspectratio = ini_read_real(secETC,"aspectratio",1);
+		global.aspectratio = aspectratio;
+	}
+	else
+	{
+		global.aspectratio = 0;
+	}
+	
+	
+	if global.aspectratio = 0
+	{
+		global.aspectw = 0;
+	}
+	else if global.aspectratio = 1
+	{
+		global.aspectw = -160;
+	}
+	else if global.aspectratio = 2
+	{
+		global.aspectw = 160;
+	}
+	
+	//#macro SCREENW 416 // 384 // 256
+	#macro SCREENW (416+global.aspectw)
+	#macro SCREENH 240 // 232 // 240 
 	#macro TIMESEC 0.4
 	#macro FNT font_add_sprite_ext(sFont,"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-+*!.:©bredi",0,0)
-	#macro VERSION "2.0"
+	#macro VERSION "MODDED"
 	
 	global.score = 0;
 	global.coins = 0;
@@ -30,6 +57,9 @@ function init()
 	global.sfx[1] = 0; //Channel
 	
 	global.musicchannels = true
+	global.opacandastar = true
+	global.showfps = true;
+	global.showpfp = true;
 	global.volsfx = 0.5;
 	global.volbgm = 0.5;
 	
@@ -37,10 +67,15 @@ function init()
 	global.keyl = vk_left//ord("A");
 	global.keyu = vk_up//ord("W");
 	global.keyd = vk_down//ord("S");
-	global.keya = ord("Z")//vk_lcontrol;
-	global.keyj = ord("X")//vk_space;
+	global.keya = ord("X")//vk_lcontrol;
+	global.keyj = ord("Z")//vk_space;
+	global.keyh = ord("C")//ord("E");
 	
 	//global.keyrun = vk_shift;
+	
+	global.moveenys = true
+	global.moveobjs = true
+	global.movestatics = false
 	
 	#region environment
 
@@ -107,13 +142,11 @@ function init()
 		
 	#endregion
 	
-	global.hidepfp = false;
-	
-	
 	global.debug = true;
 	
 	global.rtxmode = false;
 	global.schutmode = false;
+	global.commandenys = false;
 	global.race = false;
 	global.challenge = false;
 	global.freecam = false;

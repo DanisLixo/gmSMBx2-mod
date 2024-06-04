@@ -61,7 +61,9 @@ switch(state)
 	case es.shellhit:
 		
 		if place_meeting(x+facingdir,y,oCol) && !place_meeting(x+facingdir,y,oSlope)
-		{facingdir = -facingdir;}
+		{facingdir = -facingdir;
+			sfx(sndBump,0)
+		}
 		
 		hspd = 3*facingdir
 		

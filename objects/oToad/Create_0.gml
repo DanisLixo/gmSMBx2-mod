@@ -12,3 +12,5 @@ interval = room_speed
 collided = false;
 
 modernmode = true;
+
+moving = false
