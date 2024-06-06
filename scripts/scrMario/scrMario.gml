@@ -141,7 +141,7 @@ function ps_normal()
 
 	if hspd != 0 or !grounded
 	{spr = ms("sMario_{}_walk"); ind += abs(hspd)/7; if place_meeting(x+sign(hspd),y,oCol) {ind += 0.15;}
-	 if hspd >= 3 && global.player = "Sonic" {spr = ms("sMario_{}_run"); ind += 0.2}}
+	 if (hspd <= -3 or hspd >= 3) && global.player = "Sonic" {spr = ms("sMario_{}_run"); ind += 0.2}}
 	else if global.commandenys = true && kh {state = ps.nah}
 	else {spr = ms("sMario_{}_idle"); ind = 0;}
 	
@@ -377,9 +377,12 @@ function ps_crouch()
 	}
 	else
 	{
+		var moveh = kr-kl
 		if global.commandenys = true and khp {state = ps.nah}
-		else if hspd = 0 {spr = ms("sMario_{}_crouch"); spin = false;}
-		else if hspd > 0 {spr = ms("sMario_{}_spinjump"); spin = true; ind += 0.15}
+		else if hspd >= -0.01 and hspd <= 0.01{spr = ms("sMario_{}_crouch"); spin = false;}
+		else if (hspd < -0.01 and moveh = -1) or hspd > 0.01 {spr = ms("sMario_{}_spinjump"); spin = true;}
+		if spin {ind += 0.15}
+		if hspd >= -0.01 and hspd <= 0.01 and kjp {state = ps.spin}
 	}
 	
 	var deccel = 0.05
@@ -397,7 +400,7 @@ function ps_crouch()
 		if spin = true {state = ps.crouch}
 		else {state = ps.normal;}}
 	
-	if !grounded 
+	if !grounded and global.player != "Sonic"
 	{state = ps.jump;}
 	
 	//if grounded and hspd = 0 and kjp {state = ps.spin}
@@ -405,18 +408,26 @@ function ps_crouch()
 
 function ps_spin()
 {
-	sprite_index = sMariomask0
-	if hspd = 0 {spr = ms("sMario_{}_crouch"); spin = false;}
-	else if hspd > 0 {spr = ms("sMario_{}_spinjump"); spin = true; ind += 0.15}
+	var boost = 0;
+	if kd {
+		crouch = true
+		if kjp {boost += 0.1}
+		spr = ms("sMario_{}_spinjump"); ind += 0.15
+	}
+	else
+	{
+		crouch = true
+		spin = true;
+		state = ps.crouch;
+		hspd = boost;
+	}
 	
-	crouch = true
+	
+
 	
 	collide();
 	
-	if !kd
-	{
-		if spin = true {state = ps.crouch}
-	}
+
 	
 	if !grounded 
 	{state = ps.jump;}

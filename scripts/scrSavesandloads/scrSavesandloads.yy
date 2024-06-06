@@ -1,13 +1,11 @@
 {
-  "$GMScript":"",
-  "%Name":"scrSavesandloads",
-  "isCompatibility":false,
-  "isDnD":false,
-  "name":"scrSavesandloads",
-  "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+  "resourceType": "GMScript",
+  "resourceVersion": "1.0",
+  "name": "scrSavesandloads",
+  "isDnD": false,
+  "isCompatibility": false,
+  "parent": {
+    "name": "Scripts",
+    "path": "folders/Scripts.yy",
   },
-  "resourceType":"GMScript",
-  "resourceVersion":"2.0",
 }

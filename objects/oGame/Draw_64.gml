@@ -24,7 +24,7 @@ if room != rmTitle && global.debug = true
 	if resetcheck > room_speed*1
 	{room_goto(rmTitle);}
 	
-	
+		
 	if !instance_exists(oClient)
 	{
 		if keyboard_check_pressed(vk_tab)

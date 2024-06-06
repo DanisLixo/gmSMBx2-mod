@@ -1,13 +1,11 @@
 {
-  "$GMScript":"",
-  "%Name":"networkenums",
-  "isCompatibility":false,
-  "isDnD":false,
-  "name":"networkenums",
-  "parent":{
-    "name":"Network",
-    "path":"folders/Network.yy",
+  "resourceType": "GMScript",
+  "resourceVersion": "1.0",
+  "name": "networkenums",
+  "isDnD": false,
+  "isCompatibility": false,
+  "parent": {
+    "name": "Network",
+    "path": "folders/Network.yy",
   },
-  "resourceType":"GMScript",
-  "resourceVersion":"2.0",
 }
