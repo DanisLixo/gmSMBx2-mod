@@ -4,12 +4,12 @@ np_update();
 
 if global.level != 0
 {
-	if instance_exists(oRacemanager)	{where = "racing on 1-"+string(global.level);}
-	else								{where = "gaming on 1-"+string(global.level);}
+	if instance_exists(oRacemanager)	{where = "racing on "+string(global.world)+"-"+string(global.level);}
+	else								{where = "gaming on "+string(global.world)+"-"+string(global.level);}
 }
 else
 {
-	where = "this person broke the game and i don't know where they are so here's debug message"
+	where = "dumbass programming shit but forgot the rich presence message, here's some random message instead" //"this person broke the game and i don't know where they are so here's debug message"
 }
 if room = rmTitle	{where = "on the title screen";}
 if room = rmLobby	{where = "on the lobby";}

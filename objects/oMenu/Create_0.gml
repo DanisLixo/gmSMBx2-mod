@@ -1,8 +1,8 @@
 menu = ds_grid_create(10,9)
 optionsnum = array_create(10,0)
 
-playwillsendmetothisroom = rm1_1
-extrawillsendmetothisroom = rmExtra
+playwillsendmetothisroom = rmLeveltransition
+extrawillsendmetothisroom = rmLeveltransition
 
 section = 0;
 if section = 0
@@ -32,9 +32,10 @@ addmenu(2,3,"CONTROLS")
 addmenu(2,4,"MOD SETTINGS")
 addmenu(2,5,"BACK")
 
-addmenu(3,0,"PLAYER - ")
-addmenu(3,1,"PALETTE - ")
-addmenu(3,2,"BACK")
+addmenu(3,0,"CATEGORY - ")
+addmenu(3,1,"PLAYER - ")
+addmenu(3,2,"PALETTE - ")
+addmenu(3,3,"BACK")
 
 addmenu(4,0,"USERNAME - ")
 addmenu(4,1,"SET IP - ")
@@ -77,22 +78,27 @@ addmenu(9,3,"BACK")
 playerlist = ds_list_create();
 creatorlist = ds_list_create();
 
+
 addplist = function(name,creator)
 {
 	ds_list_add(playerlist,name);
 	ds_list_add(creatorlist,creator);
 }
 
+category = "Characters"
+categorysel = 0;
+//Characters
+charslist = 6
+
 addplist("Mario","nintendo")
 addplist("Luigi","bredi")
 addplist("Toad","nintendo")
 addplist("Wario","sans1m0n")
 addplist("Goomba","seven")
-addplist("Martin","seven")
-addplist("Peter","seven")
-addplist("Anton","summitsphere")
-addplist("Peter Griffin",".")
-addplist("Duke","pacolagamer444")
+addplist("Sonic","pixelmarioxp")
+//OCs
+ocslist = charslist + 8
+
 addplist("Bredi","bredi")
 addplist("Goober","toasterman")
 addplist("Iris","MadNyle")
@@ -101,10 +107,21 @@ addplist("Seven","seven")
 addplist("SucculentKicker","dermo")
 addplist("Goldron","goldron")
 addplist("Dawn","dawnlr")
+//LQ jokes
+lqlist = ocslist + 6
+
+addplist("Anton","summitsphere")
+addplist("Peter Griffin",".")
+addplist("Duke","pacolagamer444")
 addplist("Pokey","POKEY'S MOM")
 addplist("1pixelmario","gemaplys")
-addplist("Sonic","pixelmarioxp (sega)")
+addplist("Max Verstappen","EnciroYeah")
+//HQ jokes
+hqlist = lqlist + 2
 
+addplist("Martin","seven")
+addplist("Peter","seven")
+addplist("Gemaplys","dawnlr")
 
 
 
@@ -150,3 +167,5 @@ curplayersel = 0;
 
 depth = -9999
 
+transtext = (global.aspectratio = 1)? 0.8 : 1
+aspectapply = false

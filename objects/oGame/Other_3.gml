@@ -1,0 +1,1 @@
+if debug && pause {show_message("Don't do that again.");}

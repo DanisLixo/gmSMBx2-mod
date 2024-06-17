@@ -48,7 +48,12 @@
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_1B363A35","properties":[],"isDnd":false,"objectId":{"name":"oMultiplecoins","path":"objects/oMultiplecoins/oMultiplecoins.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":3.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":352.0,"y":64.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_43ADD3D6","properties":[],"isDnd":false,"objectId":{"name":"oMultiplecoins","path":"objects/oMultiplecoins/oMultiplecoins.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":3.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":192.0,"y":128.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_379BA0B2","properties":[],"isDnd":false,"objectId":{"name":"oMultiplecoins","path":"objects/oMultiplecoins/oMultiplecoins.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":3.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":256.0,"y":64.0,},
-      ],"visible":true,"depth":0,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"gridX":16,"gridY":16,"layers":[],"hierarchyFrozen":false,"effectEnabled":true,"effectType":null,"properties":[],},
+        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_37D021FA","properties":[],"isDnd":false,"objectId":{"name":"oText","path":"objects/oText/oText.yy",},"inheritCode":false,"hasCreationCode":true,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":872.0,"y":96.0,},
+        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_2D44CFEB","properties":[],"isDnd":false,"objectId":{"name":"oPiranha","path":"objects/oPiranha/oPiranha.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":816.0,"y":192.0,},
+        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_5E67DACE","properties":[],"isDnd":false,"objectId":{"name":"oPiranha","path":"objects/oPiranha/oPiranha.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":880.0,"y":192.0,},
+        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_27F1A5E3","properties":[],"isDnd":false,"objectId":{"name":"oPiranha","path":"objects/oPiranha/oPiranha.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":944.0,"y":192.0,},
+        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_1B40B93C","properties":[],"isDnd":false,"objectId":{"name":"oPipeentranceright","path":"objects/oPipeentranceright/oPipeentranceright.yy",},"inheritCode":false,"hasCreationCode":true,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":1008.0,"y":208.0,},
+      ],"visible":true,"depth":0,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"gridX":8,"gridY":16,"layers":[],"hierarchyFrozen":false,"effectEnabled":true,"effectType":null,"properties":[],},
     {"resourceType":"GMRTileLayer","resourceVersion":"1.1","name":"Tiles_brown","tilesetId":{"name":"tileBrown","path":"tilesets/tileBrown/tileBrown.yy",},"x":0,"y":0,"tiles":{"TileDataFormat":1,"SerialiseWidth":65,"SerialiseHeight":15,"TileCompressedData":[
 -63,0,-2,-2147483648,-63,0,-2,-2147483648,-62,0,-2,11,1,-2147483648,-62,0,-2,11,1,-2147483648,-48,0,-12,11,-2,0,-2,11,1,-2147483648,-32,0,1,25,-14,0,-2,11,-13,0,-2,11,1,-2147483648,-17,0,1,25,-5,0,1,25,-8,0,1,35,-13,0,-3,11,-13,0,-2,11,1,
 -2147483648,-17,0,1,35,-5,0,1,35,-8,0,1,35,-12,0,-4,11,-13,0,-2,11,1,-2147483648,-17,0,1,35,-5,0,1,35,-3,0,1,25,-4,0,1,35,-11,0,-5,11,-13,0,-2,11,1,-2147483648,-17,0,1,35,-5,0,1,35,-3,0,1,35,-4,0,1,35,
@@ -65,7 +70,7 @@
     {"resourceType":"GMRBackgroundLayer","resourceVersion":"1.0","name":"Background","spriteId":{"name":"sBG_0","path":"sprites/sBG_0/sBG_0.yy",},"colour":4294967295,"x":0,"y":0,"htiled":true,"vtiled":true,"hspeed":0.0,"vspeed":0.0,"stretch":false,"animationFPS":30.0,"animationSpeedType":0,"userdefinedAnimFPS":false,"visible":true,"depth":400,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"gridX":32,"gridY":32,"layers":[],"hierarchyFrozen":false,"effectEnabled":true,"effectType":null,"properties":[],},
   ],
   "inheritLayers": false,
-  "creationCodeFile": "rooms/rm4_2_sky/RoomCreationCode.gml",
+  "creationCodeFile": "${project_dir}/rooms/rm4_2_sky/RoomCreationCode.gml",
   "inheritCode": false,
   "instanceCreationOrder": [
     {"name":"inst_7A037F6A","path":"rooms/rm4_2_sky/rm4_2_sky.yy",},
@@ -99,6 +104,11 @@
     {"name":"inst_1B363A35","path":"rooms/rm4_2_sky/rm4_2_sky.yy",},
     {"name":"inst_43ADD3D6","path":"rooms/rm4_2_sky/rm4_2_sky.yy",},
     {"name":"inst_379BA0B2","path":"rooms/rm4_2_sky/rm4_2_sky.yy",},
+    {"name":"inst_37D021FA","path":"rooms/rm4_2_sky/rm4_2_sky.yy",},
+    {"name":"inst_2D44CFEB","path":"rooms/rm4_2_sky/rm4_2_sky.yy",},
+    {"name":"inst_5E67DACE","path":"rooms/rm4_2_sky/rm4_2_sky.yy",},
+    {"name":"inst_27F1A5E3","path":"rooms/rm4_2_sky/rm4_2_sky.yy",},
+    {"name":"inst_1B40B93C","path":"rooms/rm4_2_sky/rm4_2_sky.yy",},
   ],
   "inheritCreationOrder": false,
   "sequenceId": null,
@@ -123,6 +133,6 @@
   },
   "parent": {
     "name": "4-2",
-    "path": "folders/Rooms/mario brother/4-2.yy",
+    "path": "folders/Rooms/mario brother/World 4/4-2.yy",
   },
 }

@@ -1,0 +1,1 @@
+if instance_exists(oMario) && (oMario.x >= x+40) {oGame.spawnx = x; oGame.spawny = y;}

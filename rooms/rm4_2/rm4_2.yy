@@ -70,6 +70,6 @@
   },
   "parent": {
     "name": "4-2",
-    "path": "folders/Rooms/mario brother/4-2.yy",
+    "path": "folders/Rooms/mario brother/World 4/4-2.yy",
   },
 }

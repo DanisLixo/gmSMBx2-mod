@@ -18,13 +18,13 @@ kup = keyboard_check_pressed(global.keyu)
 kdp = keyboard_check_pressed(global.keyd)
 
 
-if global.chatfocus = true
+if global.chatfocus = true or oGame.pause = true
 {kr=0;kl=0;kd=0;kj=0;ka=0;kjp=0;kar=0;kdp=0;kh=0;khp=0;khr=0;}
 
 if instance_exists(oClient)
 {
 	if global.username = ""
-	{global.username = string(my_id);}
+	{global.username = choose("Banana", "Goku", "Mario", "Luigi", "YourAverageSMBFan", "SampleText", "Unnamed 0");} //string(my_id);}
 	
 	var user = string(global.username)
 	
@@ -48,8 +48,6 @@ if instance_exists(oClient)
 	buffer_delete(buff);
 }
 
-
-
 collidecode = false;
 
 
@@ -69,7 +67,7 @@ if instance_place(x+hspd,bbox_bottom-1+vspd,oParblock) && shoulderbash > 0
 
 
 
-if y > room_height+32 && !place_meeting(x,y,oSky_fallwarp)
+if y > room_height+30 && !place_meeting(x,y,oSky_fallwarp)
 {state = ps.die;}
 if y > room_height+32 && instance_place(x,y,oSky_fallwarp)
 {room_goto(instance_place(x,y,oSky_fallwarp).troom)}
@@ -189,8 +187,10 @@ switch(state)
 	case ps.nah:
 		ps_nah();
 	break;
+	case ps.spin:
+		ps_spin();
+	break;
 }
-
 
 if global.rtxmode = true or global.schutmode = true
 {
@@ -202,5 +202,5 @@ if global.rtxmode = true or global.schutmode = true
 
 if kjp {retrochance = random(100)}
 
-
-
+if starman < 130 and global.player = "Max Verstappen" {starman = global.time;}
+if global.player = "Max Verstappen" and (state = ps.castleending or state = ps.flagpoledescend or state = ps.flagpolefinish) {starman = 0}

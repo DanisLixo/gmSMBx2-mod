@@ -1,1 +1,0 @@
-if instance_exists(oFireworks) {oFireworks.arrow = true}

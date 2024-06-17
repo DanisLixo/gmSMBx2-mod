@@ -2,40 +2,42 @@ hspd = 0;
 vspd = 0;
 grounded = false;
 collidecode = false;
-global.stars = 0
+global.stars = 0 
 
 my_id = global.clientid
 dancechance = random(100)
 retrochance = random(100)
 
-enum ps
-{
-	normal,
-	jump,
-	pivot,
-	die,
-	enterpipedown,
-	enterpiperight,
-	exitpipeup,
-	crouch,
-	spin,
-	grow,
-	shrink,
-	flagpoledescend,
-	flagpolefinish,
-	firetransform,
-	castleending,
-	swim,
-	swimidle,
-	shoulderbash,
-	shoulderbashend,
-	climb,
-	emerge,
-	dance0,
-	nah,
-	title
-} 
+	enum ps
+	{
+		normal,
+		jump,
+		pivot,
+		die,
+		enterpipedown,
+		enterpiperight,
+		exitpipeup,
+		crouch,
+		spin,
+		grow,
+		shrink,
+		flagpoledescend,
+		flagpolefinish,
+		firetransform,
+		castleending,
+		swim,
+		swimidle,
+		shoulderbash,
+		shoulderbashend,
+		climb,
+		emerge,
+		dance0,
+		nah,
+		title
+	} 
 state = ps.normal
+
+
 if room = rmTitle
 {state = ps.title;}
 
@@ -75,6 +77,10 @@ pipeinforoom = rm1_1
 
 finishedrace = false;
 
+spinboost = 0;
+spinclicks = 0;
+sdcheck = false;
+sound = false;
 
 if !place_meeting(x,y+1,oCol)
 {spr = ms("sMario_{}_walk");}

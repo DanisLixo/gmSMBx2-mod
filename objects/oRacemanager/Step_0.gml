@@ -21,11 +21,16 @@ if start >= 1
 	if image_index >= 3
 	{
 		start = -1;
-		alarm[1] = 50;
 	}
 	
 	start ++;
 }
+
+if image_index >= 3 and image_index < 11
+	{
+		image_index += 0.1;
+	}
+
 if /*instance_exists(oClient) && */showresults = false && round(image_index) >= 3
 {
 	//minutes = round((round((counter) / room_speed * 1000))/60000);

@@ -93,6 +93,7 @@
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_916D1A0","properties":[],"isDnd":false,"objectId":{"name":"oPlatformtriggerrd","path":"objects/oPlatformtriggerrd/oPlatformtriggerrd.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":1824.0,"y":144.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_1F3B7281","properties":[],"isDnd":false,"objectId":{"name":"oPlatformtriggerlu","path":"objects/oPlatformtriggerlu/oPlatformtriggerlu.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":1824.0,"y":48.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_227DDCD8","properties":[],"isDnd":false,"objectId":{"name":"oNokonoko_red","path":"objects/oNokonoko_red/oNokonoko_red.yy",},"inheritCode":false,"hasCreationCode":true,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":1832.0,"y":88.0,},
+        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_79FF7D96","properties":[],"isDnd":false,"objectId":{"name":"oCheckpointmask","path":"objects/oCheckpointmask/oCheckpointmask.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":3.5,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":1072.0,"y":208.0,},
       ],"visible":true,"depth":0,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"gridX":16,"gridY":16,"layers":[],"hierarchyFrozen":false,"effectEnabled":true,"effectType":null,"properties":[],},
     {"resourceType":"GMRTileLayer","resourceVersion":"1.1","name":"Tiles_brown","tilesetId":{"name":"tileBrown","path":"tilesets/tileBrown/tileBrown.yy",},"x":0,"y":0,"tiles":{"TileDataFormat":1,"SerialiseWidth":164,"SerialiseHeight":15,"TileCompressedData":[
 -157,0,-7,-2147483648,-157,0,-7,-2147483648,-157,0,1,-2147483648,-3,5,-3,-2147483648,-157,0,4,-2147483648,14,15,16,-3,-2147483648,-157,0,1,5,-3,6,3,5,-2147483648,-2147483648,-41,0,-5,12,-96,0,-2,11,-13,0,-2,15,5,7,15,15,-2147483648,-2147483648,-27,0,-3,12,-11,0,-5,12,-15,0,-2,12,-79,0,-2,11,-13,0,-2,15,5,17,15,15,-2147483648,-2147483648,-27,0,-3,12,-11,0,-5,12,-15,0,-2,12,-14,0,-4,12,-59,0,-4,11,-11,0,-2,5,-5,6,-2,5,1,0,-3,5,-23,0,-3,12,-11,0,-5,12,-15,0,-2,12,-14,0,-4,12,-24,0,-6,12,-29,0,-4,11,-11,0,-2,3,4,15,7,15,7,-3,15,4,0,14,15,16,-32,0,-3,12,-2,0,-5,12,-15,0,-2,12,-14,
@@ -187,6 +188,7 @@
     {"name":"inst_916D1A0","path":"rooms/rm1_3/rm1_3.yy",},
     {"name":"inst_1F3B7281","path":"rooms/rm1_3/rm1_3.yy",},
     {"name":"inst_227DDCD8","path":"rooms/rm1_3/rm1_3.yy",},
+    {"name":"inst_79FF7D96","path":"rooms/rm1_3/rm1_3.yy",},
   ],
   "inheritCreationOrder": false,
   "sequenceId": null,
@@ -210,7 +212,7 @@
     "PhysicsWorldPixToMetres": 0.1,
   },
   "parent": {
-    "name": "1-3",
-    "path": "folders/Rooms/mario brother/1-3.yy",
+    "name": "World 1",
+    "path": "folders/Rooms/mario brother/World 1.yy",
   },
 }

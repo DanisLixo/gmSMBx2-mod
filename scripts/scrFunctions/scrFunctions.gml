@@ -19,8 +19,8 @@ function bgm(bgmstr,loops)
 		exit;
 	}
 	
-	if is_string(bgmstr) && global.musicchannels = true && global.player != "Peter Griffin" &&
-		global.player != "Martin" && global.player != "Anton" && global.player != "Duke" && global.player != "Pokey"
+	if is_string(bgmstr) && global.musicchannels = true && global.volsfx > 0 &&
+	global.player != "Peter Griffin" && global.player != "Martin" && global.player != "Anton" && global.player != "Duke" && global.player != "Pokey" && global.player != "Max Verstappen"
 		&& bgmstr != "Levelend" && bgmstr != "Castleend" && bgmstr != "Lobby" && bgmstr != "Retro" && bgmstr != "Warning"
 	{
 		audio_stop_sound(global.ch[0]);
@@ -49,29 +49,35 @@ function bgm(bgmstr,loops)
 		{
 			var mus = asset_get_index("mus"+bgmstr)
 			
-			if global.player = "Peter Griffin"
-			{
-				if bgmstr = "GO"	{mus = musFamilyguydie;}
-				else if bgmstr = "Starman"	{mus = musFamilyGuyStarman;}
-				else if bgmstr = "Levelend" or bgmstr = "Castleend"	{mus = musFamilyguyLevelend;}
-				else {mus = musFamilyGuy;}
-			}
-			if global.player = "Pokey"
-			{
-				if bgmstr = "GO"	{mus = musKRL;}
-				else if bgmstr = "Starman"	{mus = musHerewego;}
-				else if bgmstr = "Levelend" or bgmstr = "Castleend"	{mus = musHereweend;}
-				else {mus = musPokeymato;}
-			}
-			if (bgmstr = "OW" or bgmstr = "UW" or bgmstr = "UG" or bgmstr = "CS")
-			{
-				if global.player = "Anton"
-				{mus = musAnton;}
-				if global.player = "Martin"
-				{mus = musMartin;}
-				if global.player = "Duke"
-				{mus = musJohnnyTest;}
-			}
+				if global.player = "Peter Griffin"
+				{
+					if bgmstr = "GO"	{mus = musFamilyguydie;}
+					else if bgmstr = "Starman"	{mus = musFamilyGuyStarman;}
+					else if bgmstr = "Levelend" or bgmstr = "Castleend"	{mus = musFamilyguyLevelend;}
+					else if bgmstr = "Warning" {mus = musWarning;}
+					else {mus = musFamilyGuy;}
+				}
+				if global.player = "Pokey"
+				{
+					if bgmstr = "GO"	{mus = musKRL;}
+					else if bgmstr = "Starman"	{mus = musHerewego;}
+					else if bgmstr = "Levelend" or bgmstr = "Castleend"	{mus = musHereweend;}
+					else if bgmstr = "Warning" {mus = musWarning;}
+					else {mus = musPokeymato;}
+				}
+				if global.player = "Max Verstappen"
+				{
+					if bgmstr = "Starman" {mus = musMaxVerstappenStarman;}
+				}
+				if (bgmstr = "OW" or bgmstr = "UW" or bgmstr = "UG" or bgmstr = "CS")
+				{
+					if global.player = "Anton"
+					{mus = musAnton;}
+					if global.player = "Martin"
+					{mus = musMartin;}
+					if global.player = "Duke"
+					{mus = musJohnnyTest;}
+				}
 			
 			global.ch[4] = audio_play_sound(mus,1,loops,global.volbgm);
 			

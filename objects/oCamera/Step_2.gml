@@ -31,10 +31,16 @@ if instance_exists(oMario) && oMario.state != ps.castleending
 			else if oMario.x > quarter
 			{x += oMario.hspd/2;}
 		}
+		if oMario.hspd >= 2.9 && oMario.collidecode = true
+		{
+			if oMario.x > middle+quarter
+			{x += oMario.hspd;}
+		}
 	}
 	else
 	{
 		x = oMario.x
+		if oMario.hspd > 2.9 {x = oMario.x + 64;}
 	}
 }
 

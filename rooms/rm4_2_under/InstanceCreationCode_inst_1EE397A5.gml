@@ -1,1 +1,1 @@
-contents = contsbeanstalk
+contents = conts.beanstalk

@@ -82,7 +82,8 @@
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_7245EF22","properties":[],"isDnd":false,"objectId":{"name":"oGoomba","path":"objects/oGoomba/oGoomba.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":392.0,"y":208.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_7C1FCCA8","properties":[],"isDnd":false,"objectId":{"name":"oMultiplecoins","path":"objects/oMultiplecoins/oMultiplecoins.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":4.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":2688.0,"y":96.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_6BCC0C7D","properties":[],"isDnd":false,"objectId":{"name":"oPiranha","path":"objects/oPiranha/oPiranha.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":2720.0,"y":192.0,},
-      ],"visible":true,"depth":0,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"gridX":8,"gridY":8,"layers":[],"hierarchyFrozen":false,"effectEnabled":true,"effectType":null,"properties":[],},
+        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_133A442F","properties":[],"isDnd":false,"objectId":{"name":"oCol","path":"objects/oCol/oCol.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":2.0,"scaleY":3.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":2704.0,"y":160.0,},
+      ],"visible":true,"depth":0,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"gridX":16,"gridY":16,"layers":[],"hierarchyFrozen":false,"effectEnabled":true,"effectType":null,"properties":[],},
     {"resourceType":"GMRTileLayer","resourceVersion":"1.1","name":"Tiles_brown","tilesetId":{"name":"tileBrown","path":"tilesets/tileBrown/tileBrown.yy",},"x":0,"y":0,"tiles":{"TileDataFormat":1,"SerialiseWidth":219,"SerialiseHeight":15,"TileCompressedData":[
 -211,0,-8,-2147483648,-211,0,-8,-2147483648,-211,0,-8,-2147483648,-211,0,-8,-2147483648,-211,0,-8,-2147483648,-199,0,-2,11,-10,0,-8,-2147483648,-198,0,-3,11,-10,0,-8,-2147483648,-197,0,-4,11,-10,0,-8,-2147483648,1,0,-3,5,-192,0,-5,11,-10,0,-3,-2147483648,-3,5,-2,-2147483648,4,0,14,15,16,-191,0,-6,11,-10,0,-3,-2147483648,6,14,15,16,-2147483648,-2147483648,5,-3,6,1,5,-55,0,1,11,-133,0,-7,11,-10,0,-2,-2147483648,1,5,-3,6,7,5,-2147483648,15,15,7,15,15,-55,0,1,11,-14,0,1,11,-3,0,1,11,-46,0,1,11,-66,0,-8,11,-10,0,-2,-2147483648,-2,15,9,7,15,15,-2147483648,15,15,17,15,15,-6,0,3,32,0,32,-4,33,-3,0,4,32,0,32,32,-13,0,-2,33,4,32,33,0,32,-5,0,1,11,-9,0,3,32,11,32,-4,33,-3,0,7,32,0,32,32,0,0,11,-3,0,1,11,-6,0,-2,33,4,32,33,0,32,-15,0,3,32,0,32,-4,33,-3,0,4,32,0,32,32,-5,
 0,1,11,-7,0,-2,33,4,32,33,0,32,-15,0,3,32,0,32,-4,33,-3,0,4,32,0,32,32,-13,0,-2,33,4,32,33,0,32,-4,0,-9,11,-2,0,3,32,0,32,-3,33,10,11,0,-2147483648,-2147483648,15,15,17,15,15,-2147483648,-80,1,-2,0,-41,1,-2,0,-3,1,-2,0,-169,1,-2,0,-41,1,-2,0,-3,1,-2,0,-89,1,],},"visible":true,"depth":100,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"gridX":32,"gridY":32,"layers":[],"hierarchyFrozen":false,"effectEnabled":true,"effectType":null,"properties":[],},
@@ -94,7 +95,7 @@
     {"resourceType":"GMRBackgroundLayer","resourceVersion":"1.0","name":"Background","spriteId":{"name":"sBG_0","path":"sprites/sBG_0/sBG_0.yy",},"colour":4294967295,"x":0,"y":0,"htiled":true,"vtiled":true,"hspeed":0.0,"vspeed":0.0,"stretch":false,"animationFPS":30.0,"animationSpeedType":0,"userdefinedAnimFPS":false,"visible":true,"depth":400,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"gridX":32,"gridY":32,"layers":[],"hierarchyFrozen":false,"effectEnabled":true,"effectType":null,"properties":[],},
   ],
   "inheritLayers": false,
-  "creationCodeFile": "rooms/rm3_2/RoomCreationCode.gml",
+  "creationCodeFile": "${project_dir}/rooms/rm3_2/RoomCreationCode.gml",
   "inheritCode": false,
   "instanceCreationOrder": [
     {"name":"inst_51FB5434_1_2","path":"rooms/rm3_2/rm3_2.yy",},
@@ -162,6 +163,7 @@
     {"name":"inst_7245EF22","path":"rooms/rm3_2/rm3_2.yy",},
     {"name":"inst_7C1FCCA8","path":"rooms/rm3_2/rm3_2.yy",},
     {"name":"inst_6BCC0C7D","path":"rooms/rm3_2/rm3_2.yy",},
+    {"name":"inst_133A442F","path":"rooms/rm3_2/rm3_2.yy",},
   ],
   "inheritCreationOrder": false,
   "sequenceId": null,
@@ -185,7 +187,7 @@
     "PhysicsWorldPixToMetres": 0.1,
   },
   "parent": {
-    "name": "3-2",
-    "path": "folders/Rooms/mario brother/3-2.yy",
+    "name": "World 3",
+    "path": "folders/Rooms/mario brother/World 3.yy",
   },
 }

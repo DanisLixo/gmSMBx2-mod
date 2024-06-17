@@ -1,4 +1,4 @@
-if instance_exists(oMario) && oMario.starman > 120 && (!audio_is_playing(musStarman_c0) && !audio_is_playing(musStarman) && !audio_is_playing(musFamilyGuyStarman) && !audio_is_playing(musHerewego))
+if instance_exists(oMario) && oMario.starman > 120 && (!audio_is_playing(musStarman_c0) && !audio_is_playing(musStarman) && !audio_is_playing(musFamilyGuyStarman) && !audio_is_playing(musHerewego) && !audio_is_playing(musMaxVerstappenStarman))
 {
 	bgm("Starman",true);
 }
@@ -80,11 +80,12 @@ if global.race = false
 		{warned = 2;}
 		}
 		
-	if timeup == 5 && warned = 0 {
+	if timeup = 5 && warned = 0 {
 		audio_pause_sound(global.ch[0])
 		audio_pause_sound(global.ch[1])
 		audio_pause_sound(global.ch[2])
 		audio_pause_sound(global.ch[3])
+		audio_pause_sound(global.ch[4])
 		bgm("Warning",false);
 		}
 	if timeup > 180 or warned = 1
@@ -95,6 +96,7 @@ if global.race = false
 		audio_resume_sound(global.ch[1])
 		audio_resume_sound(global.ch[2])
 		audio_resume_sound(global.ch[3])
+		audio_resume_sound(global.ch[4])
 		var pitch = 1.3
 	
 	

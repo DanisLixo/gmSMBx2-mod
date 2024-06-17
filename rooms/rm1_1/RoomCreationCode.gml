@@ -6,3 +6,5 @@ global.level = 1;
 global.world = 1;
 
 global.stars = 0;
+
+global.time = timeunits(110)

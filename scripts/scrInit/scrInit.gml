@@ -22,7 +22,7 @@ function init()
 	
 	if global.aspectratio = 0
 	{
-		global.aspectw = 0;
+		global.aspectw = 10;
 	}
 	else if global.aspectratio = 1
 	{

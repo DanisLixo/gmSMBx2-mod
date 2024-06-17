@@ -7,7 +7,6 @@ if instance_exists(oIsArena)
 }
 
 
-
 if (contents = conts.empty or (contents = conts.multicoin && multicointimer > 0)) && blocksprite = sBrickblock && hitblockimage <= 2
 {hitblockimage = 2+image_index;}
 

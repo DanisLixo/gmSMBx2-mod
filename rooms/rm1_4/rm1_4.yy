@@ -174,7 +174,7 @@
     "PhysicsWorldPixToMetres": 0.1,
   },
   "parent": {
-    "name": "1-4",
-    "path": "folders/Rooms/mario brother/1-4.yy",
+    "name": "World 1",
+    "path": "folders/Rooms/mario brother/World 1.yy",
   },
 }

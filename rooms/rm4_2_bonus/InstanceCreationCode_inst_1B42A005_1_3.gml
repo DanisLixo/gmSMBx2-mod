@@ -1,2 +1,2 @@
 troom = rm4_2_under
-num = 3;
+num = 1;

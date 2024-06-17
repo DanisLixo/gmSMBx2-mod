@@ -1,1 +1,1 @@
-troom = rm4_2_sky
+troom = rm2_1_sky

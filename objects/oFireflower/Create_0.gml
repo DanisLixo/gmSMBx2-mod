@@ -19,7 +19,7 @@ pufunc = function()
 		}
 	}
 	
-	
+	if oMario.powerup = "b" or oMario.powerup = "f" {oGame.hats += 1;}
 	points(1000,true);
 	instance_destroy();
 }

@@ -1,3 +1,3 @@
-global.environment = e.overworld
-global.curbgm = "Starman"
+global.environment = e.mushroom
+global.curbgm = "OW"
 bgm(global.curbgm,true)

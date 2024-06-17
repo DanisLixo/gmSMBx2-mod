@@ -18,34 +18,6 @@ if layer_exists(tbg)
 if room = rmServer
 {exit;}
 
-if room != rmTitle and room != rmLobby and room != rmLeveltransition and room != rmServer and room != rmArena_0 {
-	if keyboard_check_pressed(ord("P")) {
-		sfx(sndPause,0);
-		
-		if paused = false {
-			instance_deactivate_all(true); 
-			paused = true;
-			audio_pause_sound(global.ch[0]);
-			audio_pause_sound(global.ch[1]);
-			audio_pause_sound(global.ch[2]);
-			audio_pause_sound(global.ch[3]);
-			audio_pause_sound(global.ch[4]);
-			
-			}
-		else {
-			instance_activate_all(); 
-			paused = false;
-			
-			audio_resume_sound(global.ch[0]);
-			audio_resume_sound(global.ch[1]);
-			audio_resume_sound(global.ch[2]);
-			audio_resume_sound(global.ch[3]);
-			audio_resume_sound(global.ch[4]);
-			
-			}
-	}
-}
-
 /// handle gui
 draw_set_font(FNT)
 
@@ -79,7 +51,7 @@ if !instance_exists(oIsArena) && room != rmTitle && room != rmLobby
 	draw_text((SCREENW-(256/2))+(tile*2)+cx,cy+tile,"WORLD")
 	if global.level != 0 
 	{
-		if room = rmExtra or room = rmExtra_sky or room = rmExtra_under {draw_text((SCREENW-(256/2))+(tile*2)+cx,cy+tile+tile,"EXTRA")}
+		if room = rmExtra or room = rmExtra_sky or room = rmExtra_under or extra {draw_text((SCREENW-(256/2))+(tile*2)+cx,cy+tile+tile,"EXTRA")}
 		else {draw_text((SCREENW-(256/2))+(tile*2)+tile+cx,cy+tile+tile,string(global.world)+"-"+string(global.level))}
 	}
 }
@@ -93,7 +65,7 @@ if instance_exists(oIsArena)
 //draw_text((SCREENW/2)+(tile*2)+(tile*7)+cx,cy+tile,"TIME")
 draw_text((SCREENW-(256/2))+(tile*2)+(tile*7)+cx,cy+tile,"TIME")
 
-if global.time >= 0
+if global.time >= 0 and room != rmLeveltransition
 {
 	var timestr = string(round(global.time/(room_speed*TIMESEC)))		while (string_length(timestr) < 3)	{timestr = "0"+timestr;}
 	//draw_text((SCREENW/2)+(tile*2)+(tile*8)+cx,cy+tile+tile,timestr)
@@ -154,3 +126,4 @@ if global.race = true && instance_exists(oRacemanager)
 }
 
 draw_set_font(-1);
+

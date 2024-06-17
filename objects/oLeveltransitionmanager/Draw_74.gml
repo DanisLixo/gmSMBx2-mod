@@ -18,21 +18,22 @@ var scale = 1;
 if p = sPeterGriffin {scale = 0.5;}
 if p = sDuke {scale = 0.5;}
 if p = sPokey {scale = 0.4;}
+if p = sMaxVerstappen {scale = 0.2;}
 if p = sPokey && oGame.savedpowerup = "s" {scale = 0.2;}
 if p = sAnton && oGame.savedpowerup = "s" {scale = 0.6;}
 
 shader_set(shdColorswap)
 	apply_palette(global.palettesprite,global.paletteindex,1)
 	draw_sprite_ext(p,0,(13*8)-cx,(15*8)-cy,scale,scale,0,-1,1)
-	
 shader_reset();
 
-draw_text(11*8-cx,9*8-cy,"WORLD "+string(global.world)+"-"+string(global.level));
+
+if oGame.extra {draw_text(11*8-cx,9*8-cy,"WORLD "+"EXTRA");}
+else {draw_text(11*8-cx,9*8-cy,"WORLD "+string(global.world)+"-"+string(global.level));}
 draw_text((15*8)-cx,(14*8)-cy,"* -1");
-if room = rmExtra {draw_text(11*8-cx,9*8-cy,"WORLD "+"EXTRA");}
 if oGame.savedpowerup = "f" && global.player != "Pokey" {draw_text((10*8)-cx,(10*8)-cy,"U FIRE YEAH")}
 if global.player = "Pokey" {draw_text((8*8)-cx,(10*8)-cy,"O MAIOR COMEDOR DE CASADAS")}
-draw_set_font(-1)
+draw_set_font(FNT)
 
 
 

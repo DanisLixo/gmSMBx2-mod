@@ -1,7 +1,104 @@
 if room = rmServer
 {;}
 
+#region //hats hud
 
+if room != rmTitle and room != rmServer {
+	if global.player = "Pokey" or global.player = "Gemaplys" {
+		if !global.showfps {
+		draw_set_font(FNT);
+		draw_text(24,8*3,"HATS - " + string(hats-instance_number(oHatThrow)));
+		}
+		else if !instance_exists(oClient) {
+		draw_set_font(FNT);
+		draw_text(24,8*4,"HATS - " + string(hats-instance_number(oHatThrow)));
+		}
+		else {
+		draw_set_font(FNT);
+		draw_text(24,8*5,"HATS - " + string(hats));
+		}
+	}
+}
+#endregion
+
+#region //Pause gui
+
+var cx = 0; cy = 0;
+var tile = 8
+
+/*Cant keep the scary cuz bad game design
+if debug && pause {destroy ++; 
+	if destroy%12 = 0 && global.environment != e.snow {global.environment++;} else if destroy%12 = 0 && global.environment = e.snow {global.environment = -1;} 
+	if destroy = 100 {game_end()}}
+	
+if destroy > 0 {debug = true; pause = true; 
+	audio_stop_all();
+	global.time = random(10000); 
+	global.score = random(10000);
+	global.player = "Oh no...";
+	global.world = random(8);
+	global.level = random(8);
+	global.coins = random(99);
+	global.showfps = false;
+	global.showpfp = false;} */
+	
+if room != rmTitle and room != rmServer and room != rmLeveltransition and triggercastleflag = false
+{
+	if (keyboard_check_pressed(vk_escape) or keyboard_check_pressed(vk_enter)) && global.chatfocus = false and !debug and !pause
+	{pause = !pause; pausesel = 0; sfx(sndPause,0); delay = 0;}
+}
+		
+if pause
+	{
+		delay++
+		
+		if !instance_exists(oClient) 
+		{
+			instance_deactivate_all(true);
+			global.time++;
+			audio_pause_sound(global.ch[0]);
+			audio_pause_sound(global.ch[1]);
+			audio_pause_sound(global.ch[2]);
+			audio_pause_sound(global.ch[3]);
+			audio_pause_sound(global.ch[4]);
+		}
+		draw_sprite_ext(sThefucktextgavemeideas, 0, SCREENW/2, SCREENH/2, SCREENW/20, SCREENH/40,0, c_white, 1)
+		draw_sprite(sMushsel,image_index,(SCREENW/3)+4+(tile*-2)+cx,(tile*11)+((tile*2)*pausesel)+tile+cy)
+			
+		pausesel += keyboard_check_pressed(global.keyd) - keyboard_check_pressed(global.keyu)
+		pausesel = clamp(pausesel,0,2);
+			
+			
+			
+		draw_set_font(FNT)
+		draw_text((SCREENW/3),(tile*10)+tile*2,"RESUME");
+		draw_text((SCREENW/3),(tile*10)+tile*4,"RESTART");
+		draw_text((SCREENW/3),(tile*10)+tile*6,"EXIT TO MENU");
+			
+		if (keyboard_check_pressed(vk_enter) or keyboard_check_pressed(global.keyj)) && destroy = 0 && delay >= 10
+		{
+			switch(pausesel)
+			{
+				case 0: pause = !pause; break;
+				case 1: room_restart(); pause = !pause; break;
+				case 2: room_goto(rmTitle); pause = !pause; break;
+			}
+			delay = 0;
+			spawnx = -1;
+			spawny = -1;
+			instance_activate_object(oNekoPresence);
+		}
+	}
+	else {
+		instance_activate_all();
+		audio_resume_sound(global.ch[0]);
+		audio_resume_sound(global.ch[1]);
+		audio_resume_sound(global.ch[2]);
+		audio_resume_sound(global.ch[3]);
+		audio_resume_sound(global.ch[4]);
+		}
+	
+#endregion
 
 /// handle gui
 draw_set_font(FNT)
@@ -14,21 +111,14 @@ var tile = 8
 
 draw_set_font(FNT);
 
-if room != rmTitle && global.debug = true
+if room != rmTitle and room != rmServer and room != rmLeveltransition && global.debug = true
 {
-	if keyboard_check(vk_escape) && global.chatfocus = false
-	{resetcheck++}
-	else
-	{resetcheck = 0;}
 	
-	if resetcheck > room_speed*1
-	{room_goto(rmTitle);}
-	
-		
 	if !instance_exists(oClient)
 	{
-		if keyboard_check_pressed(vk_tab)
+		if keyboard_check_pressed(vk_tab) and !pause 
 		{debug = !debug;}
+		
 		
 		if debug
 		{
@@ -40,7 +130,7 @@ if room != rmTitle && global.debug = true
 			}
 			
 			draw_rectangle_color((SCREENW-(256/2))+(tile*-1)+cx,(tile*3)+cy,(SCREENW-(256/2))+(tile*1)+cx+64,(tile*3)+cy+112,c_black,c_black,c_black,c_black,false);
-			draw_sprite(sMushsel,0,(SCREENW-(256/2))+4+(tile*-1)+cx,(tile*3)+(tile*debugsel)+tile+cy)
+			draw_sprite(sMushsel,image_index,(SCREENW-(256/2))+4+(tile*-1)+cx,(tile*3)+(tile*debugsel)+tile+cy)
 			
 			
 			debugsel += keyboard_check_pressed(global.keyd) - keyboard_check_pressed(global.keyu)
@@ -91,9 +181,12 @@ if room != rmTitle && global.debug = true
 	if global.schutmode = true	{draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*2+cy,"SCHUTMODE");}
 	*/
 	
-	if global.showfps = true {draw_text(cx+(tile*3),cy+tile*2+tile,"FPS - "+string(fps))}
+	if global.showfps = true {
+		if !instance_exists(oClient) {draw_text(cx+(tile*3),cy+tile*2+tile,"FPS - "+string(fps));}
+		else {draw_text(cx+(tile*3),cy+tile*3+tile,"FPS - "+string(fps));}
+		}
 	
-	draw_text_color(cx+(tile*3),cy+tile*4+tile,"HOLD ESC RETURN TO TITLE",c_red,c_red,c_red,c_red,(resetcheck/100)+(0.5*sign(resetcheck)));
+	//draw_text_color(cx+(tile*3),cy+tile*4+tile,"HOLD ESC RETURN TO TITLE",c_red,c_red,c_red,c_red,(resetcheck/100)+(0.5*sign(resetcheck)));
 	
 	/*
 	draw_text(cx+(tile*2),cy+tile*3+tile*2,"SQ1 - "+string(audio_sound_get_gain(global.ch[0])));
@@ -156,8 +249,5 @@ if instance_exists(oMario) && oMario.state = ps.die
 
 
 #endregion
-
-
-
 
 draw_set_font(-1);

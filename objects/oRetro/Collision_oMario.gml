@@ -1,5 +1,7 @@
 if global.challenge = true
-{other.state = ps.die}
+{
+	room_restart()
+}
 
 
 

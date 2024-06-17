@@ -1,5 +1,7 @@
-if global.player = "Dawn" and oMario.state != ps.flagpolefinish and arrow = true
+if global.player = "Dawn" and oMario.state != ps.flagpolefinish
 {
 	draw_sprite(sEbreak,-1,x,y);
 }
-else {draw_self()}
+else {
+	draw_sprite(sExplosion,-1,x,y);
+	}

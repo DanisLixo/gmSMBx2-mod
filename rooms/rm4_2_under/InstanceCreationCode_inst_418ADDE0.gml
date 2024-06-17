@@ -1,1 +1,1 @@
-troom = rm4_2_under
+troom = rm4_2_bonus

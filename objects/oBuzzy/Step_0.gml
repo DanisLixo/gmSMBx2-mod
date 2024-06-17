@@ -32,7 +32,6 @@ switch(state)
 	hspd = maxhspd*facingdir
 	
 	image_speed = imgspd
-	sprite_index = sBuzzy_winged_green
 	
 	if grounded
 	{vspd = -4;}
