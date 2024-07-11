@@ -2,8 +2,6 @@ instance_create_depth(x,y,depth,oNekoPresence)
 init()
 loadsettings()
 
-paused = false;
-
 dep = depth;
 
 savedpowerup = "s";
@@ -11,7 +9,7 @@ hats = 0
 
 lastenv = e.underground
 loadscreen = 20;
-warned = 0;
+warned = false;
 
 diec = 0;
 
@@ -29,12 +27,11 @@ timeup = 0;
 
 resetcheck = 0;
 
+paused = 0
 
 debugsel = 0;
 debug = false;
 
-pausesel = 0;
-pause = false
 extra = false
 destroy = 0
 delay = 0

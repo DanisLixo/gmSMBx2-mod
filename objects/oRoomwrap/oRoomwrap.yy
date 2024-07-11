@@ -31,7 +31,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "addition",
-    "path": "folders/Objects/addition.yy",
+    "name": "Addition",
+    "path": "folders/Objects/Addition.yy",
   },
 }

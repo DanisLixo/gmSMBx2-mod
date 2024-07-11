@@ -28,7 +28,7 @@ else
 	draw_set_alpha(1); */
 	draw_sprite_ext(sThefucktextgavemeideas, 0, SCREENW/2, SCREENH/2, SCREENW/20, SCREENH/20,0, c_white, 1)
 	
-	xx = (global.aspectratio = 1)? 48 : 64;
+	xx = (global.aspectratio = "ORIGINAL")? 48 : 64;
 	yy = 64;
 	tsep = 16;
 }
@@ -50,7 +50,7 @@ if section = 3
 	or p = sPokey
 	or p = sMaxVerstappen {scale = 0.5;}
 	
-	var sp = (global.aspectratio = 1)? 48 : 64;
+	var sp = (global.aspectratio = "ORIGINAL")? 48 : 64;
 	
 	shader_set(shdColorswap)
 		apply_palette(global.palettesprite,global.paletteindex,1)
@@ -76,8 +76,13 @@ var userlimit = (string_length(global.username) > 15)? 1-((string_length(global.
 
 for (var i = 0; i < optionsnum[section]; i ++;)
 {
-	var backapply = (aspectapply)? "APPLY" : menu[# section, i];
-	if i = sel	{draw_sprite(sMushsel,image_index,xx-16,yy+(i*tsep));}
+	var backapply = (resapply)? "APPLY" : menu[# section, i];
+	if i = sel	{
+	shader_set(shdColorswap);
+		apply_palette(sPalette_gold,global.environment,image_alpha)
+		draw_sprite(sMushsel,oGame.image_index,xx-16,yy+(i*tsep));
+	shader_reset();
+	}
 	
 	#region different buttons to draw
 	
@@ -120,12 +125,9 @@ for (var i = 0; i < optionsnum[section]; i ++;)
 		if global.showfps = false {ex = "NO";}
 		draw_text(xx,yy+(i*tsep),menu[# section, i]+ex)
 	}
-	else if menu[# section, i] = "ASPECT RATIO - "
+	else if menu[# section, i] = "RESOLUTION - "
 	{
-		var ex = "16:9"
-		if global.aspectratio = 1 {ex = "1:1";}
-		if global.aspectratio = 2 {ex = "21:9";}
-		draw_text(xx,yy+(i*tsep),menu[# section, i]+ex)
+		draw_text(xx,yy+(i*tsep),menu[# section, i]+string_upper(global.aspectratio))
 	}
 	else if menu[# section, i] = "SOUND MODE - "
 	{
@@ -137,7 +139,7 @@ for (var i = 0; i < optionsnum[section]; i ++;)
 	{
 		var ex = "YES"
 		var opa = (global.opacandastar)? 1 : 0.5
-		if !global.opacandastar {opa = (global.aspectratio = 1)? 0.5 : 0.9}
+		if !global.opacandastar {opa = (global.aspectratio = "ORIGINAL")? 0.5 : 0.9}
 		if global.opacandastar = false {ex = "NO I HATE GANGNAM STYOE!!!!!";}
 		draw_text_transformed(xx,yy+(i*tsep),menu[# section, i]+ex, opa, 1, 0)
 	}
@@ -258,16 +260,16 @@ global.volsfx = clamp(global.volsfx,0,1);
 
 switch(categorysel) {
 		case 0:
-				category = "Characters";
+				category = "characters";
 				break;
 		case 1:
 				category = "OCs";
 				break;
 		case 2:
-				category = "joke chars";
+				category = "png chars";
 				break;
 		case 3:
-				category = "HQ joke chars";
+				category = "joke chars";
 				break;
 }
 
@@ -379,16 +381,47 @@ if menu[# section, sel] = "SHOW FPS - "
 	{global.showfps = false; savesettings()}
 }
 
-if menu[# section, sel] = "ASPECT RATIO - "
+if menu[# section, sel] = "RESOLUTION - "
 {
-	if p = -1
-	{global.aspectratio = 0; savesettings(); aspectapply = true;}
-	else if p = 1
-	{global.aspectratio = 1; savesettings(); aspectapply = true;}
-	if keyboard_check_pressed(vk_f12)
-	{global.aspectratio = 2; savesettings(); aspectapply = true;}
+	horse += p;
 	
-	draw_sprite(fuckText,0,SCREENW/2,SCREENH/1.25)
+	if horse != inithorse {resapply = true;}
+	else {resapply = false;}
+	
+	if horse > 2 {horse = 0}
+	else if horse < 0 {horse = 2}
+	switch horse {
+		case 0:
+			global.aspectratio = "WIDESCREEN"
+			SCREENW = SCREENW_WS
+			savesettings();
+			
+			camera_set_view_size(view_camera[0], SCREENW, SCREENH)
+			surface_resize(application_surface,SCREENW,SCREENH)
+			var scrsizemult = 3;
+			window_set_size(SCREENW*scrsizemult,SCREENH*scrsizemult);
+		break;
+		case 1:
+			global.aspectratio = "ORIGINAL"
+			SCREENW = SCREENW_OG
+			savesettings();
+			
+			camera_set_view_size(view_camera[0], SCREENW, SCREENH)
+			surface_resize(application_surface,SCREENW,SCREENH)
+			var scrsizemult = 3;
+			window_set_size(SCREENW*scrsizemult,SCREENH*scrsizemult);
+		break;
+		case 2:
+			global.aspectratio = "ULTRA WIDE"
+			SCREENW = SCREENW_UW
+			savesettings();
+			
+			camera_set_view_size(view_camera[0], SCREENW, SCREENH)
+			surface_resize(application_surface,SCREENW,SCREENH)
+			var scrsizemult = 3;
+			window_set_size(SCREENW*scrsizemult,SCREENH*scrsizemult);
+		break;
+	}
 }
 
 if menu[# section, sel] = "PLAY GANGNAM - "
@@ -430,12 +463,12 @@ if keyboard_check_pressed(global.keyj) or keyboard_check_pressed(vk_enter)
 	switch(menu[# section, sel])
 	{
 		case "EXTRA LEVEL":
-			room_goto(extrawillsendmetothisroom);
+			room_goto(timetoparty);
 			global.time = timeunits(500)
 			oGame.extra = true
 		break;
 		case "1 PLAYER GAME":
-			room_goto(playwillsendmetothisroom);
+			room_goto(timetoparty);
 			global.time = timeunits(400)
 			global.world = 1
 		break;
@@ -454,9 +487,9 @@ if keyboard_check_pressed(global.keyj) or keyboard_check_pressed(vk_enter)
 			else if section = 5		{section = 1; sel = 1;}
 			else if section = 3		{section = 2; sel = 0;}
 			else if section = 6		{section = 2; sel = 2;}
-			else if section = 2		{section = 0; sel = 3;}
+			else if section = 2		{section = 0; sel = 3; if room != rmTitle {instance_destroy()}}
 			else if section = 1		{section = 0; sel = 1;}
-			else if section = 7		{if aspectapply {game_restart()} else {section = 2; sel = 1;}}
+			else if section = 7		{if resapply {game_restart()} else {section = 2; sel = 1;}}
 			else if section = 8		{section = 2; sel = 3;}
 			else if section = 9		{section = 2; sel = 4;}
 			else					{section = 0; sel = 0;}
@@ -524,11 +557,8 @@ if keyboard_check_pressed(global.keyj) or keyboard_check_pressed(vk_enter)
 			window_set_fullscreen(false)
 		
 			var scrsizemult = 3;
-			var displayw = display_get_width();
-			var displayh = display_get_height();
-			var xpos = (displayw / 2) - (SCREENW*scrsizemult)/2;
-			var ypos = (displayh / 2) - (SCREENH*scrsizemult)/2;
-			window_set_rectangle(xpos,ypos,SCREENW*scrsizemult,SCREENH*scrsizemult);
+			window_set_size(SCREENW*scrsizemult,SCREENH*scrsizemult);
+			window_center()
 		break;
 		case "DISCORD PFP - ":
 			global.showpfp = !global.showpfp;
@@ -538,12 +568,6 @@ if keyboard_check_pressed(global.keyj) or keyboard_check_pressed(vk_enter)
 			global.showfps = !global.showfps;
 			savesettings()
 		break;
-		case "ASPECT RATIO - ":
-			global.aspectratio = !global.aspectratio;
-			savesettings()
-			aspectapply = true;
-		break;
-		
 		case "CONTROLS":
 			section = 8;
 			sel = 0;

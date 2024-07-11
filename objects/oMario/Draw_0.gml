@@ -9,23 +9,28 @@ if global.player = "Goldron"
 	{yoff = 0;}
 	if powerup = "s"	{ind = 0;}
 	if powerup = "b"	{ind = 1;}
-	if powerup = "f"	{ind = 2;}
+	if powerup = "f" || powerup = "c"	{ind = 2;}
 }
 
+//scale = 2;
 scale = 1;
 
 if global.player = "Peter Griffin"	{scale = 0.2;}
 if global.player = "Duke"	{scale = 0.2;}
 if global.player = "Pokey" {scale = 0.2;}
-if powerup = "f" && !instance_exists(oHatThrow) {
-	shader_set(shdColorswap);
-	apply_palette(sPalette_goomba,global.environment,1)
-	if global.player =  "Pokey" {draw_sprite_ext(sFireHat, -1, x, y-20, 1, 1, 0, c_white, 1);}
-	else if global.player =  "Gemaplys" {draw_sprite_ext(sFireHat, -1, x, y-24, 1, 1, 0, c_white, 1);}
-	shader_reset();}
 if global.player = "Max Verstappen" {scale = 0.2;}
 if global.player = "Anton" && powerup = "s"	{scale = 0.6}
 if global.player = "1pixelMario" && powerup = "s"	{scale = 0.5}
+
+if powerup = "f" && !instance_exists(oHatThrow) && 
+!instance_exists(oHat) && (global.player = "Pokey" || global.player = "Gemaplys") 
+{instance_create_depth(x,y,depth-1000,oHat);}
+else if powerup != "f" 
+{instance_destroy(oHat);}
+if powerup = "c" && !instance_exists(oCape) && state != ps.capetransform {
+	instance_create_depth(x,y,depth+1,oCape);
+	oCape.spr = cs("sCape_idle");
+}
 
 
 //👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍
@@ -53,11 +58,11 @@ if firetimer > 0 && global.player != "Peter Griffin" && global.player != "Duke" 
 			draw_sprite_part_ext(fs,ind,0,0,fsw,fsh-8,x-(image_xscale*fsw/2),y-fsh+yoff,
 			(image_xscale*scale),(image_yscale*scale),image_blend,image_alpha);
 		
-			var cs = spr
+			var ccs = spr
 			if spr = ms("sMario_{}_idle")
-			{cs = ms("sMario_{}_fire");}
-			var csw = sprite_get_width(cs); var csh = sprite_get_height(cs);
-			draw_sprite_part_ext(cs,ind,0,csh-9,csw,9,x-(image_xscale*fsw/2),y-8+yoff,
+			{ccs = ms("sMario_{}_fire");}
+			var csw = sprite_get_width(ccs); var csh = sprite_get_height(ccs);
+			draw_sprite_part_ext(ccs,ind,0,csh-9,csw,9,x-(image_xscale*fsw/2),y-8+yoff,
 			(image_xscale*scale),(image_yscale*scale),image_blend,image_alpha);
 		}
 	}
@@ -70,11 +75,11 @@ if firetimer > 0 and global.player = "Sonic" and state != ps.jump
 		draw_sprite_part_ext(fs,ind,0,0,fsw,fsh-8,x-(image_xscale*fsw/2),y-fsh+yoff,
 		(image_xscale*scale),(image_yscale*scale),image_blend,image_alpha);
 		
-		var cs = spr
+		var ccs = spr
 		if spr = ms("sMario_{}_idle")
-		{cs = ms("sMario_{}_fire");}
-		var csw = sprite_get_width(cs); var csh = sprite_get_height(cs);
-		draw_sprite_part_ext(cs,ind,0,csh-9,csw,9,x-(image_xscale*fsw/2),y-8+yoff,
+		{ccs = ms("sMario_{}_fire");}
+		var csw = sprite_get_width(ccs); var csh = sprite_get_height(ccs);
+		draw_sprite_part_ext(ccs,ind,0,csh-9,csw,9,x-(image_xscale*fsw/2),y-8+yoff,
 		(image_xscale*scale),(image_yscale*scale),image_blend,image_alpha);
 	}
 	else if firetimer <= 0 and global.player = "Sonic" or state = ps.jump {draw_sprite_ext(spr,ind,x,y+yoff,round(image_xscale)*scale,image_yscale*scale,image_angle,image_blend,image_alpha)}
@@ -106,7 +111,7 @@ nes_flicker()
 
 
 
-if powerup != "s" && crouch = false and state != ps.nah and !(global.player = "Sonic" and state = ps.jump) and 
+if powerup != "s" && crouch = false and !(global.player = "Sonic" and state = ps.jump) and 
 global.player != "1pixelmario" and global.player != "Pokey"
 {sprite_index = sMariomask1;}
 else
@@ -144,6 +149,7 @@ if instance_exists(oIsArena)
 
 if room = rmTitle 
 {
-if instance_place(x+15, y, oGoomba) {state = ps.nah}  
-else {state = ps.title}  
+	if instance_place(x+15, y, oGoomba) {state = ps.nah}  
+	else {state = ps.title}  
+	invincible = 0;
 }

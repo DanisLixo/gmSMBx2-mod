@@ -31,7 +31,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "level",
-    "path": "folders/Objects/level.yy",
+    "name": "Startpoints",
+    "path": "folders/Objects/Level/Startpoints.yy",
   },
 }

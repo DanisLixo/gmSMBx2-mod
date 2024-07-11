@@ -21,7 +21,7 @@ function bgm(bgmstr,loops)
 	
 	if is_string(bgmstr) && global.musicchannels = true && global.volsfx > 0 &&
 	global.player != "Peter Griffin" && global.player != "Martin" && global.player != "Anton" && global.player != "Duke" && global.player != "Pokey" && global.player != "Max Verstappen"
-		&& bgmstr != "Levelend" && bgmstr != "Castleend" && bgmstr != "Lobby" && bgmstr != "Retro" && bgmstr != "Warning"
+		&& bgmstr != "Levelend" && bgmstr != "Castleend" && bgmstr != "Lobby" && bgmstr != "Retro" && bgmstr != "Warning" && bgmstr != "Challenge"
 	{
 		audio_stop_sound(global.ch[0]);
 		audio_stop_sound(global.ch[1]);

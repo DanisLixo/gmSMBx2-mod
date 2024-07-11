@@ -9,5 +9,5 @@ die = false;
 
 imgspd = image_speed;
 
-
+bboxturn = true
 c = 0;

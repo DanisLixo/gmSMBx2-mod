@@ -36,7 +36,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "par",
-    "path": "folders/Objects/par.yy",
+    "name": "Par",
+    "path": "folders/Objects/Par.yy",
   },
 }

@@ -12,7 +12,7 @@ pufunc = function()
 		{
 			if powerup = "s"
 			{state = ps.grow;}
-			else if powerup = "b"
+			else if powerup = "b" || powerup = "c"
 			{state = ps.firetransform;}
 			else
 			{sfx(sndPowerup,1);}

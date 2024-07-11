@@ -31,3 +31,18 @@ if instance_exists(oIsArena)
 	
 
 }
+
+if global.playercol {
+
+	if instance_place(x,bbox_top-1,oMario) && oMario.vspd >= 0 and oMario.carried = false and oMario.state = ps.nah
+		{
+			oMario.vspd = 0; 
+			oMario.grounded = true;
+			oMario.carried = true;
+		}
+	if oMario.carried and oMario.grounded = true
+		{
+			oMario.y = bbox_top-1; 
+			oMario.x = x;
+		}
+}

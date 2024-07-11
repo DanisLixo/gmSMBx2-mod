@@ -24,11 +24,13 @@
   "physicsStartAwake": true,
   "physicsKinematic": false,
   "physicsShapePoints": [],
-  "eventList": [],
+  "eventList": [
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":4,"collisionObjectId":{"name":"oMario","path":"objects/oMario/oMario.yy",},},
+  ],
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "addition",
-    "path": "folders/Objects/addition.yy",
+    "name": "Network",
+    "path": "folders/Network.yy",
   },
 }

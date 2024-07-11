@@ -43,7 +43,7 @@ if choosingmode = true
 		draw_text(64,64+(i*16)-4,cmoptions[| i]);
 	}
 	
-	draw_sprite(sMushsel,0,32,64+(cmsel*16))
+	draw_sprite(sMushsel,oGame.image_index,32,64+(cmsel*16))
 	
 	if keyboard_check_pressed(global.keyd) && cmsel < ds_list_size(cmoptions)-1
 	{cmsel += 1;}
@@ -52,7 +52,7 @@ if choosingmode = true
 
 	if keyboard_check_pressed(global.keyj)
 	{
-		/*if cmoptions[| cmsel] = "Arena:"
+		/*if cmoptions[| cmsel] = "Arena"
 		{
 			var gv = variable_global_get(cmbool[| cmsel])
 			var valnew = gv+1;
@@ -72,10 +72,14 @@ if choosingmode = true
 				var jbuff = buffer_create(32, buffer_grow, 1);
 				buffer_seek(jbuff, buffer_seek_start, 0);
 				buffer_write(jbuff, buffer_u8, network.hostbegin);
-				buffer_write(jbuff, buffer_bool, global.race);		
+				buffer_write(jbuff, buffer_bool, global.race);	
 				buffer_write(jbuff, buffer_bool, global.schutmode);	
 				buffer_write(jbuff, buffer_bool, global.rtxmode);
-				buffer_write(jbuff, buffer_bool, global.arena);
+				buffer_write(jbuff, buffer_bool, global.commandenys);
+				buffer_write(jbuff, buffer_bool, global.arena);	
+				buffer_write(jbuff, buffer_bool, global.challenge);
+				buffer_write(jbuff, buffer_bool, global.extra);
+				buffer_write(jbuff, buffer_bool, global.playercol);
 				//network_send_packet(client, jbuff, buffer_tell(jbuff));
 				
 				//Loop through the total player list (containing sockets) and send the packet to each one
@@ -86,6 +90,7 @@ if choosingmode = true
 				buffer_delete(jbuff);
 			}
 			choosingmode = false;
+			if cmoptions[| cmsel] = "Disconnect" {network_destroy(server); room_goto(rmTitle);}
 		}
 	}
 

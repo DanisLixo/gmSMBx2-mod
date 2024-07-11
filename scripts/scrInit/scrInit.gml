@@ -11,34 +11,28 @@ function init()
 	{
 		ini_open(sav);
 		var secETC = "etc";
-		var aspectratio = ini_read_real(secETC,"aspectratio",1);
+		var aspectratio = ini_read_string(secETC,"resolution","WIDESCREEN");
 		global.aspectratio = aspectratio;
 	}
-	else
-	{
-		global.aspectratio = 0;
-	}
-	
-	
-	if global.aspectratio = 0
-	{
-		global.aspectw = 10;
-	}
-	else if global.aspectratio = 1
-	{
-		global.aspectw = -160;
-	}
-	else if global.aspectratio = 2
-	{
-		global.aspectw = 160;
-	}
+	else {global.aspectratio = "WIDESCREEN";}
 	
 	//#macro SCREENW 416 // 384 // 256
-	#macro SCREENW (416+global.aspectw)
+	#macro SCREENW_WS 426
+	#macro SCREENW_OG 256
+	#macro SCREENW_UW 586
 	#macro SCREENH 240 // 232 // 240 
+	
+	globalvar SCREENW; SCREENW = SCREENW_WS;
+	if global.aspectratio = "ORIGINAL" {
+		SCREENW = SCREENW_OG
+	}
+	else if global.aspectratio = "ULTRA WIDE" {
+		SCREENW = SCREENW_UW
+	}
+	
 	#macro TIMESEC 0.4
 	#macro FNT font_add_sprite_ext(sFont,"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-+*!.:©bredi",0,0)
-	#macro VERSION "MODDED"
+	#macro VERSION "MODDED 1.0"
 	
 	global.score = 0;
 	global.coins = 0;
@@ -46,6 +40,11 @@ function init()
 	global.player = "Mario"
 	global.palettesprite = sPalette_mario;
 	global.paletteindex = 1;
+	global.gunskin = "Default"
+	global.letterboxSprite = sBG_0
+	
+	global.showfps = true;
+	global.showpfp = true;
 
 	global.ch[0] = -1 //Sound
 	global.ch[1] = -1 //Sound
@@ -58,8 +57,6 @@ function init()
 	
 	global.musicchannels = true
 	global.opacandastar = true
-	global.showfps = true;
-	global.showpfp = true;
 	global.volsfx = 0.5;
 	global.volbgm = 0.5;
 	
@@ -123,11 +120,14 @@ function init()
 		
 		
 		var scrsizemult = 3;
-		var displayw = display_get_width();
+		/*var displayw = display_get_width();
 		var displayh = display_get_height();
 		var xpos = (displayw / 2) - (SCREENW*scrsizemult)/2;
 		var ypos = (displayh / 2) - (SCREENH*scrsizemult)/2;
-		window_set_rectangle(xpos,ypos,SCREENW*scrsizemult,SCREENH*scrsizemult);
+		*/
+		
+		window_set_size(SCREENW*scrsizemult,SCREENH*scrsizemult);
+		window_center()
 
 		view_enabled = true;
 		view_visible[0] = true;
@@ -149,6 +149,8 @@ function init()
 	global.commandenys = false;
 	global.race = false;
 	global.challenge = false;
+	global.extra = false;
+	global.playercol = false;
 	global.freecam = false;
 	global.trippymode = false;
 	

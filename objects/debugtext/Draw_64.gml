@@ -1,5 +1,21 @@
 if room != rmTitle {
-	draw_set_font(font);
+	/*if instance_exists(oFeather) {
+		draw_set_font(font);
+		draw_text(24,8*4,"ROW - " + string(oFeather.row));
+		
+		draw_set_font(font);
+		draw_text(24,8*5,"VSPD - " + string(oFeather.vspd));
+		
+		draw_set_font(font);
+		draw_text(24,8*6,"HSPD - " + string(oFeather.hspd));
+		
+	}*/
+	if instance_exists(oBubble) {
+		draw_set_font(font);
+		draw_text(24,8*5,"VSPD - " + string(oBubble.vspd));
+		
+	}
+	/*draw_set_font(font);
 	draw_text(24,8*4,"HSPD - " + string(oMario.hspd));
 
 	draw_set_font(font);
@@ -14,6 +30,7 @@ if room != rmTitle {
 	draw_set_font(font);
 	draw_text(24,8*8,"CROUCHING - " + string_upper(oMario.crouch));
 	
+
 	draw_set_font(font);
 	draw_text(24,8*9,"DANCE CHANCE (MARIO) - " + string(oMario.dancechance));
 	
@@ -28,4 +45,32 @@ if room != rmTitle {
 	
 	draw_set_font(font);
 	draw_text(24,8*13,"SPINDASH CLICKS (SONIC) - " + string(oMario.spinclicks));
+	
+	draw_set_font(font);
+	draw_text(24,8*9,"TIME UP TRIGGER - " + string(oGame.timeup));
+	
+	draw_set_font(font);
+	draw_text(24,8*10,"DELAY CLICK - " + string(oGame.delay));*/
+	
+	/*draw_set_font(font);
+	draw_text(24,8*4,"MARIO X - " + string(oMario.x));
+	
+	draw_set_font(font);
+	draw_text(24,8*5,"CAMERA X - " + string(oCamera.x));
+	
+	draw_set_font(font);
+	draw_text(24,8*6,"DX - " + string((oMario.x-oCamera.x)/10));
+	
+	if oMario.kap {cx = string(oCamera.x)}
+	draw_set_font(font);
+	draw_text(24,8*7,"REGISTRED CX - " + string(cx));
+	
+	if instance_exists(oRope) {
+		var scheck = (instance_nearest(oMario.x, oMario.y, oRope).platformcheck)? "YES" : "NAH"
+		draw_set_font(font);
+		draw_text(24,8*4,"PLATFORM CHECKED BY ROPE - " + scheck);
+		draw_set_font(font);
+		draw_text(24,8*5,"ROPE SCALE - " + string(instance_nearest(oMario.x, oMario.y, oRope).image_yscale));
+		
+	}*/
 }

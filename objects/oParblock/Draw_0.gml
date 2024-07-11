@@ -41,6 +41,7 @@ if blockstate = 0
 
 if blockstate = 1
 {	
+	var p = random_range(0,1)
 	switch(contents)
 	{
 		case conts.coin:
@@ -52,7 +53,11 @@ if blockstate = 1
 			if instance_exists(oMario) && instance_nearest(x,y,oMario).powerup = "s"
 			{instance_create_depth(x+8,y+16,depth,oMush);}
 			else
-			{instance_create_depth(x+8,y+16,depth,oFireflower);}
+			{
+				if global.player != "Feathy" {p = 1}
+				if p {instance_create_depth(x+8,y+16,depth,oFireflower);} 
+				else {instance_create_depth(x+8,y+16,depth,oFeather);}
+			}
 		break;
 		
 		case conts.star:

@@ -1,6 +1,1 @@
-/// @description Insert description here
-// You can write your code in this editor
-
-
-
-
+oMario.invincible = room_speed*3

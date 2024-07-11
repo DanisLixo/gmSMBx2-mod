@@ -2,18 +2,32 @@
 
 np_update();
 
-if global.level != 0
+if (global.world == 0 || global.level == 0) 
 {
-	if instance_exists(oRacemanager)	{where = "racing on "+string(global.world)+"-"+string(global.level);}
-	else								{where = "gaming on "+string(global.world)+"-"+string(global.level);}
+	where = "this person broke the game or smth idk where they are";
+	//"this person broke the game and i don't know where they are so here's debug message"
 }
+
 else
 {
-	where = "dumbass programming shit but forgot the rich presence message, here's some random message instead" //"this person broke the game and i don't know where they are so here's debug message"
+	if instance_exists(oRacemanager)	{where = "racing online on "+string(global.world)+"-"+string(global.level);}
+	else								{where = "gaming on "+string(global.world)+"-"+string(global.level);}
 }
+
+/*
 if room = rmTitle	{where = "on the title screen";}
 if room = rmLobby	{where = "on the lobby";}
+if room = rmServer	{where = "hosting a server go play with them!!!!!!!!!!!";}
+*/
 
+switch(room)
+{
+	case rmTitle: where = "on the title screen"; break;
+	case rmServer: where = "hosting a server go play with them!!!!!!!!!!!"; break;
+	case rmLobby: where = "on the lobby"; break;
+	case rmTemplate: where = "a template level... for some reason"; break;
+	case rmLeveltransition: where = "level transitioning (I'm so proud)"; break; 
+} 
 
 switch(global.environment)
 {

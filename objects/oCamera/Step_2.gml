@@ -1,14 +1,15 @@
-/// @desc movement / position / fx
+ /// @desc movement / position / fx
 // Set camera position
 
 
 
 if instance_exists(oMario) && oMario.state != ps.castleending
 {
-	
+	var cx = camera_get_view_x(view_camera[0])
+	var eighth =  cx+(SCREENW/4);
+	var halfmiddle =  cx+(SCREENW/1.5);
 	if global.freecam = false && !instance_exists(oIsArena)
 	{
-		var cx = camera_get_view_x(view_camera[0])
 	/*
 		var middle =  cx+(SCREENW/2)-16
 		var thresholded =  middle+threshold
@@ -24,23 +25,49 @@ if instance_exists(oMario) && oMario.state != ps.castleending
 		var quarter =  cx+(SCREENW/3)
 		var middle =  cx+(SCREENW/2)-16
 	
-		if oMario.hspd >= 0 && oMario.collidecode = true
+		if oMario.hspd >= 0 and oMario.hspd <= 3.5 && oMario.collidecode = true
 		{
 			if oMario.x > middle
 			{x += oMario.hspd;}
 			else if oMario.x > quarter
 			{x += oMario.hspd/2;}
 		}
-		if oMario.hspd >= 2.9 && oMario.collidecode = true
+		//Sonic extended camera
+		else if oMario.hspd >= 3.5 and !(oMario.state = ps.grow or oMario.state = ps.shrink or oMario.state = ps.firetransform)
 		{
-			if oMario.x > middle+quarter
-			{x += oMario.hspd;}
-		}
+			if oMario.x > eighth {x += oMario.hspd*1.25;}
+			else if oMario.x < eighth {x += oMario.hspd; if oMario.x < eighth-8 {x -= oMario.hspd;}}
+		} 
+		
+		//end
 	}
 	else
 	{
-		x = oMario.x
-		if oMario.hspd > 2.9 {x = oMario.x + 64;}
+		if (oMario.hspd > -3.5 and oMario.hspd <= 0 or oMario.hspd < 3.5 and oMario.hspd >= 0) {
+			if wentx {
+				if floor(x) > floor(oMario.x) {x += ((oMario.x-oCamera.x)/25)-0.5}
+				else if floor(x) < floor(oMario.x) {x += 1+((oMario.x-oCamera.x)/25)+0.5}
+				else if floor(x) = floor(oMario.x) {wentx = false}
+			}
+			else {x = oMario.x}
+		}
+		else if !(oMario.state = ps.grow or oMario.state = ps.shrink or oMario.state = ps.firetransform) 
+			{
+				if !wentx {x += oMario.hspd*0.8;}
+				if oMario.hspd >= 3.5 {
+				if oMario.x > eighth {x += oMario.hspd*1.25; wentx = true;}
+				else if oMario.x < eighth {x += oMario.hspd; if !wentx {x -= oMario.hspd;}}
+				}
+				else if oMario.hspd <= -3.5 {
+				if oMario.x < halfmiddle {x += oMario.hspd*1.25; wentx = true;}
+				else if oMario.x > halfmiddle {x += oMario.hspd; if !wentx {x += oMario.hspd;}}
+				}
+			}
+		else if (oMario.state = ps.grow or oMario.state = ps.shrink or oMario.state = ps.firetransform) 
+		{
+			if x > oMario.x {x--;}
+			else if x < oMario.x {x++;}
+		}
 	}
 }
 

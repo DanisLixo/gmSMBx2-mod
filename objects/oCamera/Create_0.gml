@@ -14,4 +14,5 @@ alarm[0] = 1;
 
 threshold = 0;
 
-
+goingx = 1;
+wentx = false;

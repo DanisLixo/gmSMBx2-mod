@@ -26,5 +26,4 @@ if room = rmTitle
 {
 	disconnecttt()
 	instance_destroy();
-	
 }

@@ -80,24 +80,25 @@ if global.race = false
 		{warned = 2;}
 		}
 		
-	if timeup = 5 && warned = 0 {
-		audio_pause_sound(global.ch[0])
-		audio_pause_sound(global.ch[1])
-		audio_pause_sound(global.ch[2])
-		audio_pause_sound(global.ch[3])
-		audio_pause_sound(global.ch[4])
+	if timeup = 1 && warned = false {
+		pitch = 0;
+		audio_sound_pitch(global.ch[0],pitch)
+		audio_sound_pitch(global.ch[1],pitch)
+		audio_sound_pitch(global.ch[2],pitch)
+		audio_sound_pitch(global.ch[3],pitch)
+		audio_sound_pitch(global.ch[4],pitch)
 		bgm("Warning",false);
-		}
-	if timeup > 180 or warned = 1
+		} 
+	else if timeup > 180 // or warned = 1
 	{
-		warned = 1;
+		warned = true;
 		
-		audio_resume_sound(global.ch[0])
+		/*audio_resume_sound(global.ch[0])
 		audio_resume_sound(global.ch[1])
 		audio_resume_sound(global.ch[2])
 		audio_resume_sound(global.ch[3])
-		audio_resume_sound(global.ch[4])
-		var pitch = 1.3
+		audio_resume_sound(global.ch[4])*/
+		pitch = 1.3
 	
 	
 		if instance_exists(oMario) && (oMario.state = ps.castleending or oMario.state = ps.flagpolefinish)
@@ -109,7 +110,6 @@ if global.race = false
 		audio_sound_pitch(global.ch[3],pitch)
 		audio_sound_pitch(global.ch[4],pitch)
 		}
-	}
 
 	if global.time = 0 && instance_exists(oMario) &&
 	  !(oMario.state = ps.castleending or
@@ -119,6 +119,9 @@ if global.race = false
 		oMario.state = ps.title or
 		oMario.state = ps.die)
 	{oMario.state = ps.die;}
+}
+else
+{global.time = 999;}
 
 if room = rmLeveltransition or room = rmTitle {warned = 0}
 

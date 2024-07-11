@@ -92,7 +92,7 @@
     "resourceType": "GMNineSliceData",
   },
   "parent": {
-    "name": "mario",
-    "path": "folders/Sprites/mario.yy",
+    "name": "maxverstappen",
+    "path": "folders/Sprites/mario/maxverstappen.yy",
   },
 }

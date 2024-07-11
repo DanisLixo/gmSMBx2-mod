@@ -1,6 +1,6 @@
 function collide()
 {
-	if object_index = oMario
+	if object_index = oMario || object_index = oLuigi
 	{
 		
 		collidecode = true;
@@ -29,7 +29,7 @@ function collide()
 				var block = collision_rectangle(x+1,bbox_top,x-1,bbox_top-4,oParblock,true,true)
 				
 				if block && block.blockstate = 0
-				{block.blockstate = 1; if powerup != "s" {block.triggerbreak = true;}}
+				{block.blockstate = 1; if powerup != "s" || global.player = "Toad" {block.triggerbreak = true;}}
 				if block && !place_meeting(x,y,block)
 				{sfx(sndBump,1);}
 			}
@@ -230,7 +230,7 @@ function nes_flicker()
 function mario_freeze()
 {
 	var freezing = 0;
-	if instance_exists(oMario)
+	if instance_exists(oMario) and !instance_exists(oLuigi)
 	{
 		with(oMario)
 		{if state = ps.die or state = ps.grow or state = ps.shrink {freezing = 1;}}
@@ -241,6 +241,16 @@ function mario_freeze()
 		with(oMario)
 		{if state = ps.castleending {freezing = 4;}}
 	}
-	
+	else if instance_exists(oLuigi)
+	{
+		with(oMario)
+		{if state = ps.die or state = ps.grow or state = ps.shrink {freezing = 1;}}
+		with(oMario)
+		{if state = ps.enterpipedown or state = ps.enterpiperight {freezing = 2;}}
+		with(oMario)
+		{if state = ps.flagpoledescend or state = ps.flagpolefinish {freezing = 3;}}
+		with(oMario)
+		{if state = ps.castleending {freezing = 4;}}
+	}
 	return freezing;
 }

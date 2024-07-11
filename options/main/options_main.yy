@@ -2,7 +2,7 @@
   "resourceType": "GMMainOptions",
   "resourceVersion": "1.4",
   "name": "Main",
-  "option_gameguid": "06004239-671e-4060-9cb8-6f1fdf898e4f",
+  "option_gameguid": "75c9a643-4616-4684-851e-e46323875d6c",
   "option_gameid": "0",
   "option_game_speed": 60,
   "option_mips_for_3d_textures": false,

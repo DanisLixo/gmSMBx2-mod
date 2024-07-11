@@ -8,7 +8,15 @@ if instance_place(x,y,oMario) && (instance_place(x,y,oMario).starman > 0 or inst
 if instance_place(x,y,oMario) && instance_place(x,y,oMario).shoulderbash > 0 && state != es.die && state != es.stomp
 {vspd = -2; state = es.die; dieface = (instance_place(x,y,oMario).x < x? 1 : -1); sfx(sndKick,0); oMario.shoulderbash = room_speed*0.5}
 
-
+if instance_place(x,y,oMario) && instance_place(x,y,oMario).spinnin && 
+state != es.die && state != es.stomp
+{
+	if state != es.shell {vspd = -2;}
+	if stomptype <= 0 {state = es.die;}
+	else if stomptype = 1 {if state = es.shell {state = es.shellhit} else {facingdir = -facingdir;};}
+	dieface = (instance_place(x,y,oMario).x < x? 1 : -1); 
+	sfx(sndKick,0);
+	}
 
 if state = es.patrol
 {

@@ -21,6 +21,7 @@ if start >= 1
 	if image_index >= 3
 	{
 		start = -1;
+		oMario.invincible = room_speed*4;
 	}
 	
 	start ++;

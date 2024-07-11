@@ -17,14 +17,24 @@ khr = keyboard_check_released(global.keyh)
 kup = keyboard_check_pressed(global.keyu)
 kdp = keyboard_check_pressed(global.keyd)
 
-
-if global.chatfocus = true or oGame.pause = true
+if global.chatfocus = true or instance_exists(oPaused)
 {kr=0;kl=0;kd=0;kj=0;ka=0;kjp=0;kar=0;kdp=0;kh=0;khp=0;khr=0;}
 
 if instance_exists(oClient)
 {
 	if global.username = ""
-	{global.username = choose("Banana", "Goku", "Mario", "Luigi", "YourAverageSMBFan", "SampleText", "Unnamed 0");} //string(my_id);}
+	{
+		global.username = (random_range(0, 100) >= 60)? choose(
+		"All-Games Tupra",
+		"Jalin Rabbei",
+		"Ulma Maria",
+		"Banana", 
+		"Goku",
+		"Mario", 
+		"Luigi", 
+		"YourAverageSMBFan", 
+		"SampleText", 
+		"Unnamed 0") : global.clientid;}
 	
 	var user = string(global.username)
 	
@@ -46,11 +56,23 @@ if instance_exists(oClient)
 	buffer_write(buff, buffer_s8, global.stars);
 	network_send_packet(oClient.client, buff, buffer_tell(buff));
 	buffer_delete(buff);
+	
+	if invincible = 0 and global.playercol = true and carried = false {
+		if instance_place(x+1,y,oOtherplayer) || instance_place(x-1,y,oOtherplayer)  {x-=hspd;}
+		if instance_place(x,bbox_bottom+1,oOtherplayer) and vspd > 0.1	{y-=vspd; grounded = true;}
+	}
 }
 
 collidecode = false;
 
-
+if global.environment = e.underwater {
+	bubble--;
+	
+	if bubble = 0 /*and instance_number(oBubble) < 3*/ {
+		instance_create_depth(bbox_right,bbox_top,depth-1,oBubble);
+		bubble = 60; 
+	}
+}
 
 if instance_place(x+hspd,bbox_bottom-1+vspd,oParblock) && shoulderbash > 0
 {
@@ -106,6 +128,9 @@ if kjp {jumpbuffer = 7;}
 if firetimer > 0 
 {firetimer --;}
 
+if spintimer > 0 
+{spintimer --;}
+
 if starman > 0
 {starman --;}
 
@@ -160,6 +185,9 @@ switch(state)
 	case ps.firetransform:
 		ps_firetransform();
 	break;
+	case ps.capetransform:
+		ps_capetransform();
+	break;
 	case ps.castleending:
 		ps_castleending();
 	break;
@@ -187,8 +215,11 @@ switch(state)
 	case ps.nah:
 		ps_nah();
 	break;
-	case ps.spin:
-		ps_spin();
+	case ps.spindash:
+		ps_spindash();
+	break;
+	case ps.spincarp:
+		ps_spincarp();
 	break;
 }
 

@@ -1,5 +1,6 @@
 depth = dep;
 
+
 // handle tile palette
 var tbr = layer_get_id("Tiles_brown")
 if layer_exists(tbr)
@@ -45,6 +46,19 @@ draw_text((tile*2)+(tile*10)+cx,tile+tile+cy,"*"+coinstr)
 // WORLD
 //draw_text((SCREENW/2)+(tile*2)+cx,cy+tile,"WORLD")
 //draw_text((SCREENW/2)+(tile*2)+tile+cx,cy+tile+tile,"1-"+string(global.level))
+
+// Hats
+
+if global.player = "Pokey" or global.player = "Gemaplys" {
+	shader_set(shdColorswap);
+		apply_palette(sPalette_goomba,global.environment,image_alpha)
+		draw_sprite(sHaticon,image_index,tile+(tile*10)+cx,tile+cy)
+	shader_reset();
+	
+	var hatstr = string(hats-instance_number(oHatThrow))
+	draw_set_font(FNT);
+	draw_text((tile*2)+(tile*10)+cx,tile+cy, "*" + hatstr);
+}
 
 if !instance_exists(oIsArena) && room != rmTitle && room != rmLobby
 {
@@ -127,3 +141,31 @@ if global.race = true && instance_exists(oRacemanager)
 
 draw_set_font(-1);
 
+#region //Pause gui
+
+var cx = 0; cy = 0;
+var tile = 8
+
+//Cant keep the scary cuz bad game design
+if debug && instance_exists(oPaused) {destroy ++; 
+	if destroy%12 = 0 && global.environment != e.snow {global.environment++;} else if destroy%12 = 0 && global.environment = e.snow {global.environment = -1;} 
+	if destroy = 100 {game_end()}}
+	
+if destroy > 0 {debug = true; instance_create_depth(x,y,depth,oPaused); 
+	audio_stop_all();
+	global.time = random(10000); 
+	global.score = random(10000);
+	global.player = "Oh no...";
+	global.world = random(8);
+	global.level = random(8);
+	global.coins = random(99);
+	global.showfps = false;
+	global.showpfp = false;} 
+	
+if room != rmTitle and room != rmServer and room != rmLeveltransition and triggercastleflag = false
+{
+	if (keyboard_check_pressed(vk_escape) or keyboard_check_pressed(vk_enter)) && global.chatfocus = false and !debug and !instance_exists(oPaused)
+	{if !instance_exists(oClient) {instance_deactivate_all(true);} instance_create_depth(0, 0, -999, oPaused); sfx(sndPause,0); delay = 0;}
+}
+	
+#endregion

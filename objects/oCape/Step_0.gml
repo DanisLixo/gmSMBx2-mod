@@ -1,0 +1,1 @@
+if oMario.powerup != "c" {instance_destroy()}

@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oGun",
   "spriteId": {
-    "name": "sGun",
-    "path": "sprites/sGun/sGun.yy",
+    "name": "sGun_Default",
+    "path": "sprites/sGun_Default/sGun_Default.yy",
   },
   "solid": false,
   "visible": true,
@@ -31,7 +31,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "addition",
-    "path": "folders/Objects/addition.yy",
+    "name": "Addition",
+    "path": "folders/Objects/Addition.yy",
   },
 }

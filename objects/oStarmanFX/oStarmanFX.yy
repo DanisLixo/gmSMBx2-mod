@@ -28,7 +28,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "miscfx",
-    "path": "folders/Objects/miscfx.yy",
+    "name": "Miscfx",
+    "path": "folders/Objects/Miscfx.yy",
   },
 }

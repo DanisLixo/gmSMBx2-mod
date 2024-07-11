@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oBulletdropped",
   "spriteId": {
-    "name": "sBulletdropped",
-    "path": "sprites/sBulletdropped/sBulletdropped.yy",
+    "name": "sBulletdropped_Default",
+    "path": "sprites/sBulletdropped_Default/sBulletdropped_Default.yy",
   },
   "solid": false,
   "visible": true,
@@ -29,11 +29,12 @@
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":3,"collisionObjectId":null,},
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":2,"collisionObjectId":null,},
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":1,"eventType":2,"collisionObjectId":null,},
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":8,"collisionObjectId":null,},
   ],
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "addition",
-    "path": "folders/Objects/addition.yy",
+    "name": "Addition",
+    "path": "folders/Objects/Addition.yy",
   },
 }

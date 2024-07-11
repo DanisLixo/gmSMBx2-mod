@@ -1,8 +1,10 @@
 alarm[1] = -1
-warned = 0
+warned = false;
 
 if global.insertclient = true && !instance_exists(oClient)
 {instance_create_depth(x,y,depth,oClient); global.insertclient = false;}
+
+if instance_exists(oClient) and instance_exists(oMario) {oMario.invincible = room_speed*4;}
 
 if room = rmTitle
 {
@@ -25,7 +27,7 @@ diec = 0;
 if !instance_exists(oCamera)
 {instance_create_depth(0,0,depth,oCamera);}
 
-
+pitch = 1
 audio_sound_pitch(global.ch[0],pitch)
 audio_sound_pitch(global.ch[1],pitch)
 audio_sound_pitch(global.ch[2],pitch)
@@ -44,3 +46,8 @@ else //if (room = rmTitle or room = rmServer or room = rmLobby or room = rmLevel
 {spawnx = -1; spawny = -1;}
 
 curRoom = room;
+
+if global.challenge = true {
+	global.curbgm = "Challenge"
+	bgm(global.curbgm, true);
+}

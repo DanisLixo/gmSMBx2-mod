@@ -103,15 +103,23 @@ switch (PACKET_ID) {
 		var race = buffer_read(packet,buffer_bool);
 		var schut = buffer_read(packet,buffer_bool);
 		var rtx = buffer_read(packet,buffer_bool);
+		var command = buffer_read(packet,buffer_bool);
 		var arenaindex = buffer_read(packet,buffer_s8);
+		var challenge = buffer_read(packet,buffer_bool);
+		var extra = buffer_read(packet,buffer_bool);
+		var playercol = buffer_read(packet,buffer_bool);
 	
 		global.race = race;
-		global.rtxmode = rtx;
 		global.schutmode = schut;
+		global.rtxmode = rtx;
+		global.commandenys = command;
 		global.arena = arenaindex
+		global.challenge = challenge
+		global.extra = extra
+		global.playercol = playercol
 		
 		if global.arena = 0
-		{room_goto(rm1_1);}
+		{if global.extra = false {room_goto(rm1_1);} else {room_goto(rmExtra)}}
 		else
 		{room_goto(asset_get_index("rmArena_"+string(global.arena-1)));}
 	
@@ -142,7 +150,7 @@ switch (PACKET_ID) {
 		//if that player exists, find and destroy them for all clients
 		if (disconnect_id != idd) {
 			if (!is_undefined(disconnect_player)) {
-				//destroy the player disconnecting
+				//destaroy the player disconnecting
 				with (disconnect_player) { instance_destroy(); }	
 				
 				//display in chat that they left the game

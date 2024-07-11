@@ -7,7 +7,7 @@ switch(state)
 	case es.patrol:
 	
 	if eggd = -1 
-	{sprite_index = sSpinyegg; hspd = 0; if place_meeting(x,y+3,oCol) {eggd += 1}}
+	{sprite_index = sSpinyegg; hspd = 0; if place_meeting(x,y+3,oCol) {eggd++}}
 	
 	if place_meeting(x+facingdir,y,oCol)
 	{facingdir = -facingdir}

@@ -6,3 +6,4 @@ face = 1;
 depth = -9999
 can = true
 
+spr = gs("sGun_Default")

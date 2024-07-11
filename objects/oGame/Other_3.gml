@@ -1,1 +1,1 @@
-if debug && pause {show_message("Don't do that again.");}
+if debug && instance_exists(oPaused) {show_message("Don't do that again.");}

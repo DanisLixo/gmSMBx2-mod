@@ -57,7 +57,7 @@ if (global.chatfocus = true)
 var chatx = SCREENW/2+24
 var chaty = SCREENH/2+48
 
-/*if (global.chatfocus)
+if (global.chatfocus)
 {
 	draw_set_color(c_black)
 	draw_set_alpha(0.5)
@@ -78,7 +78,6 @@ else
 	draw_text(chatx+2, chaty, "Press TAB to chat.");
 	draw_set_alpha(1);
 }
-*/
 
 
 //Draw messages from the chat

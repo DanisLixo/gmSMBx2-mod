@@ -34,7 +34,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "level",
-    "path": "folders/Objects/level.yy",
+    "name": "Pipetriggers",
+    "path": "folders/Objects/Level/Pipetriggers.yy",
   },
 }

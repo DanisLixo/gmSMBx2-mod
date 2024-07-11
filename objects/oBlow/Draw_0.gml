@@ -1,0 +1,1 @@
+draw_sprite(sBlow,-1,x,y)

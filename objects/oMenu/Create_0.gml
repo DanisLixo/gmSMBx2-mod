@@ -1,8 +1,7 @@
 menu = ds_grid_create(10,9)
 optionsnum = array_create(10,0)
 
-playwillsendmetothisroom = rmLeveltransition
-extrawillsendmetothisroom = rmLeveltransition
+timetoparty = rmLeveltransition
 
 section = 0;
 if section = 0
@@ -58,7 +57,7 @@ addmenu(7,0,"TOGGLE FULLSCREEN")
 addmenu(7,1,"RESET WINDOW")
 addmenu(7,2,"DISCORD PFP - ")
 addmenu(7,3,"SHOW FPS - ")
-addmenu(7,4,"ASPECT RATIO - ")
+addmenu(7,4,"RESOLUTION - ")
 addmenu(7,5,"BACK")
 
 addmenu(8,0,"UP")
@@ -83,6 +82,7 @@ addplist = function(name,creator)
 {
 	ds_list_add(playerlist,name);
 	ds_list_add(creatorlist,creator);
+	//ds_list_add(creatorlist,insertor);
 }
 
 category = "Characters"
@@ -97,7 +97,7 @@ addplist("Wario","sans1m0n")
 addplist("Goomba","seven")
 addplist("Sonic","pixelmarioxp")
 //OCs
-ocslist = charslist + 8
+ocslist = charslist + 9
 
 addplist("Bredi","bredi")
 addplist("Goober","toasterman")
@@ -107,6 +107,7 @@ addplist("Seven","seven")
 addplist("SucculentKicker","dermo")
 addplist("Goldron","goldron")
 addplist("Dawn","dawnlr")
+addplist("Feathy","buchotnik da dolly")
 //LQ jokes
 lqlist = ocslist + 6
 
@@ -167,5 +168,11 @@ curplayersel = 0;
 
 depth = -9999
 
-transtext = (global.aspectratio = 1)? 0.8 : 1
-aspectapply = false
+transtext = (global.aspectratio = "ORIGINAL")? 0.8 : 1
+
+if global.aspectratio = "WIDESCREEN" {inithorse = 0;}
+if global.aspectratio = "ORIGINAL" {inithorse = 1;}
+if global.aspectratio = "ULTRA WIDE" {inithorse = 2;}
+horse = inithorse;
+
+resapply = false;

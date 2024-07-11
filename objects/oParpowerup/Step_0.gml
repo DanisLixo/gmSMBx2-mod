@@ -11,7 +11,6 @@ if mario_freeze() != 1
 	else
 	{
 		depth = 0;
-	
 		if instance_place(x,y,oMario)
 		{
 			pufunc();

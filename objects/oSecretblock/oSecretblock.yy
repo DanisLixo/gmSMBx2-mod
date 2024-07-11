@@ -35,7 +35,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "level",
-    "path": "folders/Objects/level.yy",
+    "name": "Collidables",
+    "path": "folders/Objects/Level/Collidables.yy",
   },
 }

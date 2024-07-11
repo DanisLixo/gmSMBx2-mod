@@ -3,6 +3,7 @@ vspd = 0;
 grounded = false;
 collidecode = false;
 global.stars = 0 
+bubble = 60;
 
 my_id = global.clientid
 dancechance = random(100)
@@ -18,12 +19,13 @@ retrochance = random(100)
 		enterpiperight,
 		exitpipeup,
 		crouch,
-		spin,
+		spindash,
 		grow,
 		shrink,
 		flagpoledescend,
 		flagpolefinish,
 		firetransform,
+		capetransform,
 		castleending,
 		swim,
 		swimidle,
@@ -33,6 +35,7 @@ retrochance = random(100)
 		emerge,
 		dance0,
 		nah,
+		spincarp,
 		title
 	} 
 state = ps.normal
@@ -81,6 +84,11 @@ spinboost = 0;
 spinclicks = 0;
 sdcheck = false;
 sound = false;
+
+spintimer = 0
+spinnin = false
+
+carried = false;
 
 if !place_meeting(x,y+1,oCol)
 {spr = ms("sMario_{}_walk");}
