@@ -1,6 +1,6 @@
 hspd = -0.3;
 vspd = 0;
-life = 8;
+life = 5;
 facingdir = -1
 state = 1
 firetimer = 0;

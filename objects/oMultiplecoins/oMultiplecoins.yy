@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oMultiplecoins",
   "spriteId": {
-    "name": "sMultipleCoins",
-    "path": "sprites/sMultipleCoins/sMultipleCoins.yy",
+    "name": "sMultiplecoins",
+    "path": "sprites/sMultiplecoins/sMultiplecoins.yy",
   },
   "solid": false,
   "visible": true,

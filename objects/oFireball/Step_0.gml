@@ -10,7 +10,7 @@ if place_meeting(x+facing,y,oCol)
 if instance_place(x,y,oParenemy) && instance_place(x,y,oParenemy).stomptype = 2
 {instance_destroy(); instance_create_depth(x-8,y-8,depth-1,oFireworks).image_speed *= 1.5; sfx(sndBump,1);}
 
-if instance_place(x,y,oParenemy) && instance_place(x,y,oParenemy).state != es.die && instance_place(x,y,oParenemy).state != es.stomp and instance_place(x,y,oParenemy).stomptype <= 1
+if instance_place(x,y,oParenemy) && instance_place(x,y,oParenemy).state != es.die && instance_place(x,y,oParenemy).state != es.stomp and instance_place(x,y,oParenemy).stomptype != 2
 {
 	sfx(sndKick,1);
 	instance_create_depth(x-8,y-8,depth-1,oFireworks).image_speed *= 1.5;

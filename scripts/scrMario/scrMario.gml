@@ -828,7 +828,8 @@ function ps_swim()
 	vspd -= 0.2;
 	
 	do_jump();
-	do_spincarp()
+	do_spincarp();
+	do_fire();
 	collide();
 }
 function ps_swimidle()
@@ -864,6 +865,7 @@ function ps_swimidle()
 	
 	do_jump();
 	do_spincarp();
+	do_fire();
 	collide();
 	
 	if grounded

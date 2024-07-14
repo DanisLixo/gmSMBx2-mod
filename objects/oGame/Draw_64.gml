@@ -61,7 +61,7 @@ if room != rmTitle and room != rmServer and room != rmLeveltransition && global.
 					case 2: global.freecam = !global.freecam; break;
 					case 3: global.trippymode = !global.trippymode; break;
 					case 4: global.commandenys = !global.commandenys; break;
-					case 5: if global.environment != e.snow {global.environment += 1;} else {global.environment = -1;} break;
+					case 5: if global.environment != e.night {global.environment++} else {global.environment = -1;} break;
 					case 6: 
 						var _gr = get_string("ROOM NAME", room_get_name(room));
 						if room_exists(asset_get_index(_gr))	{room_goto(asset_get_index(_gr));}

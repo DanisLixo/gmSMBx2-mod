@@ -162,9 +162,11 @@ if destroy > 0 {debug = true; instance_create_depth(x,y,depth,oPaused);
 	global.showfps = false;
 	global.showpfp = false;} 
 	
+	if delay < 11 {delay++}
+	
 if room != rmTitle and room != rmServer and room != rmLeveltransition and triggercastleflag = false
 {
-	if (keyboard_check_pressed(vk_escape) or keyboard_check_pressed(vk_enter)) && global.chatfocus = false and !debug and !instance_exists(oPaused)
+	if (keyboard_check_pressed(vk_escape) or keyboard_check_pressed(vk_enter)) && global.chatfocus = false and !debug and !instance_exists(oPaused) and delay > 10
 	{if !instance_exists(oClient) {instance_deactivate_all(true);} instance_create_depth(0, 0, -999, oPaused); sfx(sndPause,0); delay = 0;}
 }
 	

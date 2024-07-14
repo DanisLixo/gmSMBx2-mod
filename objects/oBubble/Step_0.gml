@@ -5,4 +5,4 @@ else if vspd <= 0.25 {hiccup = 1}
 if hiccup = 0 {vspd -= 0.1}
 if hiccup = 1 {vspd += 0.1}
 
-if y < 32 {instance_destroy()}
+if y < 36 {instance_destroy()}

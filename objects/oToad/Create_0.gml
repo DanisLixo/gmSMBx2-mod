@@ -14,3 +14,5 @@ collided = false;
 modernmode = true;
 
 moving = false
+
+nah = false;

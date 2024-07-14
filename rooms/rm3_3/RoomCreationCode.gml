@@ -1,4 +1,4 @@
-global.environment = e.overworld
+global.environment = e.night
 global.curbgm = "OW"
 bgm(global.curbgm,true)
 

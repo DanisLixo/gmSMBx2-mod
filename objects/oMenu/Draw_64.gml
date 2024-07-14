@@ -79,7 +79,7 @@ for (var i = 0; i < optionsnum[section]; i ++;)
 	var backapply = (resapply)? "APPLY" : menu[# section, i];
 	if i = sel	{
 	shader_set(shdColorswap);
-		apply_palette(sPalette_gold,global.environment,image_alpha)
+		apply_palette(sPalette_gold,global.environment+1,image_alpha)
 		draw_sprite(sMushsel,oGame.image_index,xx-16,yy+(i*tsep));
 	shader_reset();
 	}

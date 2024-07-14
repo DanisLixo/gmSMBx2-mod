@@ -13,7 +13,7 @@
   "bbox_left": 0,
   "bbox_right": 3,
   "bbox_top": 0,
-  "bbox_bottom": 5,
+  "bbox_bottom": 6,
   "HTile": false,
   "VTile": false,
   "For3D": false,
@@ -68,7 +68,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "palette",
-    "path": "folders/Sprites/palette.yy",
+    "name": "enemies",
+    "path": "folders/Sprites/palette/enemies.yy",
   },
 }

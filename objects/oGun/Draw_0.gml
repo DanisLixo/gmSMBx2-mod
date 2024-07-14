@@ -36,7 +36,7 @@ if mouse_check_button(mb_left) && image_index = 0
 	bd.hspd = -face*5
 }
 
-spr = gs("sDefaultgun");
+spr = gs("sGun_Default");
 draw_sprite_ext(spr,image_index,x+lenx,y+3+leny,1,face,mdir,-1,image_alpha)
 
 

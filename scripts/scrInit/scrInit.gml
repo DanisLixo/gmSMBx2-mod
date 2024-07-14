@@ -20,11 +20,14 @@ function init()
 	#macro SCREENW_WS 426
 	#macro SCREENW_OG 256
 	#macro SCREENW_UW 586
-	#macro SCREENH 240 // 232 // 240 
+	#macro SCREENH_WS 240 // 232 // 240 
+	#macro SCREENH_OG 232 // 232 // 240 
 	
 	globalvar SCREENW; SCREENW = SCREENW_WS;
+	globalvar SCREENH; SCREENH = SCREENH_WS;
 	if global.aspectratio = "ORIGINAL" {
 		SCREENW = SCREENW_OG
+		SCREENH = SCREENH_OG
 	}
 	else if global.aspectratio = "ULTRA WIDE" {
 		SCREENW = SCREENW_UW
@@ -84,6 +87,7 @@ function init()
 		underwater,
 		mushroom,
 		snow,
+		night,
 	}
 	global.environment = e.overworld
 

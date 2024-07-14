@@ -22,6 +22,7 @@ global.curbgm = "OW"
 
 global.prevroom = room;
 
+//alarm[0] = 3
 
 timeup = 0;
 

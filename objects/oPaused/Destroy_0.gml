@@ -1,3 +1,4 @@
+oGame.delay = 0;
 instance_activate_all();
 audio_resume_sound(global.ch[0]);
 audio_resume_sound(global.ch[1]);

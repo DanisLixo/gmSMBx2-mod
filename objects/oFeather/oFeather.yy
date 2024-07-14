@@ -36,7 +36,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Unputtubles",
-    "path": "folders/Objects/Level/Unputtubles.yy",
+    "name": "Powerups",
+    "path": "folders/Objects/Level/Powerups.yy",
   },
 }

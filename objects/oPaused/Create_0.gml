@@ -177,5 +177,3 @@ if global.aspectratio = "WIDESCREEN" {inithorse = 0;}
 if global.aspectratio = "ORIGINAL" {inithorse = 1;}
 if global.aspectratio = "ULTRA WIDE" {inithorse = 2;}
 horse = inithorse;
-
-resapply = false;

@@ -10,10 +10,27 @@ if room != rmTitle {
 		draw_text(24,8*6,"HSPD - " + string(oFeather.hspd));
 		
 	}*/
-	if instance_exists(oBubble) {
+	/*if instance_exists(oBlooper) {
 		draw_set_font(font);
-		draw_text(24,8*5,"VSPD - " + string(oBubble.vspd));
-		
+		draw_text(24,8*4,"VSPD - " + string(oBlooper.vspd));
+		draw_set_font(font);
+		draw_text(24,8*5,"MOVEMENT - " + string(oBlooper.movement));
+		draw_set_font(font);
+		draw_text(24,8*6,"MAY TURN - " + string(oBlooper.turnchance));
+		draw_set_font(font);
+		draw_text(24,8*7,"VERTICAL LIMIT - " + string(oBlooper.vlimit));
+	}*/
+	if instance_exists(o2Cheep) {
+		draw_set_font(font);
+		draw_text(24,8*4,"VSPD - " + string(o2Cheep.vspd));
+		draw_set_font(font);
+		draw_text(24,8*5,"MOVEMENT - " + string(o2Cheep.hspd));
+		draw_set_font(font);
+		draw_text(24,8*6,"UP 0 ... DOWN 1 - " + string(o2Cheep.dir));
+		draw_set_font(font);
+		draw_text(24,8*7,"VERTICAL LIMIT - " + string(o2Cheep.vlimit));
+		draw_set_font(font);
+		draw_text(24,8*8,"Y START - " + string(o2Cheep.ystart));
 	}
 	/*draw_set_font(font);
 	draw_text(24,8*4,"HSPD - " + string(oMario.hspd));

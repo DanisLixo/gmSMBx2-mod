@@ -4,6 +4,8 @@ if place_meeting(x,y,oMario) && collided = false
 	alarm[0] = room_speed * 1.5
 }
 
+if oMario.state = ps.nah {nah = true; sfx(sndBump,0);}
+
 if instance_place(x,y,oBullet){instance_destroy()}
 
 if instance_place(x-1,y,oMario) && global.moveenys = true && oMario.state = ps.nah && global.player != "Dawn" 

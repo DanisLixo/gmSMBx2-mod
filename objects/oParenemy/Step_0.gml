@@ -1,4 +1,4 @@
-event_inherited()
+ event_inherited()
 
 //nes_flicker()
 
@@ -12,8 +12,8 @@ if instance_place(x,y,oMario) && instance_place(x,y,oMario).spinnin &&
 state != es.die && state != es.stomp
 {
 	if state != es.shell {vspd = -2;}
-	if stomptype <= 0 {state = es.die;}
-	else if stomptype = 1 {if state = es.shell {state = es.shellhit} else {facingdir = -facingdir;};}
+	if stomptype <= 0 or stomptype = 3 {state = es.die;}
+	else if stomptype = 1 {if state = es.shell {state = es.shellhit} else {state = es.shell}}
 	dieface = (instance_place(x,y,oMario).x < x? 1 : -1); 
 	sfx(sndKick,0);
 	}
@@ -27,7 +27,7 @@ if state = es.patrol
 	{
 		m.gethit = 1;
 	}
-	if m && m.y < bbox_bottom-2 && m.grounded = false && stomptype <= 2 && m.vspd > 0
+	if m && m.y < bbox_bottom-2 && m.grounded = false && m.vspd > 0
 	{
 		if stomptype = -1
 		{m.gethit = 1;}
@@ -36,7 +36,9 @@ if state = es.patrol
 			sfx(sndStomp,0)
 			if stomptype = 0
 			{state = es.stomp; m.vspd = -3; m.holdjump = 0; BLAST()}
-			else if stomptype >= 1
+			if stomptype = 3
+			{state = es.die; m.vspd = -3; m.holdjump = 0; BLAST()}
+			else if stomptype >= 1 and stomptype < 3
 			{
 				state = es.shell;
 				m.vspd = -3; m.holdjump = 0; BLAST(); vspd = 0; hspd = 0;
@@ -94,7 +96,7 @@ if state = es.die
 	vspd += 0.15;
 	image_yscale = -abs(image_yscale);
 	
-	x += hspd;
+	if stomptype != 3 and cheeptype = -1 {x += hspd;}
 	y += vspd;
 }
 

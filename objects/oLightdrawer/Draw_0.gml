@@ -1,12 +1,14 @@
 if global.rtxmode = true && instance_exists(oMario)
 {
+	changeenv = true
 	image_alpha = lerp(image_alpha,maxalp,.1)
 	if instance_exists(oGame)
 	{oGame.dep = depth-1;}
-	global.environment = e.underground;
+	if global.environment != e.underwater and changeenv {global.environment = e.underground;}
 }
 else
 {
+	if changeenv {global.environment = prevenv; changeenv = false;}
 	image_alpha = lerp(image_alpha,0,.1)
 }
 
