@@ -66,7 +66,7 @@ if room != rmTitle and room != rmServer and room != rmLeveltransition && global.
 						var _gr = get_string("ROOM NAME", room_get_name(room));
 						if room_exists(asset_get_index(_gr))	{room_goto(asset_get_index(_gr));}
 					break;
-					case 7: global.player = get_string("PLAYER NAME (IN-GAME CHARACTERS ONLY)", global.player) break;
+					case 7: if instance_exists(oLuigi) {oLuigi.char = get_string("PLAYER NAME (IN-GAME CHARACTERS ONLY)", oLuigi.char)} break;
 				}
 			}
 		}
@@ -129,7 +129,7 @@ if loadscreen > -1
 
 #region respawn
 
-if instance_exists(oMario) && oMario.state = ps.die
+if instance_exists(oMario) && oMario.state = ps.die and instance_number(oMario) < 2
 {
 	diec ++;
 	

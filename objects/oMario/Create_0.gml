@@ -4,6 +4,10 @@ grounded = false;
 collidecode = false;
 global.stars = 0 
 bubble = 60;
+combo = 0
+mycapeative = false;
+
+char = global.player;
 
 my_id = global.clientid
 dancechance = random(100)
@@ -33,6 +37,7 @@ retrochance = random(100)
 		shoulderbashend,
 		climb,
 		emerge,
+		fly,
 		dance0,
 		nah,
 		spincarp,
@@ -71,10 +76,11 @@ starman = 0;
 castleendingtrigger = false;
 shoulderbash = 0;
 climb = 0;
-spin = false
 firepal = false
 
 starman = 0;
+
+jumps = 0
 
 pipeinforoom = rm1_1
 
@@ -82,18 +88,23 @@ finishedrace = false;
 
 spinboost = 0;
 spinclicks = 0;
+spin = false
 sdcheck = false;
 sound = false;
 
 spintimer = 0
-spinnin = false
+flytimer = 0
+fly = false
+flymoved = false
+pmach = 0;
+pmet = 0
+
+pind = 0;
 
 carried = false;
 
 if !place_meeting(x,y+1,oCol)
 {spr = ms("sMario_{}_walk");}
-
-
 
 if instance_exists(oBeanstalk) && instance_nearest(x,y,oBeanstalk).emerge = true && distance_to_object(instance_nearest(x,y,oBeanstalk)) <= 32
 {state = ps.emerge; depth = instance_nearest(x,y,oBeanstalk).depth-10; x = instance_nearest(x,y,oBeanstalk).x+8; y = room_height+16; }

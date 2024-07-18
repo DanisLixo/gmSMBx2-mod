@@ -4,4 +4,4 @@ bgm(global.curbgm,true)
 
 
 global.level = 4;
-global.world = 2;
+global.world = 4;

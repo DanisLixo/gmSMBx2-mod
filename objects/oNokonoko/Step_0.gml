@@ -69,6 +69,8 @@ switch(state)
 			state = es.shellhit;
 			sfx(sndKick,0)
 			shellcooldown = 5;
+			
+			if !grounded {points(8000,true)}
 		}
 		
 	

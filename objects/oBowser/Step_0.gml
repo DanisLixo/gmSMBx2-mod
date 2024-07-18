@@ -70,13 +70,14 @@ if !instance_exists(oAxe) && die = false
 
 if die = true && round(y) > ystart+2 && oBowser.state != -1
 {
+	//if bboxturn {y = bbox_top; vspd = -2; bboxturn = false; sfx(sndBowserdie,1);}
 	sfx(sndBowserdie,1);
 	die = 2;
 	image_speed = 0;
 	hspd = 0;
 }
 
-if !grounded
+if !grounded and state != -1
 {vspd -= 0.3;}
 vspd = clamp(vspd,-4,3);
  

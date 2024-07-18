@@ -26,19 +26,46 @@ if room != rmTitle {
 		draw_set_font(font);
 		draw_text(24,8*5,"MOVEMENT - " + string(o2Cheep.hspd));
 		draw_set_font(font);
-		draw_text(24,8*6,"UP 0 ... DOWN 1 - " + string(o2Cheep.dir));
+		draw_text(24,8*6,"UP 0 ... DOWN 1 - " + string(o2Cheep.facingdir));
 		draw_set_font(font);
 		draw_text(24,8*7,"VERTICAL LIMIT - " + string(o2Cheep.vlimit));
 		draw_set_font(font);
 		draw_text(24,8*8,"Y START - " + string(o2Cheep.ystart));
 	}
+	
+	/*if instance_exists(oRope) {
+		var scheck = (instance_nearest(oMario.x, oMario.y, oRope).platformcheck)? "YES" : "NAH"
+		draw_set_font(font);
+		draw_text(24,8*4,"PLATFORM CHECKED BY ROPE - " + scheck);
+		draw_set_font(font);
+		draw_text(24,8*5,"ROPE SCALE - " + string(instance_nearest(oMario.x, oMario.y, oRope).image_yscale));
+		
+	}*/
+	//draw_set_font(font);
+	//draw_text(24,8*8,"CALC IS A SLANG FOR CALCULATOR CHAT - " + string(round(SCREENW/85)));
+	
+	draw_set_font(font);
+	draw_text(24,8*4,"VSPD - " + string(oMario.vspd));
+	
+	draw_set_font(font);
+	draw_text(24,8*5,"HSPD - " + string(oMario.hspd));
+	
+	draw_set_font(font);
+	draw_text(24,8*6,"FLY - " + string(oMario.flytimer));
+	
+	draw_set_font(font);
+	draw_text(24,8*7,"CAN WHOOSH - " + string(oMario.fly));
+	
+	draw_set_font(font);
+	draw_text(24,8*8,"P COUNT TO METER - " + string(oMario.pmet));
+	
+	draw_set_font(font);
+	draw_text(24,8*9,"P - " + string(oMario.pmach));
+	
+	draw_set_font(font);
+	draw_text(24,8*10,"PLAYERS - " + string(instance_number(oMario)));
+
 	/*draw_set_font(font);
-	draw_text(24,8*4,"HSPD - " + string(oMario.hspd));
-
-	draw_set_font(font);
-	draw_text(24,8*5,"VSPD - " + string(oMario.vspd));
-
-	draw_set_font(font);
 	draw_text(24,8*6,"ON GROUND - " + string_upper(oMario.grounded));
 	
 	draw_set_font(font);
@@ -67,9 +94,9 @@ if room != rmTitle {
 	draw_text(24,8*9,"TIME UP TRIGGER - " + string(oGame.timeup));
 	
 	draw_set_font(font);
-	draw_text(24,8*10,"DELAY CLICK - " + string(oGame.delay));*/
+	draw_text(24,8*10,"DELAY CLICK - " + string(oGame.delay));
 	
-	/*draw_set_font(font);
+	draw_set_font(font);
 	draw_text(24,8*4,"MARIO X - " + string(oMario.x));
 	
 	draw_set_font(font);
@@ -82,12 +109,6 @@ if room != rmTitle {
 	draw_set_font(font);
 	draw_text(24,8*7,"REGISTRED CX - " + string(cx));
 	
-	if instance_exists(oRope) {
-		var scheck = (instance_nearest(oMario.x, oMario.y, oRope).platformcheck)? "YES" : "NAH"
-		draw_set_font(font);
-		draw_text(24,8*4,"PLATFORM CHECKED BY ROPE - " + scheck);
-		draw_set_font(font);
-		draw_text(24,8*5,"ROPE SCALE - " + string(instance_nearest(oMario.x, oMario.y, oRope).image_yscale));
-		
-	}*/
+	draw_set_font(font);
+	draw_text(24,8*4,"JUMPS - " + string(oMario.jumps));*/
 }

@@ -35,7 +35,7 @@ if instance_place(x,y,oMario) && instance_place(x,y,oMario).starman > 0
 if instance_place(x,y,oMario) && instance_place(x,y,oMario).shoulderbash > 0
 {sfx(sndKick,0); oMario.shoulderbash = room_speed*0.5; instance_destroy();}
 
-if instance_place(x,y,oMario) && instance_place(x,y,oMario).spinnin
+if instance_place(x,y,oMario) && instance_place(x,y,oMario).spintimer > 0
 {instance_destroy(); sfx(sndKick,0);}
 
 var m = instance_place(x,y,oMario)

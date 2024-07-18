@@ -16,7 +16,6 @@ if !instance_exists(oClient)
 	audio_sound_pitch(global.ch[2],pitch)
 	audio_sound_pitch(global.ch[3],pitch)
 	audio_sound_pitch(global.ch[4],pitch)
-	global.time++;
 	audio_pause_sound(global.ch[0]);
 	audio_pause_sound(global.ch[1]);
 	audio_pause_sound(global.ch[2]);

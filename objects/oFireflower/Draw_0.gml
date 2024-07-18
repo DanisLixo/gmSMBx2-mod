@@ -1,14 +1,14 @@
  if !onview()
 {exit;}
 
-if global.player =  "Pokey" or global.player =  "Gemaplys" {
+if instance_nearest(x,y,oMario).char =  "Pokey" or instance_nearest(x,y,oMario).char =  "Gemaplys" {
 shader_set(shdColorswap);
 	apply_palette(sPalette_goomba,global.environment,1)
 	draw_sprite(sFireHat,0,x,y);
 shader_reset();
 }
 
-else if global.player = "Dawn" {
+else if instance_nearest(x,y,oMario).char = "Dawn" {
 	draw_sprite(sFirebow,0,x,y);
 }
 else {

@@ -1,8 +1,9 @@
 
 if blockstate = 0
 {
+	var m = instance_place(x,y,oMario)
 	image_index = 1
-	if instance_exists(oMario) && instance_place(x,y,oMario) && oMario.vspd < 0 && oMario.bbox_top >= bbox_bottom-8
+	if instance_exists(oMario) && m && m.vspd < 0 && m.bbox_top >= bbox_bottom-8
 	{
 		blockstate = 1;
 		instance_create_depth(x,y,depth,oCol);

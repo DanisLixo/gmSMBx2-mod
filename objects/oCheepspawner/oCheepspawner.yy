@@ -2,7 +2,10 @@
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
   "name": "oCheepspawner",
-  "spriteId": null,
+  "spriteId": {
+    "name": "sCheepspawner",
+    "path": "sprites/sCheepspawner/sCheepspawner.yy",
+  },
   "solid": false,
   "visible": false,
   "managed": true,

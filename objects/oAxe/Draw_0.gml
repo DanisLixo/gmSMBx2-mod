@@ -18,6 +18,11 @@ if instance_place(x,y,oMario)
 	
 	instance_place(x,y,oMario).state = ps.castleending
 	if instance_exists(oBridgemask)
-	{instance_nearest(x,y,oBridgemask).active = 1; instance_nearest(x,y,oBridgemask).alarm[0] = 10;}
+	{
+		if instance_exists(oBowser) {instance_nearest(x,y,oBridgemask).active = 1; 
+									instance_nearest(x,y,oBridgemask).alarm[0] = 10;} 
+									
+		else {instance_nearest(x,y,oBridgemask).active = 3; 
+			instance_nearest(x,y,oBridgemask).alarm[4] = 10;}}
 	instance_destroy();
 }

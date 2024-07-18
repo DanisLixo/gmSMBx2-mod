@@ -8,7 +8,7 @@ if instance_place(x,y,oMario) && (instance_place(x,y,oMario).starman > 0 or inst
 if instance_place(x,y,oMario) && instance_place(x,y,oMario).shoulderbash > 0 && state != es.die && state != es.stomp
 {vspd = -2; state = es.die; dieface = (instance_place(x,y,oMario).x < x? 1 : -1); sfx(sndKick,0); oMario.shoulderbash = room_speed*0.5}
 
-if instance_place(x,y,oMario) && instance_place(x,y,oMario).spinnin && 
+if instance_place(x,y,oMario) && instance_place(x,y,oMario).spintimer > 0 && 
 state != es.die && state != es.stomp
 {
 	if state != es.shell {vspd = -2;}
@@ -23,27 +23,26 @@ if state = es.patrol
 	if instance_place(x+facingdir,y,oPiranha)
 		{facingdir = -facingdir;}
 	var m = instance_place(x,y,oMario)
-	if m && m.y >= bbox_bottom-2 && (m.vspd <= 0 or m.grounded)
-	{
-		m.gethit = 1;
-	}
-	if m && m.y < bbox_bottom-2 && m.grounded = false && m.vspd > 0
+	if m && m.y >= bbox_bottom-2 && (m.vspd <= 0 or m.grounded) {m.gethit = 1;}
+	if m && m.y < bbox_bottom-2 && m.grounded = false && m.vspd > 0 or m and m.char = "Sonic" and m.state = ps.jump
 	{
 		if stomptype = -1
 		{m.gethit = 1;}
 		else {
-			points(100,true);
+			oMario.combo++
+			points(oMario.combo,true);
 			sfx(sndStomp,0)
 			if stomptype = 0
-			{state = es.stomp; m.vspd = -3; m.holdjump = 0; BLAST()}
+			{state = es.stomp; m.vspd = -3; m.holdjump = 20; BLAST()}
 			if stomptype = 3
-			{state = es.die; m.vspd = -3; m.holdjump = 0; BLAST()}
+			{state = es.die; m.vspd = -3; m.holdjump = 20; BLAST()}
 			else if stomptype >= 1 and stomptype < 3
 			{
 				state = es.shell;
-				m.vspd = -3; m.holdjump = 0; BLAST(); vspd = 0; hspd = 0;
+				m.vspd = -3; m.holdjump = 20; BLAST(); vspd = 0; hspd = 0;
 				shellcooldown = 10
 			}
+			if m.char = "Sonic" {state = es.die; m.vspd = -3; m.holdjump = 30; BLAST()}
 		}
 	}
 }
@@ -51,20 +50,19 @@ if state = es.patrol
 if state = es.patrolwinged
 {
 	var m = instance_place(x,y,oMario)
-	if m && m.y >= bbox_bottom-2 && (m.vspd <= 0 or m.grounded) && global.player != "Sonic"
+	if m && m.y >= bbox_bottom-2 && (m.vspd <= 0 or m.grounded) {m.gethit = 1;}
+	if m && m.y < bbox_bottom-2 && m.grounded = false && stomptype <= 1 && m.vspd > 0 or m and m.char = "Sonic" and m.state = ps.jump
 	{
-		m.gethit = 1;
-	}
-	if m && m.y < bbox_bottom-2 && m.grounded = false && stomptype <= 1 && m.vspd > 0
-	{
-		points(100,true);
+		oMario.combo++
+		points(oMario.combo,true);
 		sfx(sndStomp,0)
 		if stomptype >= 1
 		{
 			state = es.patrol;
-			m.vspd = -3; m.holdjump = 0; BLAST(); vspd = 0; hspd = 0;
+			m.vspd = -3; m.holdjump = 20; BLAST(); vspd = 0; hspd = 0;
 			shellcooldown = 10
 		}
+		if m.char = "Sonic" {state = es.die; m.vspd = -3; m.holdjump = 20; BLAST()}
 	}
 }
 

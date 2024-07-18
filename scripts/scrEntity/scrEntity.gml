@@ -29,7 +29,7 @@ function collide()
 				var block = collision_rectangle(x+1,bbox_top,x-1,bbox_top-4,oParblock,true,true)
 				
 				if block && block.blockstate = 0
-				{block.blockstate = 1; if powerup != "s" || global.player = "Toad" {block.triggerbreak = true;}}
+				{block.blockstate = 1; if powerup != "s" || instance_nearest(x,y,oMario).char = "Toad" {block.triggerbreak = true;}}
 				if block && !place_meeting(x,y,block)
 				{sfx(sndBump,1);}
 			}
@@ -96,15 +96,15 @@ function collide()
 		vspd = clamp(vspd,-99999,5);
 		
 		
-		if object_index = oMario && vspd > 0 && !grounded
+		if (object_index = oMario || object_index = oLuigi) && vspd > 0 && !grounded
 		{vspd -= 0.1;}
 	
 	
-		if object_index = oMario && !instance_exists(oIsArena)
+		if (object_index = oMario || object_index = oLuigi) && !instance_exists(oIsArena)
 		{
 			x = clamp(x,8,room_width-8);
 			x = clamp(x,camera_get_view_x(view_camera[0])+8,room_width-8);
-			y = clamp(y,0,room_height+64);
+			y = clamp(y,-8,room_height+64);
 		}
 		
 		if instance_place(x,y,oCol) //&& instance_place(x,y,oCol).object_index != oElevator
@@ -230,18 +230,7 @@ function nes_flicker()
 function mario_freeze()
 {
 	var freezing = 0;
-	if instance_exists(oMario) and !instance_exists(oLuigi)
-	{
-		with(oMario)
-		{if state = ps.die or state = ps.grow or state = ps.shrink {freezing = 1;}}
-		with(oMario)
-		{if state = ps.enterpipedown or state = ps.enterpiperight {freezing = 2;}}
-		with(oMario)
-		{if state = ps.flagpoledescend or state = ps.flagpolefinish {freezing = 3;}}
-		with(oMario)
-		{if state = ps.castleending {freezing = 4;}}
-	}
-	else if instance_exists(oLuigi)
+	if instance_exists(oMario) and instance_number(oMario) = 1
 	{
 		with(oMario)
 		{if state = ps.die or state = ps.grow or state = ps.shrink {freezing = 1;}}

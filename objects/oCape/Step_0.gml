@@ -1,1 +1,1 @@
-if oMario.powerup != "c" {instance_destroy()}
+if m.powerup != "c" {instance_destroy()}

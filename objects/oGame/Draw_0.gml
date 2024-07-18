@@ -60,6 +60,16 @@ if global.player = "Pokey" or global.player = "Gemaplys" {
 	draw_text((tile*2)+(tile*10)+cx,tile+cy, "*" + hatstr);
 }
 
+// P meter
+if instance_exists(oMario) and (oMario.powerup = "c" || global.player = "Feathy") {
+	shader_set(shdColorswap);
+		apply_palette(sPalette_gold,global.environment+1,image_alpha)
+		draw_sprite(sPmeter,oMario.pind,tile+(tile*10)+cx,tile+cy)
+		draw_sprite(sPmeterbig,oMario.pind,(tile*5)+cx,(SCREENH-(240/2))+(tile*13)+cy)
+	shader_reset();
+}
+
+
 if !instance_exists(oIsArena) && room != rmTitle && room != rmLobby
 {
 	draw_text((SCREENW-(256/2))+(tile*2)+cx,cy+tile,"WORLD")

@@ -1,4 +1,4 @@
-if place_meeting(x,y,oMario) && (oMario.state = ps.flagpolefinish or oMario.state = ps.castleending)
+if instance_place(x,y,oMario) && (oMario.state = ps.flagpolefinish or oMario.state = ps.castleending)
 {
 	oMario.depth = 399;
 	if instance_exists(oCape) {oCape.image_alpha = 0;} 

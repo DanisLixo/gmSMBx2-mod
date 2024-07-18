@@ -1,25 +1,27 @@
-kr = keyboard_check(vk_right)
-kl = keyboard_check(vk_left)
-kd = keyboard_check(global.keyd)
-ku = keyboard_check(global.keyu)
+kr = keyboard_check(ord("D"))
+kl = keyboard_check(ord("A"))
+kd = keyboard_check(ord("S"))
+ku = keyboard_check(ord("W"))
 
-kj = keyboard_check(ord("Z"))
-ka = keyboard_check(ord("X"))
-kh = keyboard_check(global.keyh)
+kj = keyboard_check(vk_space)
+ka = keyboard_check(vk_shift)
+kh = keyboard_check(ord("E"))
 
-kjp = keyboard_check_pressed(ord("Z"))
-kap = keyboard_check_pressed(ord("X"))
-khp = keyboard_check_pressed(global.keyh)
+kjp = keyboard_check_pressed(vk_space)
+kap = keyboard_check_pressed(vk_shift)
+khp = keyboard_check_pressed(ord("E"))
 
-kar = keyboard_check_released(ord("X"))
-khr = keyboard_check_released(global.keyh)
+kar = keyboard_check_released(vk_shift)
+khr = keyboard_check_released(ord("E"))
 
-kup = keyboard_check_pressed(global.keyu)
-kdp = keyboard_check_pressed(global.keyd)
-
+krp = keyboard_check_pressed(ord("D"))
+klp = keyboard_check_pressed(ord("A"))
+kup = keyboard_check_pressed(ord("W"))
+kdp = keyboard_check_pressed(ord("S"))
 
 if global.chatfocus = true or instance_exists(oPaused)
-{kr=0;kl=0;kd=0;kj=0;ka=0;kjp=0;kar=0;kdp=0;kh=0;khp=0;khr=0;}
+{kr=0;kl=0;krp=0;klp=0;kd=0;kj=0;ka=0;kjp=0;kar=0;kdp=0;kh=0;khp=0;khr=0;}
+if instance_exists(oPaused) {ku=0;kup=0}
 
 if instance_exists(oClient)
 {
@@ -66,7 +68,16 @@ if instance_exists(oClient)
 
 collidecode = false;
 
+//if powerup = "c" {powerup = "f"}
 
+if global.environment = e.underwater {
+	bubble--;
+	
+	if bubble = 0 /*and instance_number(oBubble) < 3*/ {
+		instance_create_depth(bbox_right,bbox_top,depth-1,oBubble);
+		bubble = 60; 
+	}
+}
 
 if instance_place(x+hspd,bbox_bottom-1+vspd,oParblock) && shoulderbash > 0
 {
@@ -81,10 +92,21 @@ if instance_place(x+hspd,bbox_bottom-1+vspd,oParblock) && shoulderbash > 0
 	}
 }
 
-
+if instance_place(x+hspd,bbox_bottom-1+vspd,oParblock) && spintimer > 0
+{
+	if instance_exists(oParblock)
+	{
+		var block = instance_place(x+hspd,bbox_bottom-1+vspd,oParblock)
+				
+		if block && block.blockstate = 0
+		{block.blockstate = 1; if powerup != "s" {block.triggerbreak = true;}}
+		if block && !place_meeting(x,y,block)
+		{sfx(sndBump,1);}
+	}
+}
 
 if y > room_height+30 && !place_meeting(x,y,oSky_fallwarp)
-{state = p2.die;}
+{state = ps.die;}
 if y > room_height+32 && instance_place(x,y,oSky_fallwarp)
 {room_goto(instance_place(x,y,oSky_fallwarp).troom)}
 
@@ -95,9 +117,9 @@ if gethit = true
 	{
 		invincible = room_speed*3
 		if powerup = "s"
-		{state = p2.die;}
+		{state = ps.die;}
 		else
-		{state = p2.shrink; invincible = room_speed*4;}
+		{state = ps.shrink; invincible = room_speed*4;}
 	}
 	gethit = false;
 }
@@ -115,12 +137,14 @@ if  invincible < 0
 if starman > 0
 {starman --; invincible = -2}
 
-
 if jumpbuffer > 0 {jumpbuffer --;}
 if kjp {jumpbuffer = 7;}
 
 if firetimer > 0 
 {firetimer --;}
+
+if spintimer > 0 
+{spintimer --;}
 
 if starman > 0
 {starman --;}
@@ -128,8 +152,20 @@ if starman > 0
 if round(invincible) = 0
 {image_alpha = 1;}
 
+if ka and kr-kl != 0 {pmet++;}
+else {pmet = 0; pmach = 0}
 
-if state = p2.title
+if pmet >= 35 {
+	if pmach < 6 pmach += 0.1
+}
+if state = ps.fly {pmach = 6;}
+
+if pmach > 0.9 and hspd = 0 {pmach -= 0.2}
+
+if grounded {combo = 0;}
+if combo > 10 {combo = 10;}
+
+if state = ps.title
 {spr = ms("sMario_s_idle"); exit;}
 
 if instance_exists(oRacemanager) && !(oRacemanager.start = 0)
@@ -137,74 +173,83 @@ if instance_exists(oRacemanager) && !(oRacemanager.start = 0)
 
 switch(state)
 {
-	case p2.normal:
+	case ps.normal:
 		ps_normal();
 	break;
-	case p2.jump:
+	case ps.jump:
 		ps_jump();
 	break;
-	case p2.pivot:
+	case ps.pivot:
 		ps_pivot();
 	break;
-	case p2.die:
+	case ps.die:
 		ps_die();
 	break;
-	case p2.enterpipedown:
+	case ps.enterpipedown:
 		ps_enterpipedown();
 	break;
-	case p2.enterpiperight:
+	case ps.enterpiperight:
 		ps_enterpiperight();
 	break;
-	case p2.exitpipeup:
+	case ps.exitpipeup:
 		ps_exitpipeup();
 	break;
-	case p2.crouch:
+	case ps.crouch:
 		ps_crouch();
 	break;
-	case p2.grow:
+	case ps.grow:
 		ps_grow();
 	break;
-	case p2.shrink:
+	case ps.shrink:
 		ps_shrink();
 	break;
-	case p2.flagpoledescend:
+	case ps.flagpoledescend:
 		ps_flagpoledescend();
 	break;
-	case p2.flagpolefinish:
+	case ps.flagpolefinish:
 		ps_flagpolefinish();
 	break;
-	case p2.firetransform:
+	case ps.firetransform:
 		ps_firetransform();
 	break;
-	case p2.castleending:
+	case ps.capetransform:
+		ps_capetransform();
+	break;
+	case ps.castleending:
 		ps_castleending();
 	break;
-	case p2.swim:
+	case ps.swim:
 		ps_swim();
 	break;
-	case p2.swimidle:
+	case ps.swimidle:
 		ps_swimidle();
 	break;
-	case p2.shoulderbash:
+	case ps.shoulderbash:
 		ps_shoulderbash();
 	break;
-	case p2.shoulderbashend:
+	case ps.shoulderbashend:
 		ps_shoulderbashend();
 	break;
-	case p2.climb:
+	case ps.climb:
 		ps_climb();
 	break;
-	case p2.emerge:
+	case ps.emerge:
 		ps_emerge();
 	break;
-	case p2.dance0:
+	case ps.fly:
+		ps_fly();
+	break;
+	case ps.dance0:
 		ps_dance0();
 	break;
-	case p2.nah:
+	case ps.nah:
 		ps_nah();
 	break;
-	case p2.spin:
-		ps_spin();
+	case ps.spindash:
+		ps_spindash();
+	break;
+	case ps.spincarp:
+		ps_spincarp();
 	break;
 }
 
@@ -218,5 +263,5 @@ if global.rtxmode = true or global.schutmode = true
 
 if kjp {retrochance = random(100)}
 
-if starman < 130 and global.player = "Max Verstappen" {starman = global.time;}
-if global.player = "Max Verstappen" and (state = p2.castleending or state = p2.flagpoledescend or state = p2.flagpolefinish) {starman = 0}
+if starman < 130 and char = "Max Verstappen" {starman = global.time;}
+if char = "Max Verstappen" and (state = ps.castleending or state = ps.flagpoledescend or state = ps.flagpolefinish) {starman = 0}

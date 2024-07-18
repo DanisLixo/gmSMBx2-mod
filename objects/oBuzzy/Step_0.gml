@@ -74,7 +74,9 @@ switch(state)
 		{
 			instance_place(x,y,oParenemy).facingdir = -facingdir;
 		}
-	
+		
+		if !grounded {points(8000,true)}
+
 		sprite_index = sBuzzy_shell
 		
 		collide();

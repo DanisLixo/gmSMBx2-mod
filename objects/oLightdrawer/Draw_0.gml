@@ -4,7 +4,8 @@ if global.rtxmode = true && instance_exists(oMario)
 	image_alpha = lerp(image_alpha,maxalp,.1)
 	if instance_exists(oGame)
 	{oGame.dep = depth-1;}
-	if global.environment != e.underwater and changeenv {global.environment = e.underground;}
+	if (global.environment != e.underwater and global.environment != e.castle) and changeenv 
+	{global.environment = e.underground;}
 }
 else
 {

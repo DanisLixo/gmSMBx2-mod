@@ -5,6 +5,7 @@
 
 if instance_exists(oMario) && oMario.state != ps.castleending
 {
+	if instance_exists(oLuigi) {global.freecam = true}
 	var cx = camera_get_view_x(view_camera[0])
 	var eighth =  cx+(SCREENW/4);
 	var halfmiddle =  cx+(SCREENW/1.5);
@@ -25,7 +26,7 @@ if instance_exists(oMario) && oMario.state != ps.castleending
 		var quarter =  cx+(SCREENW/3)
 		var middle =  cx+(SCREENW/2)-16
 	
-		if oMario.hspd >= 0 and oMario.hspd <= 3.5 && oMario.collidecode = true
+		if oMario.hspd >= 0 and oMario.hspd <= 3.5 && (oMario.collidecode = true || oMario.state = ps.fly)
 		{
 			if oMario.x > middle
 			{x += oMario.hspd;}
@@ -43,6 +44,8 @@ if instance_exists(oMario) && oMario.state != ps.castleending
 	}
 	else
 	{
+		if instance_exists(oLuigi) {x = (oMario.x+oLuigi.x)/2}
+		else {
 		if (oMario.hspd > -3.5 and oMario.hspd <= 0 or oMario.hspd < 3.5 and oMario.hspd >= 0) {
 			if wentx {
 				if floor(x) > floor(oMario.x) {x += ((oMario.x-oCamera.x)/25)-0.5}
@@ -67,6 +70,7 @@ if instance_exists(oMario) && oMario.state != ps.castleending
 		{
 			if x > oMario.x {x--;}
 			else if x < oMario.x {x++;}
+		}
 		}
 	}
 }

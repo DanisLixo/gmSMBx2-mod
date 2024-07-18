@@ -30,7 +30,7 @@ else
 
 
 // handle time
-if global.time > 0 && mario_freeze() = 0 && loadscreen = -1 && paused = false
+if global.time > 0 && mario_freeze() = 0 && loadscreen = -1 && instance_exists(oPaused) = false
 {global.time --;}
 
 
@@ -50,7 +50,7 @@ if instance_exists(oMario) && ((oMario.state = ps.flagpolefinish && oMario.image
 		if global.time <= 0 && triggercastleflag = false
 		{
 			triggercastleflag = true;
-			global.time = 0;
+			//global.time = 0;
 			if instance_exists(oCastleflag)
 			{oCastleflag.st = 2; oCastleflag.fireworks = fireworks; oCastleflag.alarm[0] = 20; alarm[1] = room_speed*4.3}
 		}

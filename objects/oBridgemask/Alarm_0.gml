@@ -1,4 +1,5 @@
-
+if !instance_exists(oBowser) {image_alpha = 0;}
+else {image_alpha = 1;}
 image_xscale += 1;
 
 sfx(sndBreak,1);

@@ -36,3 +36,4 @@ if mario_freeze() != 1
 		}
 	}
 }
+else if mario_freeze() {exit;}

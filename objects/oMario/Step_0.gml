@@ -14,11 +14,14 @@ khp = keyboard_check_pressed(global.keyh)
 kar = keyboard_check_released(global.keya)
 khr = keyboard_check_released(global.keyh)
 
+krp = keyboard_check_pressed(global.keyr)
+klp = keyboard_check_pressed(global.keyl)
 kup = keyboard_check_pressed(global.keyu)
 kdp = keyboard_check_pressed(global.keyd)
 
 if global.chatfocus = true or instance_exists(oPaused)
-{kr=0;kl=0;kd=0;kj=0;ka=0;kjp=0;kar=0;kdp=0;kh=0;khp=0;khr=0;}
+{kr=0;kl=0;krp=0;klp=0;kd=0;kj=0;ka=0;kjp=0;kar=0;kdp=0;kh=0;khp=0;khr=0;}
+if instance_exists(oPaused) {ku=0;kup=0}
 
 if instance_exists(oClient)
 {
@@ -65,6 +68,8 @@ if instance_exists(oClient)
 
 collidecode = false;
 
+if char != global.player {char = global.player;}
+
 if global.environment = e.underwater {
 	bubble--;
 	
@@ -87,7 +92,19 @@ if instance_place(x+hspd,bbox_bottom-1+vspd,oParblock) && shoulderbash > 0
 	}
 }
 
-
+var h = hspd > 0? 8 : -8
+if instance_place(x+hspd+h,bbox_bottom-1+vspd,oParblock) && spintimer > 0
+{
+	if instance_exists(oParblock)
+	{
+		var block = instance_place(x+hspd,bbox_bottom-1+vspd,oParblock)
+				
+		if block && block.blockstate = 0
+		{block.blockstate = 1; if powerup != "s" {block.triggerbreak = true;}}
+		if block && !place_meeting(x,y,block)
+		{sfx(sndBump,1);}
+	}
+}
 
 if y > room_height+30 && !place_meeting(x,y,oSky_fallwarp)
 {state = ps.die;}
@@ -121,7 +138,6 @@ if  invincible < 0
 if starman > 0
 {starman --; invincible = -2}
 
-
 if jumpbuffer > 0 {jumpbuffer --;}
 if kjp {jumpbuffer = 7;}
 
@@ -137,6 +153,18 @@ if starman > 0
 if round(invincible) = 0
 {image_alpha = 1;}
 
+if ka and kr-kl != 0 {pmet++;}
+else {pmet = 0; pmach = 0}
+
+if pmet >= 35 {
+	if pmach < 6 pmach += 0.1
+}
+if state = ps.fly {pmach = 6;}
+
+if pmach > 0.9 and hspd = 0 {pmach -= 0.2}
+
+if grounded {combo = 0;}
+if combo > 10 {combo = 10;}
 
 if state = ps.title
 {spr = ms("sMario_s_idle"); exit;}
@@ -209,6 +237,9 @@ switch(state)
 	case ps.emerge:
 		ps_emerge();
 	break;
+	case ps.fly:
+		ps_fly();
+	break;
 	case ps.dance0:
 		ps_dance0();
 	break;
@@ -233,5 +264,5 @@ if global.rtxmode = true or global.schutmode = true
 
 if kjp {retrochance = random(100)}
 
-if starman < 130 and global.player = "Max Verstappen" {starman = global.time;}
-if global.player = "Max Verstappen" and (state = ps.castleending or state = ps.flagpoledescend or state = ps.flagpolefinish) {starman = 0}
+if starman < 130 and char = "Max Verstappen" {starman = global.time;}
+if char = "Max Verstappen" and (state = ps.castleending or state = ps.flagpoledescend or state = ps.flagpolefinish) {starman = 0}

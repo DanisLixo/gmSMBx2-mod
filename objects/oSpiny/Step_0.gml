@@ -1,4 +1,4 @@
-if mario_freeze()	{exit;}
+if mario_freeze()	{image_speed = 0; exit;}
 
 event_inherited();
 

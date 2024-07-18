@@ -52,6 +52,7 @@ switch(state)
 			shellcooldown = 5;
 		}
 		
+		if !grounded {points(8000,true)}
 	
 		sprite_index = sNokonoko_red_shell
 		
