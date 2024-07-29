@@ -15,7 +15,6 @@ var tbg = layer_get_id("Background")
 if layer_exists(tbg)
 {layer_script_begin(tbg,bg_palswap);	layer_script_end(tbg,tile_palreset);}
 
-
 if room = rmServer
 {exit;}
 
@@ -34,6 +33,15 @@ draw_text((tile*2)+tile+cx,tile+cy,string_upper(global.player))
 var scorestr = string(global.score)		while (string_length(scorestr) < 6)	{scorestr = "0"+scorestr;}
 draw_text((tile*2)+tile+cx,tile+tile+cy,scorestr)
 
+if global.showfps = true {
+	if !instance_exists(oClient) {draw_text(cx+(tile*3),cy+tile*2+tile,"FPS - "+string(fps));}
+	else {draw_text(cx+(tile*3),cy+tile*3+tile,"FPS - "+string(fps));}
+}
+
+if global.challenge {
+	draw_text(cx+(tile*2),cy+tile*5+tile,"RETROED - "+string(global.retros));
+}
+
 // Coins
 shader_set(shdColorswap);
 	apply_palette(sPalette_gold,global.environment+1,image_alpha)
@@ -48,7 +56,6 @@ draw_text((tile*2)+(tile*10)+cx,tile+tile+cy,"*"+coinstr)
 //draw_text((SCREENW/2)+(tile*2)+tile+cx,cy+tile+tile,"1-"+string(global.level))
 
 // Hats
-
 if global.player = "Pokey" or global.player = "Gemaplys" {
 	shader_set(shdColorswap);
 		apply_palette(sPalette_goomba,global.environment,image_alpha)
@@ -65,12 +72,12 @@ if instance_exists(oMario) and (oMario.powerup = "c" || global.player = "Feathy"
 	shader_set(shdColorswap);
 		apply_palette(sPalette_gold,global.environment+1,image_alpha)
 		draw_sprite(sPmeter,oMario.pind,tile+(tile*10)+cx,tile+cy)
-		draw_sprite(sPmeterbig,oMario.pind,(tile*5)+cx,(SCREENH-(240/2))+(tile*13)+cy)
+		//draw_sprite(sPmeterbig,oMario.pind,(tile*5)+cx,(SCREENH-(240/2))+(tile*13)+cy)
 	shader_reset();
 }
 
 
-if !instance_exists(oIsArena) && room != rmTitle && room != rmLobby
+if !instance_exists(oIsArena) && room != rmTitle && room != rmLobby and room != rmDemoend
 {
 	draw_text((SCREENW-(256/2))+(tile*2)+cx,cy+tile,"WORLD")
 	if global.level != 0 
@@ -89,7 +96,7 @@ if instance_exists(oIsArena)
 //draw_text((SCREENW/2)+(tile*2)+(tile*7)+cx,cy+tile,"TIME")
 draw_text((SCREENW-(256/2))+(tile*2)+(tile*7)+cx,cy+tile,"TIME")
 
-if global.time >= 0 and room != rmLeveltransition
+if global.time >= 0 and room != rmLeveltransition and room != rmDemoend
 {
 	var timestr = string(round(global.time/(room_speed*TIMESEC)))		while (string_length(timestr) < 3)	{timestr = "0"+timestr;}
 	//draw_text((SCREENW/2)+(tile*2)+(tile*8)+cx,cy+tile+tile,timestr)

@@ -1,4 +1,4 @@
-if instance_exists(oMario) && oMario.state = ps.flagpolefinish && st = 0
+if ((instance_exists(oMario) && oMario.state = ps.flagpolefinish) or (instance_exists(oLuigi) && oLuigi.state = ps.flagpolefinish)) && st = 0
 {
 	st = 1;
 }

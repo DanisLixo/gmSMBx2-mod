@@ -34,7 +34,7 @@ if instance_exists(oMario) && oMario.state != ps.castleending
 			{x += oMario.hspd/2;}
 		}
 		//Sonic extended camera
-		else if oMario.hspd >= 3.5 and !(oMario.state = ps.grow or oMario.state = ps.shrink or oMario.state = ps.firetransform)
+		else if oMario.hspd >= 3.5 and !(oMario.state = ps.grow or oMario.state = ps.shrink or oMario.state = ps.firetransform or oMario.state = ps.sneeze) 
 		{
 			if oMario.x > eighth {x += oMario.hspd*1.25;}
 			else if oMario.x < eighth {x += oMario.hspd; if oMario.x < eighth-8 {x -= oMario.hspd;}}
@@ -44,7 +44,7 @@ if instance_exists(oMario) && oMario.state != ps.castleending
 	}
 	else
 	{
-		if instance_exists(oLuigi) {x = (oMario.x+oLuigi.x)/2}
+		if instance_exists(oLuigi) || instance_number(oMario) > 1 {x = (oMario.x+oLuigi.x)/2}
 		else {
 		if (oMario.hspd > -3.5 and oMario.hspd <= 0 or oMario.hspd < 3.5 and oMario.hspd >= 0) {
 			if wentx {
@@ -54,7 +54,7 @@ if instance_exists(oMario) && oMario.state != ps.castleending
 			}
 			else {x = oMario.x}
 		}
-		else if !(oMario.state = ps.grow or oMario.state = ps.shrink or oMario.state = ps.firetransform) 
+		else if !(oMario.state = ps.grow or oMario.state = ps.shrink or oMario.state = ps.firetransform or oMario.state = ps.sneeze) 
 			{
 				if !wentx {x += oMario.hspd*0.8;}
 				if oMario.hspd >= 3.5 {
@@ -66,7 +66,7 @@ if instance_exists(oMario) && oMario.state != ps.castleending
 				else if oMario.x > halfmiddle {x += oMario.hspd; if !wentx {x += oMario.hspd;}}
 				}
 			}
-		else if (oMario.state = ps.grow or oMario.state = ps.shrink or oMario.state = ps.firetransform) 
+		else if (oMario.state = ps.grow or oMario.state = ps.shrink or oMario.state = ps.firetransform or oMario.state = ps.sneeze) 
 		{
 			if x > oMario.x {x--;}
 			else if x < oMario.x {x++;}
@@ -81,6 +81,8 @@ if room_width > SCREENW
 
 	if instance_exists(oAxe)
 	{x = clamp(x,SCREENW/2,oAxe.x+32-SCREENW/2);}
+	if instance_exists(oToad) and global.aspectratio = "ORIGINAL" 
+	{x = clamp(x,SCREENW/2,oToad.x);}
 	if instance_exists(oMario) && oMario.state = ps.castleending && (!instance_exists(oBowser) or oBowser.state = -1) && x < room_width-SCREENW/2
 	{x += 2.5;}
 }

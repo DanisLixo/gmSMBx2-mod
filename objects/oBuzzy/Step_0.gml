@@ -68,6 +68,9 @@ switch(state)
 			state = es.shellhit;
 			sfx(sndKick,0)
 			shellcooldown = 5;
+			
+			if !grounded and !given8000 {points(8000,true) given8000 = true}
+
 		}
 		
 		if instance_place(x,y,oParenemy) && shellcooldown < 0
@@ -75,7 +78,6 @@ switch(state)
 			instance_place(x,y,oParenemy).facingdir = -facingdir;
 		}
 		
-		if !grounded {points(8000,true)}
 
 		sprite_index = sBuzzy_shell
 		

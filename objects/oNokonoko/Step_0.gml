@@ -70,10 +70,10 @@ switch(state)
 			sfx(sndKick,0)
 			shellcooldown = 5;
 			
-			if !grounded {points(8000,true)}
+			if !grounded and !given8000 {points(8000,true) given8000 = true}
+
 		}
 		
-	
 		sprite_index = sNokonoko_shell
 		
 		collide();

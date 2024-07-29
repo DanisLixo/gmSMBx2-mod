@@ -61,8 +61,21 @@ if instance_exists(oClient)
 	buffer_delete(buff);
 	
 	if invincible = 0 and global.playercol = true and carried = false {
-		if instance_place(x+1,y,oOtherplayer) || instance_place(x-1,y,oOtherplayer)  {x-=hspd;}
-		if instance_place(x,bbox_bottom+1,oOtherplayer) and vspd > 0.1	{y-=vspd; grounded = true;}
+		if instance_place(x,bbox_bottom+vspd,oOtherplayer) && vspd >=0
+		{
+			while !instance_place(x,bbox_bottom+1,oOtherplayer)
+			{y ++;}
+			vspd = 0;
+			grounded = true
+		}
+	
+		if vspd > 0 && !place_meeting(x+sign(hspd),y,oOtherplayer) && place_meeting(x+hspd,y,oOtherplayer)
+		{grounded = true; vspd = 0;}
+		
+		if place_meeting(x+hspd,y,oOtherplayer)
+		{
+			x -= hspd;
+		}
 	}
 }
 
@@ -138,7 +151,7 @@ if  invincible < 0
 if starman > 0
 {starman --; invincible = -2}
 
-if jumpbuffer > 0 {jumpbuffer --;}
+if jumpbuffer > 0 and mario_freeze() = 0 {jumpbuffer --;}
 if kjp {jumpbuffer = 7;}
 
 if firetimer > 0 
@@ -153,18 +166,30 @@ if starman > 0
 if round(invincible) = 0
 {image_alpha = 1;}
 
-if ka and kr-kl != 0 {pmet++;}
-else {pmet = 0; pmach = 0}
+if ka and hspd != 0 and mario_freeze() = 0 {pmet++;}
+else {pmet--; if pmach > 6 {pmach = 0;}}
 
-if pmet >= 35 {
+if pmet >= 35 and global.environment != e.underwater {
 	if pmach < 6 pmach += 0.1
 }
 if state = ps.fly {pmach = 6;}
 
-if pmach > 0.9 and hspd = 0 {pmach -= 0.2}
+if pmach > 0.9 and (hspd = 0 || state = ps.pivot) {pmach -= 0.5}
 
 if grounded {combo = 0;}
 if combo > 10 {combo = 10;}
+
+if kd and instance_place(x,y,oMario) and instance_place(x,y,oMario).powerup = "f" and instance_place(x,y,oMario).char = "Max_Verstappen"
+{
+	insidecar = true;
+}
+
+if insidecar {
+	x = oLuigi.x
+	y = oLuigi.y
+	image_alpha = 0;
+	invincible = 10
+}
 
 if state = ps.title
 {spr = ms("sMario_s_idle"); exit;}
@@ -194,6 +219,9 @@ switch(state)
 	break;
 	case ps.exitpipeup:
 		ps_exitpipeup();
+	break;
+	case ps.enterpipedown8_4:
+		ps_enterpipedown8_4()
 	break;
 	case ps.crouch:
 		ps_crouch();
@@ -249,8 +277,8 @@ switch(state)
 	case ps.spindash:
 		ps_spindash();
 	break;
-	case ps.spincarp:
-		ps_spincarp();
+	case ps.sneeze:
+		ps_sneeze();
 	break;
 }
 
@@ -264,5 +292,10 @@ if global.rtxmode = true or global.schutmode = true
 
 if kjp {retrochance = random(100)}
 
-if starman < 130 and char = "Max Verstappen" {starman = global.time;}
-if char = "Max Verstappen" and (state = ps.castleending or state = ps.flagpoledescend or state = ps.flagpolefinish) {starman = 0}
+if starman < 130 and char = "Max_Verstappen" {starman = global.time;}
+if char = "Max_Verstappen" and (state = ps.castleending or state = ps.flagpoledescend or state = ps.flagpolefinish) {starman = 0}
+
+var sneeze = random_range(0, 100)
+if sneeze > 70 and char = "Feathy" and 
+instance_place(x+8*sign(hspd),y,oFireflower)
+{hspd = 2; state = ps.sneeze; oFireflower.feathy = id;}

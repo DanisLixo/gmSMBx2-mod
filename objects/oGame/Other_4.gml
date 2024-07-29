@@ -1,6 +1,13 @@
 alarm[1] = -1
 warned = false;
 
+if global.player = "Gemaplys" {sfx(sndVineboom,4)}
+if global.multiplayer and instance_exists(oMario) {
+	if oMario.state = ps.exitpipeup {instance_create_depth(oMario.x,oMario.y,oMario.depth,oLuigi)}
+	else {instance_create_depth(oMario.x+16,oMario.y,oMario.depth,oLuigi)}
+	oLuigi.state = oMario.state
+}
+
 if global.insertclient = true && !instance_exists(oClient)
 {instance_create_depth(x,y,depth,oClient); global.insertclient = false;}
 
@@ -9,6 +16,7 @@ if instance_exists(oClient) and instance_exists(oMario) {oMario.invincible = roo
 if room = rmTitle
 {
 	savedpowerup = "s"; if instance_exists(oMario) {oMario.powerup = "s";}
+	p2savedpowerup = "s"; if instance_exists(oLuigi) {oLuigi.powerup = "s";}
 	global.score = 0;
 	global.time = -1;
 	global.coins = 0;
@@ -38,16 +46,19 @@ timeup = 0;
 if instance_exists(oCheckpointmask) //room != rmTitle && room != rmServer && room != rmLobby && room != rmLeveltransition
 {
 	if spawnx = -1 && instance_exists(oMario) {spawnx = oMario.xstart;}
-	else if spawnx != -1 && instance_exists(oMario) && oMario.state != ps.exitpipeup {oMario.x = spawnx;}
+	else if spawnx != -1 && instance_exists(oMario) && oMario.state != ps.exitpipeup {oMario.x = spawnx; if instance_exists(oLuigi) {oLuigi.x = spawnx+16}}
 	if spawny = -1 && instance_exists(oMario) {spawny = oMario.ystart;}
-	else if spawny != -1 && instance_exists(oMario) && oMario.state != ps.exitpipeup {oMario.y = spawny;}
+	else if spawny != -1 && instance_exists(oMario) && oMario.state != ps.exitpipeup {oMario.y = spawny; if instance_exists(oLuigi) {oLuigi.y = spawny}}
 }
 else //if (room = rmTitle or room = rmServer or room = rmLobby or room = rmLeveltransition) 
 {spawnx = -1; spawny = -1;}
 
 curRoom = room;
 
-if global.challenge = true {
+if global.challenge = true and !audio_is_playing(musChallenge) {
 	global.curbgm = "Challenge"
 	bgm(global.curbgm, true);
+}
+if global.challenge = false {
+	global.retros = 0
 }

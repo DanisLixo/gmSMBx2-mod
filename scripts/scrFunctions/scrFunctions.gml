@@ -20,7 +20,7 @@ function bgm(bgmstr,loops)
 	}
 	
 	if is_string(bgmstr) && global.musicchannels = true && global.volsfx > 0 &&
-	global.player != "Peter Griffin" && global.player != "Martin" && global.player != "Anton" && global.player != "Duke" && global.player != "Pokey" && global.player != "Max Verstappen"
+	global.player != "Peter Griffin" && global.player != "Martin" && global.player != "Anton" && global.player != "Duke" && global.player != "Pokey" && global.player != "Max_Verstappen"
 		&& bgmstr != "Levelend" && bgmstr != "Castleend" && bgmstr != "Lobby" && bgmstr != "Retro" && bgmstr != "Warning" && bgmstr != "Challenge"
 	{
 		audio_stop_sound(global.ch[0]);
@@ -36,10 +36,10 @@ function bgm(bgmstr,loops)
 		var c2 = asset_get_index("mus"+bgmstr+"_c2")
 		var c3 = asset_get_index("mus"+bgmstr+"_c3")
 	
-		if audio_exists(c0) {global.ch[0] = audio_play_sound(c0,1,loops,global.volbgm);}
-		if audio_exists(c1) {global.ch[1] = audio_play_sound(c1,1,loops,global.volbgm);}
-		if audio_exists(c2) {global.ch[2] = audio_play_sound(c2,1,loops,global.volbgm);}
-		if audio_exists(c3) {global.ch[3] = audio_play_sound(c3,1,loops,global.volbgm);}
+		if audio_exists(c0) and global.ch_allowed[0] {global.ch[0] = audio_play_sound(c0,1,loops,global.volbgm);}
+		if audio_exists(c1) and global.ch_allowed[1] {global.ch[1] = audio_play_sound(c1,1,loops,global.volbgm);}
+		if audio_exists(c2) and global.ch_allowed[2] {global.ch[2] = audio_play_sound(c2,1,loops,global.volbgm);}
+		if audio_exists(c3) and global.ch_allowed[3] {global.ch[3] = audio_play_sound(c3,1,loops,global.volbgm);}
 	}
 	else
 	{
@@ -65,7 +65,7 @@ function bgm(bgmstr,loops)
 					else if bgmstr = "Warning" {mus = musWarning;}
 					else {mus = musPokeymato;}
 				}
-				if global.player = "Max Verstappen"
+				if global.player = "Max_Verstappen"
 				{
 					if bgmstr = "Starman" {mus = musMaxVerstappenStarman;}
 				}
@@ -147,7 +147,8 @@ function onview()
 {
 	var cx = camera_get_view_x(view_camera[0]);
 	var cy = camera_get_view_y(view_camera[0]);
-	if bbox_right+16 > cx && bbox_left-16 < cx+SCREENW && bbox_bottom+16 > cy && bbox_top-16 < cy+SCREENH
+	var tile = object_index = oBowser? 8 : 16
+	if bbox_right+tile > cx && bbox_left-tile < cx+SCREENW && bbox_bottom+tile > cy && bbox_top-tile < cy+SCREENH
 	{return true;}
 	return false;
 }

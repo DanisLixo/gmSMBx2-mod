@@ -2,24 +2,25 @@ instance_activate_object(id);
 
 y += gspd
 
-if place_meeting(x,y-3,oMario)
+var m = instance_place(x,y-4,oMario)
+
+if m
 {
-	oMario.y = bbox_top-1; oMario.vspd = 0; oMario.grounded = true
+	m.y = bbox_top-1; m.vspd = 0; m.grounded = true
 	if not fall {
-		gspd += 0.1
+		gspd += 0.05
 		op.gspd = -gspd
 	}
 }
 
 else if not fall {
 	if gspd > 0.0000 {
-		gspd -= 0.1
+		gspd -= 0.05
 		op.gspd = -gspd
 	}
 }
 
-if place_meeting(x,y-4,oMario) && oMario.vspd >= 0
-	{oMario.y += gspd;}
+if m {if m.vspd >= 0 {m.y += gspd;}}
 
 /*else if gspd > 0 {
 	gspd -= 0.1

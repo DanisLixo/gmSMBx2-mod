@@ -37,7 +37,8 @@ addmenu(2,5,"BACK")
 addmenu(3,0,"CATEGORY - ")
 addmenu(3,1,"PLAYER - ")
 addmenu(3,2,"PALETTE - ")
-addmenu(3,3,"BACK")
+addmenu(3,3,"GUN - ")
+addmenu(3,4,"BACK")
 
 addmenu(4,0,"USERNAME - ")
 addmenu(4,1,"SET IP - ")
@@ -79,6 +80,7 @@ addmenu(9,3,"BACK")
 
 playerlist = ds_list_create();
 creatorlist = ds_list_create();
+gunlist = ds_list_create();
 
 
 addplist = function(name,creator)
@@ -87,6 +89,12 @@ addplist = function(name,creator)
 	ds_list_add(creatorlist,creator);
 	//ds_list_add(creatorlist,insertor);
 }
+
+addgunlist = function(name)
+{
+	ds_list_add(gunlist,name);
+}
+
 
 category = "Characters"
 categorysel = 0;
@@ -119,7 +127,7 @@ addplist("Peter Griffin",".")
 addplist("Duke","pacolagamer444")
 addplist("Pokey","POKEY'S MOM")
 addplist("1pixelmario","gemaplys")
-addplist("Max Verstappen","EnciroYeah")
+addplist("Max_Verstappen","EnciroYeah")
 //HQ jokes
 hqlist = lqlist + 2
 
@@ -127,8 +135,11 @@ addplist("Martin","seven")
 addplist("Peter","seven")
 addplist("Gemaplys","dawnlr")
 
-
-
+addgunlist("Default")
+addgunlist("BigHand")
+addgunlist("Emoji")
+addgunlist("AppleEmoji")
+addgunlist("MiniGun")
 
 gamemodes = ds_list_create();
 ds_list_add(gamemodes, "CLASSIC");
@@ -166,8 +177,11 @@ updtplayerpalette = function()
 
 marioxs = 0;
 marioys = 0;
+gunxs = 0;
+gunys = 0;
 
 curplayersel = 0;
+curgunsel = 0;
 
 depth = -9999
 

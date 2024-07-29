@@ -1,3 +1,3 @@
-spawn = 0
+spawn = 60
 spawntype = 0
 start = false

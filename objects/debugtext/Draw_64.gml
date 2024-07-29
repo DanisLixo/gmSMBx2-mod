@@ -20,7 +20,7 @@ if room != rmTitle {
 		draw_set_font(font);
 		draw_text(24,8*7,"VERTICAL LIMIT - " + string(oBlooper.vlimit));
 	}*/
-	if instance_exists(o2Cheep) {
+	/*if instance_exists(o2Cheep) {
 		draw_set_font(font);
 		draw_text(24,8*4,"VSPD - " + string(o2Cheep.vspd));
 		draw_set_font(font);
@@ -31,6 +31,12 @@ if room != rmTitle {
 		draw_text(24,8*7,"VERTICAL LIMIT - " + string(o2Cheep.vlimit));
 		draw_set_font(font);
 		draw_text(24,8*8,"Y START - " + string(o2Cheep.ystart));
+	}*/
+	if instance_exists(oHammerbro) {
+		draw_set_font(font);
+		draw_text(24,8*4,"JUMPIN - " + string(oHammerbro.jump));
+		draw_set_font(font);
+		draw_text(24,8*5,"AGRESSIVE - " + string(oHammerbro.aightcomehere));
 	}
 	
 	/*if instance_exists(oRope) {
@@ -44,32 +50,26 @@ if room != rmTitle {
 	//draw_set_font(font);
 	//draw_text(24,8*8,"CALC IS A SLANG FOR CALCULATOR CHAT - " + string(round(SCREENW/85)));
 	
-	draw_set_font(font);
+	/*draw_set_font(font);
 	draw_text(24,8*4,"VSPD - " + string(oMario.vspd));
 	
 	draw_set_font(font);
 	draw_text(24,8*5,"HSPD - " + string(oMario.hspd));
 	
-	draw_set_font(font);
-	draw_text(24,8*6,"FLY - " + string(oMario.flytimer));
+	if instance_exists(oFireflower)
+	{
+		draw_set_font(font);
+		draw_text(24,8*6,"FLOATING - " + string(oFireflower.float));
+	}
 	
 	draw_set_font(font);
-	draw_text(24,8*7,"CAN WHOOSH - " + string(oMario.fly));
+	draw_text(24,8*7,"SPR FRAME - " + string(oMario.ind));*/
 	
 	draw_set_font(font);
-	draw_text(24,8*8,"P COUNT TO METER - " + string(oMario.pmet));
-	
-	draw_set_font(font);
-	draw_text(24,8*9,"P - " + string(oMario.pmach));
-	
-	draw_set_font(font);
-	draw_text(24,8*10,"PLAYERS - " + string(instance_number(oMario)));
+	draw_text(24,8*7,"JUMP BUFF - " + string(oMario.jumpbuffer));
 
 	/*draw_set_font(font);
 	draw_text(24,8*6,"ON GROUND - " + string_upper(oMario.grounded));
-	
-	draw_set_font(font);
-	draw_text(24,8*7,"SPRITE FRAME - " + string(oMario.ind));
 	
 	draw_set_font(font);
 	draw_text(24,8*8,"CROUCHING - " + string_upper(oMario.crouch));

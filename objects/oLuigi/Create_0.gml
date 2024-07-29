@@ -7,7 +7,18 @@ bubble = 60;
 combo = 0
 mycapeative = false;
 
-char = "Luigi"
+char = global.playertwo
+
+function pals() {
+	var spritestring = "sPalette_mario"
+	spritestring = string_replace(spritestring,"mario",string_lower(char))
+	
+	if sprite_exists(asset_get_index(spritestring))
+	{return asset_get_index(spritestring);}
+	else {return sPalette_mario}
+}
+
+charpal = pals()
 
 my_id = global.clientid
 dancechance = random(100)
@@ -15,17 +26,17 @@ retrochance = random(100)
 
 state = ps.normal
 
-
 if room = rmTitle
 {state = ps.title;}
 
 powerup = "s"
 if instance_exists(oGame)
-{powerup = oGame.savedpowerup;}
+{powerup = oGame.p2savedpowerup;}
 
 
 palindex = global.paletteindex
 
+spr = -1
 spr =  ms("sMario_{}_idle")
 ind = 0;
 
@@ -72,6 +83,8 @@ pmet = 0
 pind = 0;
 
 carried = false;
+
+insidecar = false;
 
 if !place_meeting(x,y+1,oCol)
 {spr = ms("sMario_{}_walk");}

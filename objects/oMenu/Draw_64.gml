@@ -17,6 +17,8 @@ if section = 0
 		draw_sprite(sTitle2,image_index,x-cx,y-cy+8);
 	shader_reset();
 	
+	if global.player = "Max_Verstappen" {draw_sprite_ext(sOmaga,0,x-88,y-cy+68,0.8,1.8,0,c_white,1);}
+	
 	global.time = -1;
 }
 else
@@ -26,10 +28,12 @@ else
 	draw_rectangle(0,0,SCREENW,SCREENH,false);
 	draw_set_color(-1);
 	draw_set_alpha(1); */
-	draw_sprite_ext(sThefucktextgavemeideas, 0, SCREENW/2, SCREENH/2, SCREENW/20, SCREENH/20,0, c_white, 1)
+	draw_sprite_ext(sThetextgavemeideas, 0, SCREENW/2, SCREENH/2, SCREENW/20, SCREENH/20,0, c_white, 1)
 	
 	xx = (global.aspectratio = "ORIGINAL")? 48 : 64;
+	if section = 9 {xx = (global.aspectratio = "ORIGINAL")? 32 : 48;}
 	yy = 64;
+	if section = 9 {yy = 48;}
 	tsep = 16;
 }
 
@@ -40,32 +44,39 @@ if section = 3
 	var p = sMario_s_idle
 	if sprite_exists(ms("sMario_s_idle"))
 	{p = ms("sMario_s_idle");}
+	var g = sGun_Default
+	if sprite_exists(gs("sGun_Default"))
+	{g = gs("sGun_Default");}
 	
 	//draw_set_font(FNT);
 	//draw_text(xx-cx/2,yy-16,"CATEGORY - " + string_upper(category))
 	
 	var scale = 4;
+	var scaleg = 2;
 	if p = sPeterGriffin
 	or p = sDuke
 	or p = sPokey
-	or p = sMaxVerstappen {scale = 0.5;}
+	or p = sMax_Verstappen_s_idle {scale = 0.5;}
 	
 	var sp = (global.aspectratio = "ORIGINAL")? 48 : 64;
 	
 	shader_set(shdColorswap)
 		apply_palette(global.palettesprite,global.paletteindex,1)
-		draw_sprite_ext(p,0,SCREENW/2+sp,160+32+sin(current_time/800)*5,scale+(marioxs*(scale/4)),scale+(marioys*(scale/4)),0,-1,1)
-	
+		draw_sprite_ext(p,0,SCREENW/2+sp,160+32+sin(current_time/800)*5-8,scale+(marioxs*(scale/4)),scale+(marioys*(scale/4)),0,-1,1)
 	shader_reset();
 	
 	draw_set_font(fntComicsmall)
 	draw_set_halign(fa_center);
-	draw_text(SCREENW/2+64,160+32+10,"creator: "+creatorlist[| curplayersel])
+	draw_text(SCREENW/2+sp,160+32+10-8,"creator: "+creatorlist[| curplayersel])
 	draw_set_halign(fa_left);
+	
+	if sel = 3 {draw_sprite_ext(g,0,SCREENW/2+sp+32,160+32+sin(current_time/800)*5-8-16,scaleg+(gunxs*(scaleg/4)),scaleg+(gunys*(scaleg/4)),0,-1,1)}
 }
 
 marioxs = lerp(marioxs,0,.2);
 marioys = lerp(marioys,0,.2);
+gunxs = lerp(gunxs,0,.2);
+gunys = lerp(gunys,0,.2);
 
 draw_set_font(FNT);
 
@@ -150,22 +161,46 @@ for (var i = 0; i < optionsnum[section]; i ++;)
 	{draw_text_transformed(xx,yy+(i*tsep),menu[# section, i]+string_upper(global.player), charlimit, 1, 0);}
 	else if menu[# section, i] = "PALETTE - "
 	{draw_text(xx,yy+(i*tsep),menu[# section, i]+string_upper(global.paletteindex));}
+	else if menu[# section, i] = "GUN - "
+	{draw_text(xx,yy+(i*tsep),menu[# section, i]+string_upper(global.gunskin));}
 	else if menu[# section, i] = "MAX PLAYERS - "
 	{draw_text(xx,yy+(i*tsep),menu[# section, i]+string_upper(global.maxplayers));}
-	else if menu[# section, i] = "COMMAND ENEMIES - "
+	else if menu[# section, i] = "  COMMAND ENEMIES - "
 	{
 		var ex = "YES"
 		if global.moveenys = false {ex = "NO";}
 		draw_text(xx,yy+(i*tsep),menu[# section, i]+ex)}
-	else if menu[# section, i] = "COMMAND MOVABLE OBJS - "
+	else if menu[# section, i] = "  COMMAND MOVABLE OBJS - "
 	{
 		var ex = "YES"
 		if global.moveobjs = false {ex = "NO";}
 		draw_text_transformed(xx,yy+(i*tsep),menu[# section, i]+ex, transtext, 1, 0)}
-	else if menu[# section, i] = "COMMAND STATICS - "
+	else if menu[# section, i] = "  COMMAND STATICS - "
 	{
 		var ex = "YES"
 		if global.movestatics = false {ex = "NO";}
+		draw_text(xx,yy+(i*tsep),menu[# section, i]+ex)}
+	else if menu[# section, i] = "  COMMAND STATICS - " 
+		{draw_text_transformed(xx,yy+(i*tsep),menu[# section, i]+ex, transtext, 1, 0)}
+	else if menu[# section, i] = "  SQUARE 0 - "
+	{
+		var ex = "ACTIVE"
+		if global.ch_allowed[0] = false {ex = "NOT ACTIVE";}
+		draw_text(xx,yy+(i*tsep),menu[# section, i]+ex)}
+	else if menu[# section, i] = "  SQUARE 1 - "
+	{
+		var ex = "ACTIVE"
+		if global.ch_allowed[1] = false {ex = "NOT ACTIVE";}
+		draw_text(xx,yy+(i*tsep),menu[# section, i]+ex)}
+	else if menu[# section, i] = "  TRIANGLE 2 - "
+	{
+		var ex = "ACTIVE"
+		if global.ch_allowed[2] = false {ex = "NOT ACTIVE";}
+		draw_text(xx,yy+(i*tsep),menu[# section, i]+ex)}
+	else if menu[# section, i] = "  NOISE 3 - "
+	{
+		var ex = "ACTIVE"
+		if global.ch_allowed[3] = false {ex = "NOT ACTIVE";}
 		draw_text(xx,yy+(i*tsep),menu[# section, i]+ex)}
 	else if section = 8 && menu[# section, i] != "BACK"
 	{
@@ -243,6 +278,12 @@ if keyboard_check_pressed(global.keyu) && sel > 0
 {sel -= 1;}
 if keyboard_check_pressed(global.keyd) && sel < optionsnum[section]-1
 {sel += 1;}
+if section = 9 and sel != 0 and sel != 4 
+{the = sel;}
+if section = 9 and (sel = 0 or sel = 4) {
+	if the > 4 {sel--;}
+	if the < 4 {sel++;}
+}
 
 //if keyboard_check_pressed(global.keya)
 //{section = 0;	sfx(sndBump,0);}
@@ -351,6 +392,23 @@ if menu[# section, sel] = "PALETTE - "
 	
 }
 
+if menu[# section, sel] = "GUN - "
+{
+	if p != 0 //&& !(!(p = -1 && curplayersel > 0) && !(p = 1 && curplayersel < ds_list_size(playerlist)-1))
+	{gunxs = -1; gunys = 1;}
+	curgunsel += p;
+	if p != 0
+	{
+		savesettings()
+	}
+	
+	if curgunsel > ds_list_size(gunlist)-1 {curgunsel = 0;}
+	if curgunsel < 0 {curgunsel = ds_list_size(gunlist)-1;}
+	
+	global.gunskin = gunlist[| curgunsel]
+	
+}
+
 // palette
 updtplayerpalette()
 global.paletteindex = clamp(global.paletteindex,1,sprite_get_height(global.palettesprite)-1);
@@ -394,6 +452,7 @@ if menu[# section, sel] = "RESOLUTION - "
 		case 0:
 			global.aspectratio = "WIDESCREEN"
 			SCREENW = SCREENW_WS
+			SCREENH = SCREENH_WS
 			savesettings();
 			
 			camera_set_view_size(view_camera[0], SCREENW, SCREENH)
@@ -404,6 +463,7 @@ if menu[# section, sel] = "RESOLUTION - "
 		case 1:
 			global.aspectratio = "ORIGINAL"
 			SCREENW = SCREENW_OG
+			SCREENH = SCREENH_OG
 			savesettings();
 			
 			camera_set_view_size(view_camera[0], SCREENW, SCREENH)
@@ -414,6 +474,7 @@ if menu[# section, sel] = "RESOLUTION - "
 		case 2:
 			global.aspectratio = "ULTRA WIDE"
 			SCREENW = SCREENW_UW
+			SCREENH = SCREENH_WS
 			savesettings();
 			
 			camera_set_view_size(view_camera[0], SCREENW, SCREENH)
@@ -432,7 +493,7 @@ if menu[# section, sel] = "PLAY GANGNAM - "
 	{global.opacandastar = false; savesettings()}
 }
 
-if menu[# section, sel] = "COMMAND ENEMIES - "
+if menu[# section, sel] = "  COMMAND ENEMIES - "
 {
 	if p = -1
 	{global.moveenys = true; savesettings()}
@@ -440,7 +501,7 @@ if menu[# section, sel] = "COMMAND ENEMIES - "
 	{global.moveenys = false; savesettings()}
 }
 
-if menu[# section, sel] = "COMMAND MOVABLE OBJS - "
+if menu[# section, sel] = "  COMMAND MOVABLE OBJS - "
 {
 	if p = -1
 	{global.moveobjs = true; savesettings()}
@@ -448,12 +509,44 @@ if menu[# section, sel] = "COMMAND MOVABLE OBJS - "
 	{global.moveobjs = false; savesettings()}
 }
 
-if menu[# section, sel] = "COMMAND STATICS - "
+if menu[# section, sel] = "  COMMAND STATICS - "
 {
 	if p = -1
 	{global.movestatics = true; savesettings()}
 	else if p = 1
 	{global.movestatics = false; savesettings()}
+}
+
+if menu[# section, sel] = "  SQUARE 0 - "
+{
+	if p = -1
+	{global.ch_allowed[0] = true; savesettings()}
+	else if p = 1
+	{global.ch_allowed[0] = false; savesettings()}
+}
+
+if menu[# section, sel] = "  SQUARE 1 - "
+{
+	if p = -1
+	{global.ch_allowed[1] = true; savesettings()}
+	else if p = 1
+	{global.ch_allowed[1] = false; savesettings()}
+}
+
+if menu[# section, sel] = "  TRIANGLE 2 - "
+{
+	if p = -1
+	{global.ch_allowed[2] = true; savesettings()}
+	else if p = 1
+	{global.ch_allowed[2] = false; savesettings()}
+}
+
+if menu[# section, sel] = "  NOISE 3 - "
+{
+	if p = -1
+	{global.ch_allowed[3] = true; savesettings()}
+	else if p = 1
+	{global.ch_allowed[3] = false; savesettings()}
 }
 
 #endregion
@@ -489,7 +582,7 @@ if keyboard_check_pressed(global.keyj) or keyboard_check_pressed(vk_enter)
 			else if section = 6		{section = 2; sel = 2;}
 			else if section = 2		{section = 0; sel = 3; if room != rmTitle {instance_destroy()}}
 			else if section = 1		{section = 0; sel = 1;}
-			else if section = 7		{if resapply {game_restart()} else {section = 2; sel = 1;}}
+			else if section = 7		{if resapply {room_restart()} else {section = 2; sel = 1;}}
 			else if section = 8		{section = 2; sel = 3;}
 			else if section = 9		{section = 2; sel = 4;}
 			else					{section = 0; sel = 0;}
@@ -530,7 +623,7 @@ if keyboard_check_pressed(global.keyj) or keyboard_check_pressed(vk_enter)
 			room_goto(rmServer);
 			sfx(sndStomp,0);
 		break;
-		case "MAX PLAYERS":
+		case "MAX PLAYERS - ":
 			global.maxplayers = get_integer("How many max players?",global.maxplayers)
 			global.maxplayers = clamp(global.maxplayers,0,50);
 			sfx(sndStomp,0);
@@ -594,7 +687,7 @@ if keyboard_check_pressed(global.keyj) or keyboard_check_pressed(vk_enter)
 		case "HOLDACT":
 			setcontrol("keyh")
 		break
-		case "MOD SETTINGS":
+		case "OTHER":
 			section = 9;
 			sel = 0;
 			sfx(sndStomp,0);

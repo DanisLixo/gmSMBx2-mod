@@ -11,11 +11,6 @@ pitch = 1
 		
 if !instance_exists(oClient) 
 {	
-	audio_sound_pitch(global.ch[0],pitch)
-	audio_sound_pitch(global.ch[1],pitch)
-	audio_sound_pitch(global.ch[2],pitch)
-	audio_sound_pitch(global.ch[3],pitch)
-	audio_sound_pitch(global.ch[4],pitch)
 	audio_pause_sound(global.ch[0]);
 	audio_pause_sound(global.ch[1]);
 	audio_pause_sound(global.ch[2]);
@@ -28,12 +23,15 @@ if !instance_exists(oClient)
 
 var xscale_togo = SCREENW/20;
 var yscale_togo = SCREENH/40;
-draw_sprite_ext(sThefucktextgavemeideas, 0, SCREENW/2, SCREENH/2, image_xscale, image_yscale, 0, c_white, 1);
+shader_set(shdColorswap);
+	apply_palette(sPalette_tilebrown,global.environment,image_alpha)
+	draw_sprite_ext(sThetextgavemeideas, 0, SCREENW/2, SCREENH/2, image_xscale, image_yscale, 0, c_white, 1);
+shader_reset();
 
 if image_xscale < xscale_togo {image_xscale += 1;}
 if image_yscale < yscale_togo {image_yscale += 1;}
 
-if image_yscale = yscale_togo {
+if image_yscale >= yscale_togo {
 	shader_set(shdColorswap);
 		apply_palette(sPalette_gold,global.environment+1,image_alpha)
 		draw_sprite(sMushsel,oGame.image_index,(SCREENW/3)+4+(tile*-2)+cx,(tile*10)+((tile*2)*psel)+tile+cy)
@@ -42,7 +40,7 @@ if image_yscale = yscale_togo {
 	draw_set_font(FNT);
 	for (var i = 0; i < array_length(options); i++) {
 		var i_plus_one = i+1
-		draw_text((SCREENW/3),(tile*9)+tile*(2*i_plus_one), options[i])
+		draw_text(SCREENW/3,(tile*9)+tile*(2*i_plus_one), options[i])
 	}
 }
 			
@@ -64,7 +62,10 @@ if settingsmenu {
 	draw_rectangle(0,0,SCREENW,SCREENH,false);
 	draw_set_color(-1);
 	draw_set_alpha(1); */
-	draw_sprite_ext(sThefucktextgavemeideas, 0, SCREENW/2, SCREENH/2, SCREENW/20, SCREENH/20,0, c_white, 1)
+	shader_set(shdColorswap);
+		apply_palette(sPalette_tilebrown,global.environment,image_alpha)
+		draw_sprite_ext(sThetextgavemeideas, 0, SCREENW/2, SCREENH/2, SCREENW/20, SCREENH/20,0, c_white, 1)
+	shader_reset();
 	
 	xx = (global.aspectratio = "ORIGINAL")? 48 : 64;
 	yy = 64;
@@ -76,15 +77,19 @@ if settingsmenu {
 		var p = sMario_s_idle
 		if sprite_exists(ms("sMario_s_idle"))
 		{p = ms("sMario_s_idle");}
+		var g = sGun_Default
+		if sprite_exists(gs("sGun_Default"))
+		{g = gs("sGun_Default");}
 	
 		//draw_set_font(FNT);
 		//draw_text(xx-cx/2,yy-16,"CATEGORY - " + string_upper(category))
 	
 		var scale = 4;
+		var scaleg = 2;
 		if p = sPeterGriffin
 		or p = sDuke
 		or p = sPokey
-		or p = sMaxVerstappen {scale = 0.5;}
+		or p = sMax_Verstappen_s_idle {scale = 0.5;}
 	
 		var sp = (global.aspectratio = "ORIGINAL")? 48 : 64;
 	
@@ -98,10 +103,15 @@ if settingsmenu {
 		draw_set_halign(fa_center);
 		draw_text(SCREENW/2+sp,160+32+10,"creator: "+creatorlist[| curplayersel])
 		draw_set_halign(fa_left);
+		
+		if sel = 3 {draw_sprite_ext(g,0,SCREENW/2+sp+32,160+32+sin(current_time/800)*5-8-16,scaleg+(gunxs*(scaleg/4)),scaleg+(gunys*(scaleg/4)),0,-1,1)}
+
 	}
 
 	marioxs = lerp(marioxs,0,.2);
 	marioys = lerp(marioys,0,.2);
+	gunxs = lerp(gunxs,0,.2);
+	gunys = lerp(gunys,0,.2);
 
 	draw_set_font(FNT);
 
@@ -120,8 +130,6 @@ if settingsmenu {
 	
 		#region different buttons to draw
 		
-		if menu[# section, i] = "CUSTOMIZE" and instance_exists(oClient)
-		{draw_text_color(xx,yy+(i*tsep),menu[# section, i],c_gray,c_gray,c_gray,c_gray,0.6)}
 		if menu[# section, i] = "SFX"
 		{draw_text(xx,yy+(i*tsep),menu[# section, i]+" * "+string(round(global.volsfx*100)))}
 		else if menu[# section, i] = "BGM"
@@ -165,8 +173,8 @@ if settingsmenu {
 		{draw_text_transformed(xx,yy+(i*tsep),menu[# section, i]+string_upper(global.player), charlimit, 1, 0);}
 		else if menu[# section, i] = "PALETTE - "
 		{draw_text(xx,yy+(i*tsep),menu[# section, i]+string_upper(global.paletteindex));}
-		else if menu[# section, i] = "MAX PLAYERS - "
-		{draw_text(xx,yy+(i*tsep),menu[# section, i]+string_upper(global.maxplayers));}
+		else if menu[# section, i] = "GUN - "
+		{draw_text(xx,yy+(i*tsep),menu[# section, i]+string_upper(global.gunskin));}
 		else if menu[# section, i] = "COMMAND ENEMIES - "
 		{
 			var ex = "YES"
@@ -205,16 +213,13 @@ if settingsmenu {
 	
 		else
 		{draw_text(xx,yy+(i*tsep),menu[# section, i]);}
+		
+		if menu[# section, i] = "CUSTOMIZE" and instance_exists(oClient)
+		{draw_text_color(xx,yy+(i*tsep),menu[# section, i],c_gray,c_gray,c_gray,c_gray,0.6)}
 	
 	
 		#endregion
 	}
-
-
-
-	bgm(-1,0)
-
-
 
 	if waitforcontrol < 0
 	{waitforcontrol = 0;}
@@ -365,6 +370,23 @@ if settingsmenu {
 		if global.paletteindex < 0 {global.paletteindex = sprite_get_height(global.palettesprite)-1;}
 	
 	}
+	
+	if menu[# section, sel] = "GUN - "
+	{
+	if p != 0 //&& !(!(p = -1 && curplayersel > 0) && !(p = 1 && curplayersel < ds_list_size(playerlist)-1))
+	{gunxs = -1; gunys = 1;}
+	curgunsel += p;
+	if p != 0
+	{
+		savesettings()
+	}
+	
+	if curgunsel > ds_list_size(gunlist)-1 {curgunsel = 0;}
+	if curgunsel < 0 {curgunsel = ds_list_size(gunlist)-1;}
+	
+	global.gunskin = gunlist[| curgunsel]
+	
+}
 
 	// palette
 	updtplayerpalette()

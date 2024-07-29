@@ -34,17 +34,20 @@ function init()
 	}
 	
 	#macro TIMESEC 0.4
-	#macro FNT font_add_sprite_ext(sFont,"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-+*!.:©bredi",0,0)
-	#macro VERSION "MODDED 1.0"
+	#macro FNT font_add_sprite_ext(sFont,"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-+*!.:©bredi_",0,0)
+	#macro VERSION "MODDED 2.5"
 	
 	global.score = 0;
 	global.coins = 0;
 	global.time = -1
 	global.player = "Mario"
+	global.playertwo = "Luigi"
 	global.palettesprite = sPalette_mario;
 	global.paletteindex = 1;
 	global.gunskin = "Default"
 	global.letterboxSprite = sBG_0
+	
+	global.demo = false;
 	
 	global.showfps = true;
 	global.showpfp = true;
@@ -76,6 +79,12 @@ function init()
 	global.moveenys = true
 	global.moveobjs = true
 	global.movestatics = false
+	global.multiplayer = false
+	
+	global.ch_allowed[0] = true //Sound
+	global.ch_allowed[1] = true //Sound
+	global.ch_allowed[2] = true //Sound
+	global.ch_allowed[3] = true //Sound
 	
 	#region environment
 
@@ -88,6 +97,7 @@ function init()
 		mushroom,
 		snow,
 		night,
+		snowday
 	}
 	global.environment = e.overworld
 
@@ -131,7 +141,6 @@ function init()
 		*/
 		
 		window_set_size(SCREENW*scrsizemult,SCREENH*scrsizemult);
-		window_center()
 
 		view_enabled = true;
 		view_visible[0] = true;

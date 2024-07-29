@@ -1,8 +1,4 @@
 var yoff = (m.state = ps.crouch)? 0 : 8;
-x = (m.image_xscale)? m.bbox_left+2 : m.bbox_right-2;
-y = m.bbox_top
-depth = m.depth
-image_alpha = m.image_alpha
 
 shader_set(shdColorswap);
 	apply_palette(global.palettesprite,m.palindex,image_alpha)

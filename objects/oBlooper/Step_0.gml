@@ -1,5 +1,8 @@
 if mario_freeze()	{exit;}
 
+if instance_exists(oLuigi) {var m = choose(oMario,oLuigi)}
+else {var m = oMario}
+
 event_inherited();
 
 if state = es.die {
@@ -23,7 +26,7 @@ if bstate = 0 {
 	vspd = 0.5;
 	movement++;
 	if movement > 45 {
-		if oMario.bbox_top < y or y >= room_height-72 {
+		if m.bbox_top < y or y >= room_height-72 {
 			bstate = 1;
 			vspd = 0;
 			movement = 0;
@@ -77,7 +80,7 @@ if movement > animtrigger and bstate = 0 {
 
 if allowchange {
 	turnchance = random_range(0, 100);
-	turnchance += (oMario.x > x)? 15 : -15
+	turnchance += (m.x > x)? 15 : -15
 
 	if turnchance >= 50 {
 		facingdir = 1;

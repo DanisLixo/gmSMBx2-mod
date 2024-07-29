@@ -9,18 +9,11 @@ if !settingsmenu {
 		switch psel {
 			case 0: instance_destroy(); break;
 			case 1: settingsmenu = true; oGame.delay = 0; break;
-			case 2: instance_activate_all(); room_restart(); global.time = timeunits(400) break;
-			case 3: instance_activate_all(); if instance_exists(oClient) {oMario.image_alpha = 0; game_restart();} room_goto(rmTitle);  break;
+			case 2: instance_activate_all(); if !instance_exists(oCheckpointmask) {room_goto(asset_get_index("rm"+string(global.world)+"_"+string(global.level)));} else {room_restart()} global.time = timeunits(400) break;
+			case 3: instance_activate_all(); room_goto(rmTitle); instance_destroy(oClient)  break;
 		}
 		oGame.spawnx = -1;
 		oGame.spawny = -1;
 		instance_activate_object(oNekoPresence);
-		pitch = (pitched = true)? 1.3 : 1;
-		pitched = false;
-		audio_sound_pitch(global.ch[0],pitch)
-		audio_sound_pitch(global.ch[1],pitch)
-		audio_sound_pitch(global.ch[2],pitch)
-		audio_sound_pitch(global.ch[3],pitch)
-		audio_sound_pitch(global.ch[4],pitch)
 	}
 }

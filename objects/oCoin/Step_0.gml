@@ -6,7 +6,9 @@ if moving = true {
 		{dir = -dir;}
 }
 
-if ((oMario.image_xscale = 1 && instance_place(x-1,y,oMario)) or (oMario.image_xscale = -1 && instance_place(x+1,y,oMario))) && global.movestatics = true && oMario.state = ps.nah
+var m = instance_place(x+8*dir,y,oMario);
+
+if m && global.movestatics = true && m.state = ps.nah
 {
 	moving = true
 	dir = -dir

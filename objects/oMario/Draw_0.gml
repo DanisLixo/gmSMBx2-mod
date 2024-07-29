@@ -18,7 +18,7 @@ scale = 1;
 if char = "Peter Griffin"	{scale = 0.2;}
 if char = "Duke"	{scale = 0.2;}
 if char = "Pokey" {scale = 0.2;}
-if char = "Max Verstappen" {scale = 0.2;}
+if char = "Max_Verstappen" {scale = 0.2;}
 if char = "Anton" && powerup = "s"	{scale = 0.6}
 if char = "1pixelMario" && powerup = "s"	{scale = 0.5}
 
@@ -28,7 +28,7 @@ if powerup = "f" && !instance_exists(oHatThrow) &&
 else if powerup != "f" 
 {instance_destroy(oHat);}
 
-if powerup = "c" && mycapeative = false && (state != ps.capetransform || state != ps.shrink) {
+if powerup = "c" && mycapeative = false && state != ps.capetransform && state != ps.shrink {
 	instance_create_depth(x,y,depth+1,oCape);
 	oCape.spr = cs("sCape_idle");
 	mycapeative = true;
@@ -50,12 +50,14 @@ else
 
 if powerup = "s" {oGame.hats = 0}
 //if char = "1pixelmario" and powerup = "f" {spr = ms("sMario_{}_idle");}
-
+//(image_xscale*csw/cswdiv)-(2*image_xscale)
 shader_set(shdColorswap);
 apply_palette(global.palettesprite,palindex,image_alpha)
-if firetimer > 0 && char != "Peter Griffin" && char != "Duke" && char != "Pokey" && char != "1pixelmario" and char != "Sonic"
+if firetimer > 0 && char != "Peter Griffin" && char != "Duke" && char != "Pokey" && char != "1pixelmario" && char != "Max_Verstappen" and (char != "Sonic" or char = "Sonic" and state != ps.jump)
 	{
 		{
+			firedraw = true;
+			
 			var fs = ms("sMario_{}_fire")
 			var fsw = sprite_get_width(fs); var fsh = sprite_get_height(fs);
 			draw_sprite_part_ext(fs,ind,0,0,fsw,fsh-8,x-(image_xscale*fsw/2),y-fsh+yoff,
@@ -64,34 +66,31 @@ if firetimer > 0 && char != "Peter Griffin" && char != "Duke" && char != "Pokey"
 			var ccs = spr
 			if spr = ms("sMario_{}_idle")
 			{ccs = ms("sMario_{}_fire");}
-			var csw = sprite_get_width(ccs); var csh = sprite_get_height(ccs);
-			draw_sprite_part_ext(ccs,ind,0,csh-9,csw,9,x-(image_xscale*fsw/2),y-8+yoff,
+			var csw = sprite_get_width(ccs); var csh = sprite_get_height(ccs); var cswsub = csw/16;
+			draw_sprite_part_ext(ccs,ind,0,csh-9,csw,9,x-(image_xscale*csw/2)-cswsub-1*-image_xscale,y-8+yoff,
 			(image_xscale*scale),(image_yscale*scale),image_blend,image_alpha);
 		}
 	}
-else if char != "Sonic" {draw_sprite_ext(spr,ind,x,y+yoff,round(image_xscale)*scale,image_yscale*scale,image_angle,image_blend,image_alpha)}
-	
-if firetimer > 0 and char = "Sonic" and state != ps.jump
-	{
+else if char != "Sonic" or (ps.jump and char = "Sonic") {firedraw = false; draw_sprite_ext(spr,ind,x,y+yoff,round(image_xscale)*scale,image_yscale*scale,image_angle,image_blend,image_alpha);}
+shader_reset()
+
+if starman != 0 and char != "Max_Verstappen"
+{
+	gpu_set_fog(true,make_color_hsv((starman) mod 255,255,255),1,1);
+	if firedraw {
 		var fs = ms("sMario_{}_fire")
 		var fsw = sprite_get_width(fs); var fsh = sprite_get_height(fs);
 		draw_sprite_part_ext(fs,ind,0,0,fsw,fsh-8,x-(image_xscale*fsw/2),y-fsh+yoff,
-		(image_xscale*scale),(image_yscale*scale),image_blend,image_alpha);
+		(image_xscale*scale),(image_yscale*scale),image_blend,0.5);
 		
 		var ccs = spr
 		if spr = ms("sMario_{}_idle")
 		{ccs = ms("sMario_{}_fire");}
-		var csw = sprite_get_width(ccs); var csh = sprite_get_height(ccs);
-		draw_sprite_part_ext(ccs,ind,0,csh-9,csw,9,x-(image_xscale*fsw/2),y-8+yoff,
-		(image_xscale*scale),(image_yscale*scale),image_blend,image_alpha);
+		var csw = sprite_get_width(ccs); var csh = sprite_get_height(ccs); var cswsub = (csw/16)+(1*-image_xscale);
+		draw_sprite_part_ext(ccs,ind,0,csh-9,csw,9,x-(image_xscale*csw/2)-cswsub,y-8+yoff,
+		(image_xscale*scale),(image_yscale*scale),image_blend,0.5);
 	}
-else if (firetimer <= 0 or ps.jump) and char = "Sonic" {draw_sprite_ext(spr,ind,x,y+yoff,round(image_xscale)*scale,image_yscale*scale,image_angle,image_blend,image_alpha)}
-shader_reset()
-
-if starman != 0
-{
-	gpu_set_fog(true,make_color_hsv((starman) mod 255,255,255),1,1);
-	draw_sprite_ext(spr,ind,x,y+yoff,round(image_xscale)*scale,image_yscale*scale,image_angle,image_blend,0.5)
+	else {draw_sprite_ext(spr,ind,x,y+yoff,round(image_xscale)*scale,image_yscale*scale,image_angle,image_blend,0.5)}
 	gpu_set_fog(false,-1,1,1);
 	
 	if starman mod 3 = 0
@@ -110,6 +109,7 @@ if shoulderbash > 0 && (current_time/1000) mod 5 = 0
 
 if pmach < 5 
 {pind = pmach}
+
 else 
 {
 	if pmet mod 10 < 5 {pind = 6}
@@ -159,6 +159,6 @@ if instance_exists(oIsArena)
 if room = rmTitle 
 {
 	if instance_place(x+15, y, oGoomba) {state = ps.nah}  
-	else {state = ps.title}  
-	invincible = 0;
+	else {state = ps.title; ind = 0;}  
+	invincible = 1;
 }

@@ -40,7 +40,7 @@ if global.playercol {
 			oMario.grounded = true;
 			oMario.carried = true;
 		}
-	if oMario.carried and oMario.grounded = true
+	if oMario.carried
 		{
 			oMario.y = bbox_top-1; 
 			oMario.x = x;

@@ -1,1 +1,1 @@
-if oGame.spawnx = x {}
+if oGame.spawnx = x {killenys = true}

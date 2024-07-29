@@ -96,7 +96,7 @@
     "PhysicsWorldPixToMetres": 0.1,
   },
   "parent": {
-    "name": "Rooms",
-    "path": "folders/Rooms.yy",
+    "name": "1-1",
+    "path": "folders/Rooms/mario brother/World 1/1-1.yy",
   },
 }

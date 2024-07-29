@@ -5,8 +5,6 @@ if x < cx {instance_destroy()}
 
 event_inherited();
 
-if cheeptype = 1 {stomptype = -1}
-
 switch(state)
 {
 	case es.patrol:

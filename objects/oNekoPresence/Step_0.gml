@@ -11,8 +11,13 @@ if (global.world == 0 || global.level == 0)
 else
 {
 	if instance_exists(oRacemanager)	{where = "racing online on "+string(global.world)+"-"+string(global.level);}
+	else if oGame.extra					{where = "gaming on an extra level yuh uh"}
 	else								{where = "gaming on "+string(global.world)+"-"+string(global.level);}
 }
+
+
+if instance_exists(oClient) {where = where + " - theyr online"}
+if instance_exists(oPaused) {where = where + " - PAUSED"}
 
 /*
 if room = rmTitle	{where = "on the title screen";}
@@ -25,7 +30,7 @@ switch(room)
 	case rmTitle: where = "on the title screen"; break;
 	case rmServer: where = "hosting a server go play with them!!!!!!!!!!!"; break;
 	case rmLobby: where = "on the lobby"; break;
-	case rmTemplate: where = "a template level... for some reason"; break;
+	case rmTemplate: where = "playing on a template level... huh"; break;
 	case rmLeveltransition: where = "level transitioning (I'm so proud)"; break; 
 } 
 

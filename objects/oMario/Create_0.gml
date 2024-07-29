@@ -6,6 +6,7 @@ global.stars = 0
 bubble = 60;
 combo = 0
 mycapeative = false;
+firedraw = false;
 
 char = global.player;
 
@@ -22,6 +23,7 @@ retrochance = random(100)
 		enterpipedown,
 		enterpiperight,
 		exitpipeup,
+		enterpipedown8_4,
 		crouch,
 		spindash,
 		grow,
@@ -40,7 +42,7 @@ retrochance = random(100)
 		fly,
 		dance0,
 		nah,
-		spincarp,
+		sneeze,
 		title
 	} 
 state = ps.normal
@@ -56,6 +58,7 @@ if instance_exists(oGame)
 
 palindex = global.paletteindex
 
+spr = -1
 spr =  ms("sMario_{}_idle")
 ind = 0;
 
@@ -82,7 +85,7 @@ starman = 0;
 
 jumps = 0
 
-pipeinforoom = rm1_1
+pipeinforoom = noone
 
 finishedrace = false;
 
@@ -102,6 +105,8 @@ pmet = 0
 pind = 0;
 
 carried = false;
+
+insidecar = false;
 
 if !place_meeting(x,y+1,oCol)
 {spr = ms("sMario_{}_walk");}

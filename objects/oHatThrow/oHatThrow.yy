@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oHatThrow",
   "spriteId": {
-    "name": "sFireHatThrow",
-    "path": "sprites/sFireHatThrow/sFireHatThrow.yy",
+    "name": "sFireHat_throw",
+    "path": "sprites/sFireHat_throw/sFireHat_throw.yy",
   },
   "solid": false,
   "visible": true,

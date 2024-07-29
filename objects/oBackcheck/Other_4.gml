@@ -1,0 +1,1 @@
+if global.level != 1 and global.world != 5 {instance_destroy();}

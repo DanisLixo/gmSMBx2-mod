@@ -1,0 +1,1 @@
+m = instance_nearest(x,y,oMario)

@@ -1,0 +1,1 @@
+if throwed {instance_place(x,y,other).gethit = 1}

@@ -1,4 +1,4 @@
-menu = ds_grid_create(10,9)
+menu = ds_grid_create(10,10)
 optionsnum = array_create(10,0)
 
 timetoparty = rmLeveltransition
@@ -28,13 +28,14 @@ addmenu(2,0,"CUSTOMIZE")
 addmenu(2,1,"VIDEO")
 addmenu(2,2,"AUDIO")
 addmenu(2,3,"CONTROLS")
-addmenu(2,4,"MOD SETTINGS")
+addmenu(2,4,"OTHER")
 addmenu(2,5,"BACK")
 
 addmenu(3,0,"CATEGORY - ")
 addmenu(3,1,"PLAYER - ")
 addmenu(3,2,"PALETTE - ")
-addmenu(3,3,"BACK")
+addmenu(3,3,"GUN - ")
+addmenu(3,4,"BACK")
 
 addmenu(4,0,"USERNAME - ")
 addmenu(4,1,"SET IP - ")
@@ -69,20 +70,34 @@ addmenu(8,5,"JUMP")
 addmenu(8,6,"HOLDACT")
 addmenu(8,7,"BACK")
 
-addmenu(9,0,"COMMAND ENEMIES - ")
-addmenu(9,1,"COMMAND MOVABLE OBJS - ")
-addmenu(9,2,"COMMAND STATICS - ")
-addmenu(9,3,"BACK")
+addmenu(9,0,"- COMMANDER SETTINGS -")
+	addmenu(9,1,"  COMMAND ENEMIES - ")
+	addmenu(9,2,"  COMMAND MOVABLE OBJS - ")
+	addmenu(9,3,"  COMMAND STATICS - ")
+addmenu(9,4,"- CLASSIC AUDIO MOD -")
+	addmenu(9,5,"  SQUARE 0 - ")
+	addmenu(9,6,"  SQUARE 1 - ")
+	addmenu(9,7,"  TRIANGLE 2 - ")
+	addmenu(9,8,"  NOISE 3 - ")
+addmenu(9,9,"BACK")
+the = 0
 
 playerlist = ds_list_create();
 creatorlist = ds_list_create();
+gunlist = ds_list_create();
+
 
 
 addplist = function(name,creator)
 {
 	ds_list_add(playerlist,name);
 	ds_list_add(creatorlist,creator);
-	//ds_list_add(creatorlist,insertor);
+	//ds_list_add(insertorlist,insertor);
+}
+
+addgunlist = function(name)
+{
+	ds_list_add(gunlist,name);
 }
 
 category = "Characters"
@@ -116,16 +131,19 @@ addplist("Peter Griffin",".")
 addplist("Duke","pacolagamer444")
 addplist("Pokey","POKEY'S MOM")
 addplist("1pixelmario","gemaplys")
-addplist("Max Verstappen","EnciroYeah")
+addplist("Max_Verstappen","EnciroYeah")
 //HQ jokes
 hqlist = lqlist + 2
 
 addplist("Martin","seven")
 addplist("Peter","seven")
-addplist("Gemaplys","dawnlr")
+addplist("Gemaplys","gemaplys")
 
-
-
+addgunlist("Default")
+addgunlist("BigHand")
+addgunlist("Emoji")
+addgunlist("AppleEmoji")
+addgunlist("MiniGun")
 
 gamemodes = ds_list_create();
 ds_list_add(gamemodes, "CLASSIC");
@@ -163,8 +181,11 @@ updtplayerpalette = function()
 
 marioxs = 0;
 marioys = 0;
+gunxs = 0;
+gunys = 0;
 
 curplayersel = 0;
+curgunsel = 0;
 
 depth = -9999
 

@@ -32,7 +32,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Level",
-    "path": "folders/Objects/Level.yy",
+    "name": "Endtriggers",
+    "path": "folders/Objects/Level/Endtriggers.yy",
   },
 }

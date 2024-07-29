@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oLooptel",
   "spriteId": {
-    "name": "sEnd",
-    "path": "sprites/sEnd/sEnd.yy",
+    "name": "sBarrier",
+    "path": "sprites/sBarrier/sBarrier.yy",
   },
   "solid": false,
   "visible": false,

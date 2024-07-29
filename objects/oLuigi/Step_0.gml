@@ -68,6 +68,8 @@ if instance_exists(oClient)
 
 collidecode = false;
 
+char = global.playertwo
+
 //if powerup = "c" {powerup = "f"}
 
 if global.environment = e.underwater {
@@ -152,18 +154,30 @@ if starman > 0
 if round(invincible) = 0
 {image_alpha = 1;}
 
-if ka and kr-kl != 0 {pmet++;}
-else {pmet = 0; pmach = 0}
+if ka and hspd != 0 and mario_freeze() = 0 {pmet++;}
+else {pmet--; if pmach > 6 {pmach = 0;}}
 
-if pmet >= 35 {
+if pmet >= 35 and global.environment != e.underwater {
 	if pmach < 6 pmach += 0.1
 }
 if state = ps.fly {pmach = 6;}
 
-if pmach > 0.9 and hspd = 0 {pmach -= 0.2}
+if pmach > 0.9 and (hspd = 0 || state = ps.pivot) {pmach -= 0.5}
 
 if grounded {combo = 0;}
 if combo > 10 {combo = 10;}
+
+if kd and instance_place(x,y,oMario) and instance_place(x,y,oMario).powerup = "f" and instance_place(x,y,oMario).char = "Max_Verstappen"
+{
+	insidecar = true;
+}
+
+if insidecar {
+	x = oMario.x
+	y = oMario.y
+	image_alpha = 0;
+	invincible = 10
+}
 
 if state = ps.title
 {spr = ms("sMario_s_idle"); exit;}
@@ -187,6 +201,9 @@ switch(state)
 	break;
 	case ps.enterpipedown:
 		ps_enterpipedown();
+	break;
+	case ps.enterpipedown8_4:
+		ps_enterpipedown8_4()
 	break;
 	case ps.enterpiperight:
 		ps_enterpiperight();
@@ -248,8 +265,8 @@ switch(state)
 	case ps.spindash:
 		ps_spindash();
 	break;
-	case ps.spincarp:
-		ps_spincarp();
+	case ps.sneeze:
+		ps_sneeze();
 	break;
 }
 
@@ -263,5 +280,10 @@ if global.rtxmode = true or global.schutmode = true
 
 if kjp {retrochance = random(100)}
 
-if starman < 130 and char = "Max Verstappen" {starman = global.time;}
-if char = "Max Verstappen" and (state = ps.castleending or state = ps.flagpoledescend or state = ps.flagpolefinish) {starman = 0}
+if starman < 130 and char = "Max_Verstappen" {starman = global.time;}
+if char = "Max_Verstappen" and (state = ps.castleending or state = ps.flagpoledescend or state = ps.flagpolefinish) {starman = 0}
+
+var sneeze = random_range(0, 100)
+if sneeze > 70 and char = "Feathy" and 
+instance_place(x+8*sign(hspd),y,oFireflower)
+{hspd = 2; state = ps.sneeze; oFireflower.feathy = id;}

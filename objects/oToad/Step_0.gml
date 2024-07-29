@@ -4,11 +4,11 @@ if place_meeting(x,y,oMario) && collided = false
 	alarm[0] = room_speed * 1.5
 }
 
-if oMario.state = ps.nah {nah = true; sfx(sndBump,0);}
+if instance_place(x-1,y,oMario) and instance_place(x-1,y,oMario).state = ps.nah {nah = true; sfx(sndBump,0);}
 
-if instance_place(x,y,oBullet){instance_destroy()}
+if instance_place(x,y,oBullet) {instance_destroy(instance_place(x,y,oBullet)); instance_destroy()}
 
-if instance_place(x-1,y,oMario) && global.moveenys = true && oMario.state = ps.nah && global.player != "Dawn" 
+if instance_place(x-1,y,oMario) && global.moveenys = true && instance_place(x-1,y,oMario).state = ps.nah && global.player != "Dawn" 
 {
 	//x += hspd; // I like this one specifically, he simply stops the enemy (no objectfication).
 	sfx(sndBump,0);

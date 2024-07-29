@@ -1,18 +1,22 @@
 event_inherited();
 
-hspd = -0.3;
-vspd = 0;
-life = 5;
+hspd = 0.2;
 facingdir = -1
+c = 1;
+
 state = es.patrol
-firetimer = 0;
+
+hammertimer = 120;
+
+spr = sHammerbro;
 stomptype = 3
 
-jump = false
+jump = 181
+smalljump = false;
 
-die = false;
+lowest = room_height-32
+actual = noone
 
-imgspd = image_speed;
+aightcomehere = timeunits(120)
 
 bboxturn = true
-c = 0;

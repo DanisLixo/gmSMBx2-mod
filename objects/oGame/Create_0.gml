@@ -5,6 +5,7 @@ loadsettings()
 dep = depth;
 
 savedpowerup = "s";
+p2savedpowerup = "s";
 hats = 0
 
 lastenv = e.underground
@@ -19,6 +20,7 @@ triggercastleflag = false;
 
 global.curbgm = "OW"
 
+global.retros = 0
 
 global.prevroom = room;
 

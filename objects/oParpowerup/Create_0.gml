@@ -8,4 +8,4 @@ face = 1
 
 placecol = instance_place(x,y,oCol)
 
-
+float = false;

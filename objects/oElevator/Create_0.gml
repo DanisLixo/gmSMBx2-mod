@@ -6,6 +6,4 @@ gspd = 0;
 
 isskylift = false;
 
-alwaysmove = false
-
 early = false;

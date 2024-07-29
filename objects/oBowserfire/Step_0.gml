@@ -1,7 +1,7 @@
 if mario_freeze() = 4
 {instance_destroy();}
 
-if !onview() or mario_freeze() != 0
+if /*!onview() or*/ mario_freeze() != 0
 {exit;}
 
 
@@ -22,7 +22,9 @@ x = x+(hspd*facingdir)
 if readjust = true && round(y) != round(y/16)*16
 {y++;}
 
-if ((oMario.image_xscale = 1 && instance_place(x-1,y,oMario)) or (oMario.image_xscale = -1 && instance_place(x+1,y,oMario))) && oMario.hspd <= 0.5  && global.moveenys = true && oMario.state = ps.nah
+var m = instance_place(x+8*facingdir,y,oMario);
+
+if m && global.moveenys = true && m.state = ps.nah
 {
 	clashroyale = true
 	facingdir = -facingdir

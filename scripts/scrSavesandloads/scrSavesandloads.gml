@@ -17,12 +17,13 @@ function savesettings()
 	var sfxvolume = global.volsfx
 	var bgmvolume = global.volbgm
 	var classicaudio = global.musicchannels
-	var tehStyle = global.opacandastar
+	var tehStyle = global.opacandastar	
 	
 	var showfps = global.showfps
 	var showdiscordpfp = global.showpfp
 	var resolution = global.aspectratio
-	
+	var finisheddemo = global.demo
+
 	var ku = global.keyu;
 	var kd = global.keyd;
 	var kl = global.keyl;
@@ -34,6 +35,11 @@ function savesettings()
 	var enys = global.moveenys
 	var moveobjs = global.moveobjs
 	var statis = global.movestatics
+	
+	var ch0 = global.ch_allowed[0]
+	var ch1 = global.ch_allowed[1]
+	var ch2 = global.ch_allowed[2]
+	var ch3 = global.ch_allowed[3]
 	
 	var secCHAR = "character/costume"
 	ini_write_string(secCHAR,"charname",charname);
@@ -56,6 +62,7 @@ function savesettings()
 	ini_write_real(secETC,"showdiscordpfp",showdiscordpfp);
 	ini_write_real(secETC,"showfps",showfps);
 	ini_write_string(secETC,"resolution",resolution);
+	ini_write_real(secETC,"finished demo",finisheddemo);
 	
 	var secCTRL = "controls"
 	ini_write_real(secCTRL,"ku",ku)
@@ -70,6 +77,11 @@ function savesettings()
 	ini_write_real(secMOD,"commandenemies",enys);
 	ini_write_real(secMOD,"commandobjs",moveobjs);
 	ini_write_real(secMOD,"commandstatics",statis);
+	
+	ini_write_real(secMOD,"playchannel0",ch0);
+	ini_write_real(secMOD,"playchannel1",ch1);
+	ini_write_real(secMOD,"playchannel2",ch2);
+	ini_write_real(secMOD,"playchannel3",ch3);
 	
 	ini_close();
 }
@@ -107,6 +119,7 @@ function loadsettings()
 		var showdiscordpfp = ini_read_real(secETC,"showdiscordpfp",0);
 		var showfps = ini_read_real(secETC,"showfps",1);
 		var resolution = ini_read_string(secETC,"resolution","WIDESCREEN");
+		var finisheddemo = ini_read_real(secETC,"finished demo",0);
 		
 		var ku = ini_read_real(secCTRL,"ku",global.keyu)
 		var kd = ini_read_real(secCTRL,"kd",global.keyd)
@@ -119,6 +132,11 @@ function loadsettings()
 		var enys = ini_read_real(secMOD,"commandenemies",1);
 		var moveobjs = ini_read_real(secMOD,"commandobjs",1);
 		var statis = ini_read_real(secMOD,"commandstatics",0);
+		
+		var ch0 = ini_read_real(secMOD,"playchannel0",1);
+		var ch1 = ini_read_real(secMOD,"playchannel1",1);
+		var ch2 = ini_read_real(secMOD,"playchannel2",1);
+		var ch3 = ini_read_real(secMOD,"playchannel3",1);
 		
 		global.player = charname;
 		global.palettesprite = charpalette
@@ -137,6 +155,7 @@ function loadsettings()
 		global.showpfp = showdiscordpfp
 		global.showfps = showfps
 		global.aspectratio = resolution
+		global.demo = finisheddemo
 		
 		global.keyu = ku
 		global.keyd = kd
@@ -149,7 +168,11 @@ function loadsettings()
 		global.moveenys = enys
 		global.moveobjs = moveobjs
 		global.movestatics = statis
-
+		
+		global.ch_allowed[0] = ch0
+		global.ch_allowed[1] = ch1
+		global.ch_allowed[2] = ch2
+		global.ch_allowed[3] = ch3
 	
 		ini_close();
 	}

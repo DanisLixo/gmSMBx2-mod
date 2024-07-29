@@ -4,7 +4,22 @@ grounded = false;
 
 pufunc = function()
 {
-	instance_place(x,y,oMario).state = ps.grow;
+	var m = instance_place(x,y,oMario)
+	
+	if m
+	{
+		with(m)
+		{
+			if powerup = "s"
+			{state = ps.grow;}
+			else if powerup = "b" || powerup = "c"
+			{state = ps.firetransform;}
+			else
+			{sfx(sndPowerup,1);}
+		}
+	}
+	
+	if m.powerup != "s" {oGame.hats += 1;}
 	points(1000,true);
 	instance_destroy();
 }

@@ -1,0 +1,1 @@
+if room = rmDemoend {room_goto(rm3_1)}

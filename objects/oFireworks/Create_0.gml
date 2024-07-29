@@ -1,5 +1,5 @@
 alarm[0] = 1;
- imgspd = image_speed;
-arrow = true
+imgspd = image_speed;
+arrow = false;
 
-
+m = noone

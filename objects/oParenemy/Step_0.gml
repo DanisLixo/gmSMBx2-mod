@@ -20,29 +20,29 @@ state != es.die && state != es.stomp
 
 if state = es.patrol
 {
-	if instance_place(x+facingdir,y,oPiranha)
+	if instance_place(x+facingdir,y,oPiranha) and stomptype != 4
 		{facingdir = -facingdir;}
 	var m = instance_place(x,y,oMario)
-	if m && m.y >= bbox_bottom-2 && (m.vspd <= 0 or m.grounded) {m.gethit = 1;}
+	if m && m.y >= bbox_bottom-2 && (m.vspd <= 0 or m.grounded) and m.state != ps.sneeze {m.gethit = 1;}
 	if m && m.y < bbox_bottom-2 && m.grounded = false && m.vspd > 0 or m and m.char = "Sonic" and m.state = ps.jump
 	{
 		if stomptype = -1
 		{m.gethit = 1;}
 		else {
-			oMario.combo++
-			points(oMario.combo,true);
+			m.combo++
+			points(m.combo,true);
 			sfx(sndStomp,0)
 			if stomptype = 0
-			{state = es.stomp; m.vspd = -3; m.holdjump = 20; BLAST()}
-			if stomptype = 3
-			{state = es.die; m.vspd = -3; m.holdjump = 20; BLAST()}
+			{state = es.stomp; m.vspd = -3; m.holdjump = m.combo < 5? 20+m.combo*2.5 : 20+15; BLAST()}
+			if stomptype >= 3
+			{state = es.die; m.vspd = -3; m.holdjump = m.combo < 5? 20+m.combo*2.5 : 20+15; BLAST()}
 			else if stomptype >= 1 and stomptype < 3
 			{
 				state = es.shell;
-				m.vspd = -3; m.holdjump = 20; BLAST(); vspd = 0; hspd = 0;
+				m.vspd = -3; m.holdjump = m.combo < 5? 20+m.combo*2.5 : 20+15; BLAST(); vspd = 0; hspd = 0;
 				shellcooldown = 10
 			}
-			if m.char = "Sonic" {state = es.die; m.vspd = -3; m.holdjump = 30; BLAST()}
+			if m.char = "Sonic" {state = es.die; m.vspd = -3; m.holdjump = m.combo < 5? 20+m.combo*2.5 : 20+15; BLAST()}
 		}
 	}
 }
@@ -50,16 +50,16 @@ if state = es.patrol
 if state = es.patrolwinged
 {
 	var m = instance_place(x,y,oMario)
-	if m && m.y >= bbox_bottom-2 && (m.vspd <= 0 or m.grounded) {m.gethit = 1;}
+	if m && m.y >= bbox_bottom-2 && (m.vspd <= 0 or m.grounded) and m.state != ps.sneeze {m.gethit = 1;}
 	if m && m.y < bbox_bottom-2 && m.grounded = false && stomptype <= 1 && m.vspd > 0 or m and m.char = "Sonic" and m.state = ps.jump
 	{
-		oMario.combo++
-		points(oMario.combo,true);
+		m.combo++
+		points(m.combo,true);
 		sfx(sndStomp,0)
 		if stomptype >= 1
 		{
 			state = es.patrol;
-			m.vspd = -3; m.holdjump = 20; BLAST(); vspd = 0; hspd = 0;
+			m.vspd = -3; m.holdjump = m.combo < 5? 20+m.combo*2.5 : 20+15; BLAST(); vspd = 0; hspd = 0;
 			shellcooldown = 10
 		}
 		if m.char = "Sonic" {state = es.die; m.vspd = -3; m.holdjump = 20; BLAST()}
@@ -68,9 +68,10 @@ if state = es.patrolwinged
 
 
 if instance_place(x+facingdir,y,oParenemy) && instance_place(x+facingdir,y,oParenemy).state = es.shellhit
-	&& state != es.die && state != es.stomp
+	&& state != es.die && state != es.stomp and stomptype != 4
 {
-	points(200,true)
+	instance_place(x+facingdir,y,oParenemy).shellcombo++
+	points(instance_place(x+facingdir,y,oParenemy).shellcombo,true)
 	sfx(sndKick,0);
 	vspd = -2;
 	state = es.die;
@@ -94,7 +95,7 @@ if state = es.die
 	vspd += 0.15;
 	image_yscale = -abs(image_yscale);
 	
-	if stomptype != 3 and cheeptype = -1 {x += hspd;}
+	if stomptype < 3 and cheeptype = -1 {x += hspd;}
 	y += vspd;
 }
 
@@ -106,7 +107,9 @@ if !instance_exists(oIsArena)
 	{state = es.patrol;}
 }
 
-if ((oMario.image_xscale = 1 && instance_place(x-1,y,oMario)) or (oMario.image_xscale = -1 && instance_place(x+1,y,oMario))) && global.moveenys = true && oMario.state = ps.nah
+var m = instance_place(x+8*facingdir,y,oMario);
+
+if m && global.moveenys = true && m.state = ps.nah
 {
 	facingdir = -facingdir
 	//x += hspd; // I like this one specifically, he simply stops the enemy (no objectfication).

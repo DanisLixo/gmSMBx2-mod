@@ -26,7 +26,8 @@ if instance_exists(oMario) && die = false
 		{
 			if x < oAxe.bbox_left-6 && !place_meeting(x+1,y,oCol)
 			{x += 0.7;}
-			
+			else if x > oAxe.bbox_left-6 && !place_meeting(x+1,y,oCol)
+			{x -= 0.7}
 			c ++;
 		}
 	}
@@ -46,7 +47,8 @@ if instance_exists(oMario) && die = false
 		{
 			if choose(0,1,1) = 1
 			{
-				firetimer = 30;
+				if !onview() {firetimer = 90;}
+				else {firetimer = 30;}
 			}
 		}
 	}

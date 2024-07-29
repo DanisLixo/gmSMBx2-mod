@@ -122,62 +122,62 @@ function collide()
 	//}
 	//x += hspd;
 	
-	
-	if instance_place(x,y+vspd,oCol)
-	{
-		if !instance_place(x-5,y+vspd,oCol) && vspd < 0
-		{while instance_place(x,y+vspd,oCol) && !place_meeting(x-1,y,oCol) {x --;}}
-		else if !instance_place(x+5,y+vspd,oCol) && vspd < 0
-		{while instance_place(x,y+vspd,oCol) && !place_meeting(x+1,y,oCol) {x ++;}}
-		else
+	if !collision_rectangle(bbox_left-16,bbox_top-16,bbox_right+16,bbox_bottom+16,oElevator,false,true) || (object_index = oMario || object_index = oLuigi) {
+		if instance_place(x,y+vspd,oCol)
 		{
-			if (place_meeting(x,y,oCol) && vspd >= 0) or !place_meeting(x,y,oCol)
+			if !instance_place(x-5,y+vspd,oCol) && vspd < 0
+			{while instance_place(x,y+vspd,oCol) && !place_meeting(x-1,y,oCol) {x --;}}
+			else if !instance_place(x+5,y+vspd,oCol) && vspd < 0
+			{while instance_place(x,y+vspd,oCol) && !place_meeting(x+1,y,oCol) {x ++;}}
+			else
 			{
-				while !place_meeting(x,y+sign(vspd),oCol)
-				{y += sign(vspd);}
-				vspd = 0;
+				if (place_meeting(x,y,oCol) && vspd >= 0) or !place_meeting(x,y,oCol)
+				{
+					while !place_meeting(x,y+sign(vspd),oCol)
+					{y += sign(vspd);}
+					vspd = 0;
+				}
+		
+				if place_meeting(x,y+1,oCol)
+				{grounded = true;}
+				if place_meeting(x,y-1,oCol) && !grounded
+				{vspd = 1;}
 			}
-		
-			if place_meeting(x,y+1,oCol)
-			{grounded = true;}
-			if place_meeting(x,y-1,oCol) && !grounded
-			{vspd = 1;}
 		}
-	}
-	y += vspd;
 
-	if instance_place(x,y+1,oSlope) && !place_meeting(x,y,oCol) && instance_place(x+hspd,y,oCol) && instance_place(x+hspd,y,oCol).object_index = oCol
-	{
-		if sign(hspd) = 1 && instance_place(x,y+1,oSlope).image_xscale < 0
-		{while bbox_right < instance_place(x,y+1,oSlope).bbox_right {x ++;}}
-		if sign(hspd) = -1 && instance_place(x,y+1,oSlope).image_xscale > 0
-		{while bbox_left > instance_place(x,y+1,oSlope).bbox_left {x --;}}
-		
-		if place_meeting(x,y,oSlope) && !place_meeting(x,y,oCol)
-		{while !place_meeting(x,y,oSlope) {y --;}}
-	}
-	
-	if place_meeting(x+hspd,y,oCol)
-	{
-		// vars for up slope
-		var yincrease = 0
-		
-		while place_meeting(x+hspd,y-yincrease,oCol) && yincrease <= abs(2*hspd) && !place_meeting(x,y,oCol)
-		{yincrease ++;}
-		
-		//// Collision
-		if place_meeting(x+hspd,y-yincrease,oCol)
+		if instance_place(x,y+1,oSlope) && !place_meeting(x,y,oCol) && instance_place(x+hspd,y,oCol) && instance_place(x+hspd,y,oCol).object_index = oCol
 		{
-			while !place_meeting(x+sign(hspd),y,oCol) && !place_meeting(x,y,oCol)
-			{x += sign(hspd);}
-			hspd = 0;
-		}
-		else  {y -= yincrease;}
+			if sign(hspd) = 1 && instance_place(x,y+1,oSlope).image_xscale < 0
+			{while bbox_right < instance_place(x,y+1,oSlope).bbox_right {x ++;}}
+			if sign(hspd) = -1 && instance_place(x,y+1,oSlope).image_xscale > 0
+			{while bbox_left > instance_place(x,y+1,oSlope).bbox_left {x --;}}
 		
-		yincrease = 0;
+			if place_meeting(x,y,oSlope) && !place_meeting(x,y,oCol)
+			{while !place_meeting(x,y,oSlope) {y --;}}
+		}
+	
+		if place_meeting(x+hspd,y,oCol) && object_index != oHammerbro
+		{
+			// vars for up slope
+			var yincrease = 0
+		
+			while place_meeting(x+hspd,y-yincrease,oCol) && yincrease <= abs(2*hspd) && !place_meeting(x,y,oCol)
+			{yincrease ++;}
+		
+			//// Collision
+			if place_meeting(x+hspd,y-yincrease,oCol)
+			{
+				while !place_meeting(x+sign(hspd),y,oCol) && !place_meeting(x,y,oCol)
+				{x += sign(hspd);}
+				hspd = 0;
+			}
+			else  {y -= yincrease;}
+		
+			yincrease = 0;
+		}
 	}
 	x += hspd;
-	
+	y += vspd;
 	
 	
 	// Down slope
@@ -233,11 +233,15 @@ function mario_freeze()
 	if instance_exists(oMario) and instance_number(oMario) = 1
 	{
 		with(oMario)
-		{if state = ps.die or state = ps.grow or state = ps.shrink {freezing = 1;}}
+		{if state = ps.die or state = ps.grow or state = ps.firetransform or state = ps.capetransform or state = ps.shrink {freezing = 1;}}
 		with(oMario)
 		{if state = ps.enterpipedown or state = ps.enterpiperight {freezing = 2;}}
+		
+		if !object_get_parent(oParenemy) {
 		with(oMario)
 		{if state = ps.flagpoledescend or state = ps.flagpolefinish {freezing = 3;}}
+		}
+		
 		with(oMario)
 		{if state = ps.castleending {freezing = 4;}}
 	}

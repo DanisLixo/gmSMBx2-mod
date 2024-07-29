@@ -1,1 +1,1 @@
-killenys = 0
+killenys = false;

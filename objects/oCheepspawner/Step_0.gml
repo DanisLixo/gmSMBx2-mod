@@ -1,8 +1,21 @@
 var cx = camera_get_view_x(view_camera[0])
-var cwview = cx+SCREENW+8
 var cy = SCREENH
 
-if oMario.x >= x {start = true}
+//for the other corner of the screen
+var cwview = cx+SCREENW+24
+
+//for 1:1 comparision screen
+if global.aspectratio = "ORIGINAL"
+{
+	var cheepspawn = round(random_range(cx,cwview))
+}
+else {
+	var firstx =  cx+SCREENW/3
+	var endx =  cx+SCREENW-(SCREENW/3)
+	var cheepspawn = round(random_range(firstx,endx))
+}
+
+if oMario.x >= x {start = true;}
 
 if start {
 	if spawn > 0 {
@@ -17,11 +30,11 @@ if start {
 				spawn = 120;
 			}
 			else if spawntype = 1 {
-				var cheepspawn = round(random_range(cx,cwview))
 				if oMario.hspd = 0 {cwview = cx+SCREENW-64}
+				
 				var cheep = instance_create_depth(cheepspawn,cy,depth,o2Cheep);
 				cheep.cheeptype = 2
-				spawn = choose(0,25,60,60,60,60,100,100,100,100,100,100,120,120);
+				spawn = choose(0,60,60,60,60,100,100,100,100,100,100,120,120);
 			}
 		}
 	}

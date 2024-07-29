@@ -1,3 +1,4 @@
 global.environment = e.overworld
-bgm(-1,false)
 
+global.level = 2;
+global.world = 2;

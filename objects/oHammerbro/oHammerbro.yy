@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oHammerbro",
   "spriteId": {
-    "name": "sBowser_feet",
-    "path": "sprites/sBowser_feet/sBowser_feet.yy",
+    "name": "sHammerbro",
+    "path": "sprites/sHammerbro/sHammerbro.yy",
   },
   "solid": false,
   "visible": true,

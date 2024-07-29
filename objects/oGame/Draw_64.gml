@@ -48,7 +48,7 @@ if room != rmTitle and room != rmServer and room != rmLeveltransition && global.
 			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*5+cy,"COMMANDER"); boolbox(global.commandenys,4);
 			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*6+cy,"ENVIRONMENT"); boolbox(-1,5);
 			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*7+cy,"WARP"); boolbox(-1,6);
-			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*8+cy,"PLAYER"); boolbox(-1,7);
+			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*8+cy,"P2 PLAYER"); boolbox(-1,7);
 			
 			draw_set_font(FNT);
 			
@@ -66,7 +66,7 @@ if room != rmTitle and room != rmServer and room != rmLeveltransition && global.
 						var _gr = get_string("ROOM NAME", room_get_name(room));
 						if room_exists(asset_get_index(_gr))	{room_goto(asset_get_index(_gr));}
 					break;
-					case 7: if instance_exists(oLuigi) {oLuigi.char = get_string("PLAYER NAME (IN-GAME CHARACTERS ONLY)", oLuigi.char)} break;
+					case 7: if instance_exists(oLuigi) {global.playertwo = get_string("PLAYER NAME (IN-GAME CHARACTERS ONLY)", global.playertwo)} break;
 				}
 			}
 		}
@@ -75,17 +75,13 @@ if room != rmTitle and room != rmServer and room != rmLeveltransition && global.
 	{global.freecam = true; debug = false;}
 
 
-	if global.schutmode = true && !instance_exists(oGun) && instance_exists(oMario) {instance_create_depth(0,0,depth,oGun);}
+	if global.schutmode = true && !instance_exists(oGun) && instance_exists(oMario) {instance_create_depth(oMario.x,oMario.y,depth,oGun);}
+	//if global.schutmode = true && instance_exists(oLuigi) && instance_number(oGun) < 2 {instance_create_depth(oLuigi.x,oLuigi.y,depth,oGun);}
 
 	/*
 	if global.rtxmode = true	{draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*1+cy,"RTXMODE");}
 	if global.schutmode = true	{draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*2+cy,"SCHUTMODE");}
 	*/
-	
-	if global.showfps = true {
-		if !instance_exists(oClient) {draw_text(cx+(tile*3),cy+tile*2+tile,"FPS - "+string(fps));}
-		else {draw_text(cx+(tile*3),cy+tile*3+tile,"FPS - "+string(fps));}
-		}
 	
 	//draw_text_color(cx+(tile*3),cy+tile*4+tile,"HOLD ESC RETURN TO TITLE",c_red,c_red,c_red,c_red,(resetcheck/100)+(0.5*sign(resetcheck)));
 	
@@ -144,8 +140,11 @@ if instance_exists(oMario) && oMario.state = ps.die and instance_number(oMario) 
 	draw_set_halign(fa_left)
 	
 	if diec > room_speed*4
-	{diec = 0; room_restart(); if global.time != -1 {global.time = timeunits(400)}}
-	oMario.powerup = "s"
+	{diec = 0; if !instance_exists(oCheckpointmask)
+	{room_goto(asset_get_index("rm"+string(global.world)+"_"+string(global.level)));}
+	else {room_restart()} if global.time != -1 {global.time = timeunits(400)}}
+	if instance_exists(oLuigi) {oLuigi.powerup = oLuigi.powerup}
+	oMario.powerup = "s";
 }
 
 

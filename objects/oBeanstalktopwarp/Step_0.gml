@@ -1,4 +1,4 @@
-if place_meeting(x,y-1,oMario) && oMario.state = ps.climb
+if instance_place(x,y-1,oMario) && instance_place(x,y-1,oMario).state = ps.climb
 {room_goto(troom);}
 
 

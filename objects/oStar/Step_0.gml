@@ -19,7 +19,9 @@ if mario_freeze() != 1
 	}
 }
 
-if (oMario.image_xscale = 1 && (instance_place(x-1,y,oMario) or instance_place(x,y-3,oMario)) or (oMario.image_xscale = -1 && (instance_place(x+1,y,oMario) or instance_place(x,y+3,oMario)))) && oMario.hspd <= 0.5 && global.moveobjs = true && oMario.state = ps.nah
+var m = collision_rectangle(x+3*face,y,x+3*-face,y+3*face,oMario,true,false)
+
+if m && m.hspd <= 0.5 && global.moveobjs = true && m.state = ps.nah
 {	
 	face = -face
 	sfx(sndBump,0);

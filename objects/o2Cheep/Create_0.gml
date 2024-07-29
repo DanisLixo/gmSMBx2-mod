@@ -10,6 +10,8 @@ vspd = 0
 
 cheeptype = choose(0,1)
 stomptype = 3;
+palspr = sPalette_nokonoko_red
+if cheeptype = 1 {stomptype = -1; palspr = sPalette_nokonoko;}
 
 dir = 1;
 

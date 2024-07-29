@@ -1,4 +1,4 @@
-warp = 1152;
+warp = 1024;
 warptrigger = false;
 savedhspd = 0
 savedvspd = 0

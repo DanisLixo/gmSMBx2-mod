@@ -1,25 +1,27 @@
+var m = instance_place(x,y-4,oMario);
+
 switch(SPRINGST)
 {
 	case 0:
 	
 	wait = 0;
-	if place_meeting(x,y-4,oMario) && round(ind) = 0
+	if m && round(ind) = 0
 	{
-		oMario.grounded = false;
+		m.grounded = false;
 		ind = 1;
 	}
-	else if place_meeting(x,y-4,oMario) && round(ind) = 1
+	else if m && round(ind) = 1
 	{
-		oMario.grounded = false;
+		m.grounded = false;
 		ind = 2;
 	}
-	else if place_meeting(x,y-4,oMario) && round(ind) = 2
+	else if m && round(ind) = 2
 	{
 		SPRINGST = 1;
 		ind = 2;
 	}
 	
-	if !place_meeting(x,y-4,oMario) && ind > 0
+	if !m && ind > 0
 	{ind -= 0.2;}
 	break;
 	case 1:
@@ -27,19 +29,19 @@ switch(SPRINGST)
 	ind = 2;
 	wait ++;
 	
-	if wait >= 5 && instance_exists(oMario) && place_meeting(x,y-4,oMario) 
+	if wait >= 5 && instance_exists(oMario) && m 
 	{
-		if oMario.kj
-		{oMario.vspd = -12;}
+		if m.kj
+		{m.vspd = -12;}
 		else
-		{oMario.vspd = -5;}
+		{m.vspd = -5;}
 		
 		SPRINGST = 2;
 	}
-	if instance_exists(oMario) && place_meeting(x,y-4,oMario) 
-	{oMario.grounded = false;}
+	if instance_exists(oMario) && m 
+	{m.grounded = false;}
 	
-	if !place_meeting(x,y-4,oMario) or wait >= 6
+	if !m or wait >= 6
 	{SPRINGST = 0; ind = 0;}
 	
 	break
@@ -49,8 +51,9 @@ switch(SPRINGST)
 	
 	if ind = 0
 	{SPRINGST = 0; ind = 0;}
-	if place_meeting(x,y,oMario)
-	{SPRINGST = 0; oMario.grounded = false; ind = 0;}
+	m = instance_place(x,y,oMario);
+	if m
+	{SPRINGST = 0; m.grounded = false; ind = 0;}
 	else 
 	{wait --;}
 	
@@ -69,8 +72,9 @@ if moving = true {
 	if instance_place(x+dir,y,oParblock)
 		{instance_place(x+dir,y,oParblock).dir = -instance_place(x+dir,y,oParblock).dir; dir = -dir;}
 }
+m = instance_place(x+8*dir,y,oMario);
 
-if ((oMario.image_xscale = 1 && instance_place(x-1,y,oMario)) or (oMario.image_xscale = -1 && instance_place(x+1,y,oMario))) && global.movestatics = true && oMario.state = ps.nah
+if m && global.movestatics = true && m.state = ps.nah
 {
 	moving = true
 	dir = -dir

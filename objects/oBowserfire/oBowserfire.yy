@@ -32,7 +32,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Misc",
-    "path": "folders/Objects/Level/Misc.yy",
+    "name": "Miscfx",
+    "path": "folders/Objects/Miscfx.yy",
   },
 }

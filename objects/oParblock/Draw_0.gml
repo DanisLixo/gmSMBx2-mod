@@ -54,7 +54,7 @@ if blockstate = 1
 			{instance_create_depth(x+8,y+16,depth,oMush);}
 			else
 			{
-				if global.player != "Feathy" {p = 1}
+				if instance_nearest(x,y,oMario).char != "Feathy" {p = 1}
 				if p {instance_create_depth(x+8,y+16,depth,oFireflower);} 
 				else {instance_create_depth(x+8,y+16,depth,oFeather);}
 			}

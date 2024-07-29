@@ -9,6 +9,7 @@ if instance_exists(oMario) &&  oMario.starman = 120
 if global.sfx[0] != -1 && audio_is_playing(global.sfx[0])
 {
 	audio_sound_gain(global.ch[global.sfx[1]],0,1)
+	if global.sfx[1] != 4 and global.ch_allowed[global.sfx[1]] = false {audio_sound_gain(global.sfx[0],0,1)}
 }
 else
 {
@@ -33,6 +34,8 @@ else
 if global.time > 0 && mario_freeze() = 0 && loadscreen = -1 && instance_exists(oPaused) = false
 {global.time --;}
 
+if global.challenge = true || room = rmDemoend || instance_exists(oClient) and !instance_exists(oRacemanager) {global.time = -1;}
+
 
 if instance_exists(oMario) && ((oMario.state = ps.flagpolefinish && oMario.image_alpha = 0)
 	or (global.race = true && oMario.finishedrace = true && oMario.state != ps.flagpoledescend))
@@ -50,7 +53,7 @@ if instance_exists(oMario) && ((oMario.state = ps.flagpolefinish && oMario.image
 		if global.time <= 0 && triggercastleflag = false
 		{
 			triggercastleflag = true;
-			//global.time = 0;
+			global.time = 0;
 			if instance_exists(oCastleflag)
 			{oCastleflag.st = 2; oCastleflag.fireworks = fireworks; oCastleflag.alarm[0] = 20; alarm[1] = room_speed*4.3}
 		}
@@ -125,7 +128,7 @@ else
 
 if room = rmLeveltransition or room = rmTitle {warned = 0}
 
-
+if instance_exists(oClient) {global.multiplayer = false;}
 
 
 if global.race = true && instance_exists(oMario) && (oMario.state = ps.normal or oMario.state = ps.jump)
