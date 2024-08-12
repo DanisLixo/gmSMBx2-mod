@@ -11,6 +11,9 @@ enum conts
 	beanstalk
 }
 contents = conts.empty;
+savedcont = conts.empty;
+
+willbe1up = irandom_range(0,100)
 
 blocksprite = sprite_index
 hitblockimage = 0

@@ -6,7 +6,9 @@ dep = depth;
 
 savedpowerup = "s";
 p2savedpowerup = "s";
-hats = 0
+
+global.hats = 0
+global.p2_hats = 0
 
 lastenv = e.underground
 loadscreen = 20;
@@ -16,7 +18,6 @@ diec = 0;
 
 fireworks = 0;
 triggercastleflag = false;
-
 
 global.curbgm = "OW"
 
@@ -28,14 +29,43 @@ global.prevroom = room;
 
 timeup = 0;
 
-resetcheck = 0;
+chars = ds_list_create();
+
+//Characters
+ds_list_add(chars,"Mario")
+ds_list_add(chars,"Luigi")
+ds_list_add(chars,"Toad")
+ds_list_add(chars,"Wario")
+ds_list_add(chars,"Goomba")
+ds_list_add(chars,"Sonic")
+ds_list_add(chars,"Syobon")
+//OCs
+ds_list_add(chars,"Bredi")
+ds_list_add(chars,"Goober")
+ds_list_add(chars,"Iris")
+ds_list_add(chars,"Owen")
+ds_list_add(chars,"Seven")
+ds_list_add(chars,"SucculentKicker")
+ds_list_add(chars,"Goldron")
+ds_list_add(chars,"Dawn")
+ds_list_add(chars,"Feathy")
+//LQ jokes
+ds_list_add(chars,"Anton")
+ds_list_add(chars,"Peter Griffin")
+ds_list_add(chars,"Duke")
+ds_list_add(chars,"Pokey")
+ds_list_add(chars,"1pixelmario")
+ds_list_add(chars,"Max_Verstappen")
+//HQ jokes
+ds_list_add(chars,"Martin")
+ds_list_add(chars,"Peter")
+ds_list_add(chars,"Gemaplys")
 
 paused = 0
 
 debugsel = 0;
 debug = false;
 
-extra = false
 destroy = 0
 delay = 0
 

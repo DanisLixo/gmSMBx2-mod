@@ -1,5 +1,5 @@
 decrease = false;
-cannontimer = 38
+cannontimer = 34
 bill = noone
 spawntype = 0
 start = true

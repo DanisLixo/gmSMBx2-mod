@@ -1,3 +1,13 @@
+if global.aspectratio = "ROOM WIDTH" && !instance_exists(oClient) {
+	SCREENW = room_width;
+	camera_set_view_size(view_camera[0], SCREENW, SCREENH);
+	surface_resize(application_surface,SCREENW,SCREENH);
+	var scrsizemult = (room_width > display_get_width())? 2-((room_width-display_get_width())*0.001) : 2;
+	window_set_size(SCREENW*scrsizemult,SCREENH*scrsizemult);
+	window_center()
+}
+if instance_exists(oClient) {global.aspectratio = "WIDESCREEN"}
+
 alarm[1] = -1
 warned = false;
 
@@ -51,9 +61,12 @@ if instance_exists(oCheckpointmask) //room != rmTitle && room != rmServer && roo
 	else if spawny != -1 && instance_exists(oMario) && oMario.state != ps.exitpipeup {oMario.y = spawny; if instance_exists(oLuigi) {oLuigi.y = spawny}}
 }
 else //if (room = rmTitle or room = rmServer or room = rmLobby or room = rmLeveltransition) 
-{spawnx = -1; spawny = -1;}
+{spawnx = -1; spawny = -1; global.killenys = false;}
 
-curRoom = room;
+if global.world >= 6 and global.level >= 1 /*and not instance_exists(oClient)*/ {
+	room_goto(rmDemoend)
+	global.world = 0; global.level = 0;
+}
 
 if global.challenge = true and !audio_is_playing(musChallenge) {
 	global.curbgm = "Challenge"

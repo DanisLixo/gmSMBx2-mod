@@ -11,13 +11,13 @@ if (global.world == 0 || global.level == 0)
 else
 {
 	if instance_exists(oRacemanager)	{where = "racing online on "+string(global.world)+"-"+string(global.level);}
-	else if oGame.extra					{where = "gaming on an extra level yuh uh"}
+	else if global.extra				{where = "gaming on an extra level yuh uh"}
 	else								{where = "gaming on "+string(global.world)+"-"+string(global.level);}
 }
 
 
-if instance_exists(oClient) {where = where + " - theyr online"}
 if instance_exists(oPaused) {where = where + " - PAUSED"}
+if global.multiplayer {where = where + " - Playing multiplayer"}
 
 /*
 if room = rmTitle	{where = "on the title screen";}

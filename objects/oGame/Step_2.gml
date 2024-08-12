@@ -2,6 +2,9 @@ if instance_exists(oMario) && oMario.starman > 120 && (!audio_is_playing(musStar
 {
 	bgm("Starman",true);
 }
+
+if os_device = os_android and SCREENW != display_get_width()/4.5 {SCREENW = display_get_width()/4.5}
+
 if instance_exists(oMario) &&  oMario.starman = 120
 {audio_stop_all(); bgm(global.curbgm,true);}
 
@@ -129,7 +132,6 @@ else
 if room = rmLeveltransition or room = rmTitle {warned = 0}
 
 if instance_exists(oClient) {global.multiplayer = false;}
-
 
 if global.race = true && instance_exists(oMario) && (oMario.state = ps.normal or oMario.state = ps.jump)
 	&& !instance_exists(oRacemanager) && global.level != 0

@@ -14,7 +14,7 @@
     "name": "audiogroup_default",
     "path": "audiogroups/audiogroup_default",
   },
-  "soundFile": "musDemoend.wav",
+  "soundFile": "musDemoend.ogg",
   "duration": 82.30358,
   "parent": {
     "name": "mus",

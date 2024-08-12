@@ -14,6 +14,9 @@ if layer_exists(tbl)
 var tbg = layer_get_id("Background")
 if layer_exists(tbg)
 {layer_script_begin(tbg,bg_palswap);	layer_script_end(tbg,tile_palreset);}
+var tr = layer_get_id("RetroWPalette")
+if layer_exists(tr)
+{layer_script_begin(tr,retro_palswap);	layer_script_end(tr,tile_palreset);}
 
 if room = rmServer
 {exit;}
@@ -33,13 +36,9 @@ draw_text((tile*2)+tile+cx,tile+cy,string_upper(global.player))
 var scorestr = string(global.score)		while (string_length(scorestr) < 6)	{scorestr = "0"+scorestr;}
 draw_text((tile*2)+tile+cx,tile+tile+cy,scorestr)
 
-if global.showfps = true {
+if global.showfps = true and room != rmTitle {
 	if !instance_exists(oClient) {draw_text(cx+(tile*3),cy+tile*2+tile,"FPS - "+string(fps));}
 	else {draw_text(cx+(tile*3),cy+tile*3+tile,"FPS - "+string(fps));}
-}
-
-if global.challenge {
-	draw_text(cx+(tile*2),cy+tile*5+tile,"RETROED - "+string(global.retros));
 }
 
 // Coins
@@ -62,7 +61,7 @@ if global.player = "Pokey" or global.player = "Gemaplys" {
 		draw_sprite(sHaticon,image_index,tile+(tile*10)+cx,tile+cy)
 	shader_reset();
 	
-	var hatstr = string(hats-instance_number(oHatThrow))
+	var hatstr = string(global.hats-instance_number(oHatThrow))
 	draw_set_font(FNT);
 	draw_text((tile*2)+(tile*10)+cx,tile+cy, "*" + hatstr);
 }
@@ -76,20 +75,25 @@ if instance_exists(oMario) and (oMario.powerup = "c" || global.player = "Feathy"
 	shader_reset();
 }
 
-
-if !instance_exists(oIsArena) && room != rmTitle && room != rmLobby and room != rmDemoend
-{
-	draw_text((SCREENW-(256/2))+(tile*2)+cx,cy+tile,"WORLD")
-	if global.level != 0 
-	{
-		if room = rmExtra or room = rmExtra_sky or room = rmExtra_under or extra {draw_text((SCREENW-(256/2))+(tile*2)+cx,cy+tile+tile,"EXTRA")}
-		else {draw_text((SCREENW-(256/2))+(tile*2)+tile+cx,cy+tile+tile,string(global.world)+"-"+string(global.level))}
-	}
+if global.challenge {
+	draw_text((SCREENW-(256/2))+(tile*2)+cx,cy+tile,"RETROED")
+	draw_text((SCREENW-(256/2))+(tile*2)+cx,cy+tile+tile,string(global.retros))
 }
-if instance_exists(oIsArena)
-{
-	draw_text((SCREENW-(256/2))+(tile*2)+cx,cy+tile,"GOAL")
-	{draw_text((SCREENW-(256/2))+(tile*2)+tile+cx,cy+tile+tile,global.goalofstars)}
+else {
+	if !instance_exists(oIsArena) && room != rmTitle && room != rmLobby and room != rmDemoend
+	{
+		draw_text((SCREENW-(256/2))+(tile*2)+cx,cy+tile,"WORLD")
+		if global.level != 0 
+		{
+			if room = rmExtra or room = rmExtra_sky or room = rmExtra_under or global.extra {draw_text((SCREENW-(256/2))+(tile*2)+cx,cy+tile+tile,"EXTRA")}
+			else {draw_text((SCREENW-(256/2))+(tile*2)+tile+cx,cy+tile+tile,string(global.world)+"-"+string(global.level))}
+		}
+	}
+	if instance_exists(oIsArena)
+	{
+		draw_text((SCREENW-(256/2))+(tile*2)+cx,cy+tile,"GOAL")
+		{draw_text((SCREENW-(256/2))+(tile*2)+tile+cx,cy+tile+tile,global.goalofstars)}
+	}
 }
 
 // Time
@@ -184,7 +188,12 @@ if destroy > 0 {debug = true; instance_create_depth(x,y,depth,oPaused);
 if room != rmTitle and room != rmServer and room != rmLeveltransition and triggercastleflag = false
 {
 	if (keyboard_check_pressed(vk_escape) or keyboard_check_pressed(vk_enter)) && global.chatfocus = false and !debug and !instance_exists(oPaused) and delay > 10
-	{if !instance_exists(oClient) {instance_deactivate_all(true);} instance_create_depth(0, 0, -999, oPaused); sfx(sndPause,0); delay = 0;}
+	{
+		if !instance_exists(oClient) {instance_deactivate_all(true);} 
+		instance_create_depth(0, 0, -999, oPaused); 
+		sfx(sndPause,0);
+		delay = 0;
+	}
 }
 	
 #endregion

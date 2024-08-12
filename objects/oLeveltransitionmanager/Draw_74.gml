@@ -54,7 +54,7 @@ draw_set_font(FNT)
 }
 
 
-if oGame.extra {draw_text(11*8-cx,9*8-cy,"WORLD "+"EXTRA");}
+if global.extra {draw_text(11*8-cx,9*8-cy,"WORLD "+"EXTRA");}
 else {draw_text(11*8-cx,9*8-cy,"WORLD "+string(global.world)+"-"+string(global.level));}
 draw_text((15*8)-cx,(14*8)-cy,"* -1");
 if oGame.savedpowerup = "f" && global.player != "Pokey" {draw_text((9.5*8)-cx,(10*8)-cy,"U FIRE YEAH!!!")}

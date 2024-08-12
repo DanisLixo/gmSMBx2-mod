@@ -1,4 +1,4 @@
-if fireworks > 0
+ if fireworks > 0
 {
 	fireworks -= 1;
 	

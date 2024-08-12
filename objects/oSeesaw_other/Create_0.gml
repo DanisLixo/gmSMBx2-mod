@@ -7,8 +7,6 @@ gspd = 1;
 
 isskylift = false;
 
-alwaysmove = false
-
 early = false;
 
 //actual vars

@@ -42,7 +42,7 @@ if state = es.patrol
 				m.vspd = -3; m.holdjump = m.combo < 5? 20+m.combo*2.5 : 20+15; BLAST(); vspd = 0; hspd = 0;
 				shellcooldown = 10
 			}
-			if m.char = "Sonic" {state = es.die; m.vspd = -3; m.holdjump = m.combo < 5? 20+m.combo*2.5 : 20+15; BLAST()}
+			if m.char = "Sonic" and global.abilities {state = es.die; m.vspd = -3; m.holdjump = m.combo < 5? 20+m.combo*2.5 : 20+15; BLAST()}
 		}
 	}
 }
@@ -62,7 +62,7 @@ if state = es.patrolwinged
 			m.vspd = -3; m.holdjump = m.combo < 5? 20+m.combo*2.5 : 20+15; BLAST(); vspd = 0; hspd = 0;
 			shellcooldown = 10
 		}
-		if m.char = "Sonic" {state = es.die; m.vspd = -3; m.holdjump = 20; BLAST()}
+		if m.char = "Sonic" and global.abilities {state = es.die; m.vspd = -3; m.holdjump = 20; BLAST()}
 	}
 }
 

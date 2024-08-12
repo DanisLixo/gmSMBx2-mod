@@ -14,14 +14,14 @@ function sfx(sound,channel)
 
 function bgm(bgmstr,loops)
 {
-	if instance_exists(oRacemanager) && !(bgmstr = "Levelend" or bgmstr = "GO")
+	if instance_exists(oRacemanager) && !(bgmstr = "Levelend" or bgmstr = "GO" or bgmstr = "Demoend")
 	{
 		exit;
 	}
 	
 	if is_string(bgmstr) && global.musicchannels = true && global.volsfx > 0 &&
 	global.player != "Peter Griffin" && global.player != "Martin" && global.player != "Anton" && global.player != "Duke" && global.player != "Pokey" && global.player != "Max_Verstappen"
-		&& bgmstr != "Levelend" && bgmstr != "Castleend" && bgmstr != "Lobby" && bgmstr != "Retro" && bgmstr != "Warning" && bgmstr != "Challenge"
+		&& bgmstr != "Levelend" && bgmstr != "Castleend" && bgmstr != "Lobby" && bgmstr != "Retro" && bgmstr != "Warning" && bgmstr != "Challenge" && bgmstr != "Demoend"
 	{
 		audio_stop_sound(global.ch[0]);
 		audio_stop_sound(global.ch[1]);
@@ -145,6 +145,7 @@ function BLAST()
 
 function onview()
 {
+	if global.sync {return false}
 	var cx = camera_get_view_x(view_camera[0]);
 	var cy = camera_get_view_y(view_camera[0]);
 	var tile = object_index = oBowser? 8 : 16

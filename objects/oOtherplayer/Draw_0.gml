@@ -4,6 +4,8 @@ if !instance_exists(oClient)
 if room != myroom
 {exit;}
 
+image_alpha = global.onlinealpha
+
 shader_set(shdColorswap)
 	apply_palette(palspr,palette,1)
 	draw_self();
@@ -20,6 +22,7 @@ draw_set_alpha(1);
 image_yscale = abs(image_xscale)
 
 
+
 if instance_exists(oIsArena)
 {
 	draw_set_color(c_orange);
@@ -30,19 +33,4 @@ if instance_exists(oIsArena)
 	draw_set_color(-1);
 	
 
-}
-
-if global.playercol {
-
-	if instance_place(x,bbox_top-1,oMario) && oMario.vspd >= 0 and oMario.carried = false and oMario.state = ps.nah
-		{
-			oMario.vspd = 0; 
-			oMario.grounded = true;
-			oMario.carried = true;
-		}
-	if oMario.carried
-		{
-			oMario.y = bbox_top-1; 
-			oMario.x = x;
-		}
 }

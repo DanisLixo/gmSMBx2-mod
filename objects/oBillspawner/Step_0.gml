@@ -1,3 +1,10 @@
+var m = instance_place(x,y,oMario);
+
+
+if instance_exists(m) {if !(m.x > bbox_left - 20 && m.x < bbox_right + 20) && moving = false
+{
+	cannontimer = 34-irandom_range(0,32)
+}}
 if spawntype = 0 {
 	if !instance_exists(bill) {decrease = choose(true,false,false,false);}
 	else {decrease = false;}

@@ -1,1 +1,2 @@
-instance_place(x,y,oMario).gethit = true;
+//instance_place(x,y,oMario).gethit = 1;
+

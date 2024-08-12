@@ -40,7 +40,11 @@ if image_yscale >= yscale_togo {
 	draw_set_font(FNT);
 	for (var i = 0; i < array_length(options); i++) {
 		var i_plus_one = i+1
+		var roomnt = asset_get_index("rm"+string(global.world)+"_"+string(global.level));
 		draw_text(SCREENW/3,(tile*9)+tile*(2*i_plus_one), options[i])
+		
+		if options[i] = "RESTART" and (!room_exists(roomnt) || global.sync) and global.extra = false
+		{draw_text_color(SCREENW/3,(tile*9)+tile*(2*i_plus_one),options[i],c_gray,c_gray,c_gray,c_gray,0.6)}
 	}
 }
 			
@@ -175,21 +179,6 @@ if settingsmenu {
 		{draw_text(xx,yy+(i*tsep),menu[# section, i]+string_upper(global.paletteindex));}
 		else if menu[# section, i] = "GUN - "
 		{draw_text(xx,yy+(i*tsep),menu[# section, i]+string_upper(global.gunskin));}
-		else if menu[# section, i] = "COMMAND ENEMIES - "
-		{
-			var ex = "YES"
-			if global.moveenys = false {ex = "NO";}
-			draw_text(xx,yy+(i*tsep),menu[# section, i]+ex)}
-		else if menu[# section, i] = "COMMAND MOVABLE OBJS - "
-		{
-			var ex = "YES"
-			if global.moveobjs = false {ex = "NO";}
-			draw_text_transformed(xx,yy+(i*tsep),menu[# section, i]+ex, transtext, 1, 0)}
-		else if menu[# section, i] = "COMMAND STATICS - "
-		{
-			var ex = "YES"
-			if global.movestatics = false {ex = "NO";}
-			draw_text(xx,yy+(i*tsep),menu[# section, i]+ex)}
 		else if section = 8 && menu[# section, i] != "BACK"
 		{
 			var gobal  = global.keyu
@@ -429,7 +418,7 @@ if settingsmenu {
 			case 0:
 				global.aspectratio = "WIDESCREEN"
 				SCREENW = SCREENW_WS
-				SCREENH = SCREENH_WS
+				SCREENH = SCREENH_OG
 				savesettings();
 			
 				camera_set_view_size(view_camera[0], SCREENW, SCREENH)
@@ -451,7 +440,7 @@ if settingsmenu {
 			case 2:
 				global.aspectratio = "ULTRA WIDE"
 				SCREENW = SCREENW_UW
-				SCREENH = SCREENH_WS
+				SCREENH = SCREENH_UW
 				savesettings();
 			
 				camera_set_view_size(view_camera[0], SCREENW, SCREENH)

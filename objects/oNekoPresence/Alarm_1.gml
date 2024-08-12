@@ -5,6 +5,10 @@ if room != rmServer
 	{
 		np_setpresence(where, "playing online as "+global.player, envspr, "");
 	}
+	else if global.multiplayer = true
+	{
+		np_setpresence(where, "P1: "+global.player+" | P2: "+global.playertwo, envspr, "");
+	}
 	else
 	{
 		np_setpresence(where, "playing as "+global.player, envspr, "");

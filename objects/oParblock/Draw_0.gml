@@ -13,6 +13,10 @@ if (contents = conts.empty or (contents = conts.multicoin && multicointimer > 0)
 if multicoinstart = true && multicointimer > 0
 {multicointimer --;}
 
+if contents != conts.life {savedcont = contents}
+if willbe1up <= 10 and global.multiplayer and instance_number(oMario) < 2
+{contents = conts.life;}
+else if instance_number(oMario) >= 2 {contents = savedcont}
 
 if triggerbreak = true && object_index = oBrickblock && contents = conts.empty
 {
@@ -54,7 +58,7 @@ if blockstate = 1
 			{instance_create_depth(x+8,y+16,depth,oMush);}
 			else
 			{
-				if instance_nearest(x,y,oMario).char != "Feathy" {p = 1}
+				if instance_nearest(x,y,oMario).char != "Feathy" || !global.abilities {p = 1}
 				if p {instance_create_depth(x+8,y+16,depth,oFireflower);} 
 				else {instance_create_depth(x+8,y+16,depth,oFeather);}
 			}

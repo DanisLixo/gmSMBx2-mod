@@ -42,7 +42,8 @@ function server_data() {
 			buffer_write(jbuff, buffer_u8, network.join);	//remeber to send the id first
 			buffer_write(jbuff, buffer_u16, client_idd);
 			buffer_write(jbuff, buffer_string, player_user);
-			
+			buffer_write(jbuff, buffer_u16, ds_list_size(total_players));
+
 			//Loop through the total player list (containing sockets) and send the packet to each one
 			for (var i = 0; i < ds_list_size(total_players); i++) {
 				network_send_packet(ds_list_find_value(total_players, i), jbuff, buffer_tell(jbuff));	
@@ -59,7 +60,9 @@ function server_data() {
 			var player_x =			buffer_read(packet, buffer_s16);
 			var player_y =			buffer_read(packet, buffer_s16);
 			var player_xscale =		buffer_read(packet, buffer_f16);
+			//var player_alpha =		buffer_read(packet, buffer_f16);
 			var player_spr =		buffer_read(packet, buffer_u16);
+			var player_depth =		buffer_read(packet, buffer_u16);
 			var player_ind =		buffer_read(packet, buffer_u16);
 			var player_user =		buffer_read(packet, buffer_string);
 			var player_pal =		buffer_read(packet, buffer_u8);
@@ -76,7 +79,9 @@ function server_data() {
 			buffer_write(buff, buffer_s16, player_x);
 			buffer_write(buff, buffer_s16, player_y);
 			buffer_write(buff, buffer_f16, player_xscale);
+			//buffer_write(buff, buffer_f16, player_alpha);
 			buffer_write(buff, buffer_u16, player_spr);
+			buffer_write(buff, buffer_u16, player_depth);
 			buffer_write(buff, buffer_u16, player_ind);
 			buffer_write(buff, buffer_string, player_user);
 			buffer_write(buff, buffer_u8, player_pal);
@@ -103,21 +108,54 @@ function server_data() {
 			var bullet_direction =	buffer_read(packet, buffer_s16);
 			
 			//Now send this data back to all of the clients currently connected to the server
-			var bullet_buffer = buffer_create(32, buffer_grow, 1);
-			buffer_seek(bullet_buffer, buffer_seek_start, 0);
-			buffer_write(bullet_buffer, buffer_u8, network.shoot); //Remember to send the packet ID first!
-			buffer_write(bullet_buffer, buffer_u16, bullet_idd);		//Now send in the same order you read the data
-			buffer_write(bullet_buffer, buffer_s16, bullet_x);
-			buffer_write(bullet_buffer, buffer_s16, bullet_y);
-			buffer_write(bullet_buffer, buffer_s16, bullet_direction);
+			var bullet_buff = buffer_create(32, buffer_grow, 1);
+			buffer_seek(bullet_buff, buffer_seek_start, 0);
+			buffer_write(bullet_buff, buffer_u8, network.shoot); //Remember to send the packet ID first!
+			buffer_write(bullet_buff, buffer_u16, bullet_idd);		//Now send in the same order you read the data
+			buffer_write(bullet_buff, buffer_s16, bullet_x);
+			buffer_write(bullet_buff, buffer_s16, bullet_y);
+			buffer_write(bullet_buff, buffer_s16, bullet_direction);
 			
 			//Loop through the total player list (containing sockets) and send the packet to each one
 			for (var i = 0; i < ds_list_size(total_players); i++) {
-				network_send_packet(ds_list_find_value(total_players, i), bullet_buffer, buffer_tell(bullet_buffer));	
+				network_send_packet(ds_list_find_value(total_players, i), bullet_buff, buffer_tell(bullet_buff));	
 			}
 			
 			//Delete the buffer after sending the data
-			//buffer_delete(buff);
+			buffer_delete(bullet_buff);
+		break;
+		#endregion
+		
+		#region Firing
+		case network.fire:
+			//Read the data that was sent to us, and store it in temporary variables
+			var fire_idd =		buffer_read(packet, buffer_u16);	//Remember *** Read in the same order it was sent!
+			var fire_x =		buffer_read(packet, buffer_s16);
+			var fire_y =		buffer_read(packet, buffer_s16);
+			var fire_xstr =		buffer_read(packet, buffer_s16);
+			var fire_ystr =		buffer_read(packet, buffer_s16);
+			var fire_spr =		buffer_read(packet, buffer_u16);
+			var fire_ind =		buffer_read(packet, buffer_u16);
+			
+			//Now send this data back to all of the clients currently connected to the server
+			var fire_buff = buffer_create(32, buffer_grow, 1);
+			buffer_seek(fire_buff, buffer_seek_start, 0);
+			buffer_write(fire_buff, buffer_u8, network.fire); //Remember to send the packet ID first!
+			buffer_write(fire_buff, buffer_u16, fire_idd);		//Now send in the same order you read the data
+			buffer_write(fire_buff, buffer_s16, fire_x);
+			buffer_write(fire_buff, buffer_s16, fire_y);
+			buffer_write(fire_buff, buffer_s16, fire_xstr);
+			buffer_write(fire_buff, buffer_s16, fire_ystr);
+			buffer_write(fire_buff, buffer_u16, fire_spr);
+			buffer_write(fire_buff, buffer_u16, fire_ind);
+			
+			//Loop through the total player list (containing sockets) and send the packet to each one
+			for (var i = 0; i < ds_list_size(total_players); i++) {
+				network_send_packet(ds_list_find_value(total_players, i), fire_buff, buffer_tell(fire_buff));	
+			}
+			
+			//Delete the buffer after sending the data
+			buffer_delete(fire_buff);
 		break;
 		#endregion
 		
@@ -139,6 +177,23 @@ function server_data() {
 			
 			//Delete the chat buffer after it was sent
 			buffer_delete(tbuff);
+		break;
+		#endregion
+		
+		#region Where are them all?
+		case network.asklevel:
+			var lvlbuff = buffer_create(4, buffer_grow, 1);
+			buffer_seek(lvlbuff, buffer_seek_start, 0);
+			buffer_write(lvlbuff, buffer_u8, network.asklevel);	//send our level so clients know what the packet is
+			buffer_write(lvlbuff, buffer_u8, global.world);
+			buffer_write(lvlbuff, buffer_u8, global.level);
+			
+			for (var i = 0; i < ds_list_size(total_players); i++) {
+				network_send_packet(ds_list_find_value(total_players, i), lvlbuff, buffer_tell(lvlbuff));	
+			}
+			
+			//Delete the chat buffer after it was sent
+			buffer_delete(lvlbuff)
 		break;
 		#endregion
 		
@@ -180,6 +235,28 @@ function server_data() {
 			buffer_write(buff, buffer_u16, realcounter);
 			buffer_write(buff, buffer_string, stringtime);
 			buffer_write(buff, buffer_string, username);
+			
+			//Loop through the total player list (containing sockets) and send the packet to each one
+			for (var i = 0; i < ds_list_size(total_players); i++) {
+				network_send_packet(ds_list_find_value(total_players, i), buff, buffer_tell(buff));	
+			}
+			
+			//Delete the buffer after sending the data
+			buffer_delete(buff);
+			
+			
+		break;
+		
+		case network.finished:
+		
+			var pepfin =	buffer_read(packet, buffer_u16);
+			var plrs =	ds_list_size(total_players);
+		
+			var buff = buffer_create(4, buffer_grow, 1);
+			buffer_seek(buff, buffer_seek_start, 0);
+			buffer_write(buff, buffer_u8, network.finished);
+			buffer_write(buff, buffer_u16, pepfin);
+			buffer_write(buff, buffer_u16, plrs);
 			
 			//Loop through the total player list (containing sockets) and send the packet to each one
 			for (var i = 0; i < ds_list_size(total_players); i++) {

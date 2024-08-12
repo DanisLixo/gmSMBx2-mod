@@ -13,6 +13,7 @@ switch(state)
 		y += vspd*dir;
 	
 		hspd = 0.4
+		if cheeptype = 1 {hspd = 0.2}
 		if bar != 0 {
 			vspd = 0.2
 		}

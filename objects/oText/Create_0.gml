@@ -1,4 +1,3 @@
-text = "TEXT"
-text2 = "TEXT"
+ text = "TEXT"
 font = FNT
 center = true

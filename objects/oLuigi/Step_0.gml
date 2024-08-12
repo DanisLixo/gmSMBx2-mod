@@ -1,70 +1,29 @@
-kr = keyboard_check(ord("D"))
-kl = keyboard_check(ord("A"))
-kd = keyboard_check(ord("S"))
-ku = keyboard_check(ord("W"))
+kr = keyboard_check(global.p2_keyr)
+kl = keyboard_check(global.p2_keyl)
+kd = keyboard_check(global.p2_keyd)
+ku = keyboard_check(global.p2_keyu)
 
-kj = keyboard_check(vk_space)
-ka = keyboard_check(vk_shift)
-kh = keyboard_check(ord("E"))
+kj = keyboard_check(global.p2_keyj)
+ka = keyboard_check(global.p2_keya)
+kh = keyboard_check(global.p2_keyh)
 
-kjp = keyboard_check_pressed(vk_space)
-kap = keyboard_check_pressed(vk_shift)
-khp = keyboard_check_pressed(ord("E"))
+kjp = keyboard_check_pressed(global.p2_keyj)
+kap = keyboard_check_pressed(global.p2_keya)
+khp = keyboard_check_pressed(global.p2_keyh)
 
-kar = keyboard_check_released(vk_shift)
-khr = keyboard_check_released(ord("E"))
+kar = keyboard_check_released(global.p2_keya)
+khr = keyboard_check_released(global.p2_keyh)
 
-krp = keyboard_check_pressed(ord("D"))
-klp = keyboard_check_pressed(ord("A"))
-kup = keyboard_check_pressed(ord("W"))
-kdp = keyboard_check_pressed(ord("S"))
+krp = keyboard_check_pressed(global.p2_keyr)
+klp = keyboard_check_pressed(global.p2_keyl)
+kup = keyboard_check_pressed(global.p2_keyu)
+kdp = keyboard_check_pressed(global.p2_keyd)
 
 if global.chatfocus = true or instance_exists(oPaused)
 {kr=0;kl=0;krp=0;klp=0;kd=0;kj=0;ka=0;kjp=0;kar=0;kdp=0;kh=0;khp=0;khr=0;}
 if instance_exists(oPaused) {ku=0;kup=0}
 
-if instance_exists(oClient)
-{
-	if global.username = ""
-	{
-		global.username = (random_range(0, 100) >= 60)? choose(
-		"All-Games Tupra",
-		"Jalin Rabbei",
-		"Ulma Maria",
-		"Banana", 
-		"Goku",
-		"Mario", 
-		"Luigi", 
-		"YourAverageSMBFan", 
-		"SampleText", 
-		"Unnamed 0") : global.clientid;}
-	
-	var user = string(global.username)
-	
-	//Send Our Data
-	var buff = buffer_create(32, buffer_grow, 1);
-	buffer_seek(buff, buffer_seek_start, 0);
-	buffer_write(buff, buffer_u8, network.move);	
-	buffer_write(buff, buffer_u16, my_id);
-	buffer_write(buff, buffer_s16, round(x));
-	buffer_write(buff, buffer_s16, round(y));
-	buffer_write(buff, buffer_f16, image_xscale*scale);					
-	buffer_write(buff, buffer_u16, spr);					
-	buffer_write(buff, buffer_u16, ind);					
-	buffer_write(buff, buffer_string, user);	
-	buffer_write(buff, buffer_u8, palindex);	
-	buffer_write(buff, buffer_u16, global.palettesprite);		
-	buffer_write(buff, buffer_s8, room);
-	
-	buffer_write(buff, buffer_s8, global.stars);
-	network_send_packet(oClient.client, buff, buffer_tell(buff));
-	buffer_delete(buff);
-	
-	if invincible = 0 and global.playercol = true and carried = false {
-		if instance_place(x+1,y,oOtherplayer) || instance_place(x-1,y,oOtherplayer)  {x-=hspd;}
-		if instance_place(x,bbox_bottom+1,oOtherplayer) and vspd > 0.1	{y-=vspd; grounded = true;}
-	}
-}
+if instance_exists(oClient) {instance_destroy(); global.multiplayer = false}
 
 collidecode = false;
 
@@ -126,10 +85,25 @@ if gethit = true
 	gethit = false;
 }
 
-if shoulderbash > 0 && grounded
-{shoulderbash --;}
-if shoulderbash < 0
-{shoulderbash = 0}
+if global.abilities {
+	if shoulderbash > 0 && grounded
+	{shoulderbash --;}
+	if shoulderbash < 0
+	{shoulderbash = 0}
+	
+	if spintimer > 0 
+	{spintimer --;}
+	
+	if ka and hspd != 0 and mario_freeze() = 0 {pmet++;}
+	else {pmet--; if pmach > 6 {pmach = 0;}}
+
+	if pmet >= 35 and global.environment != e.underwater {
+	if pmach < 6 pmach += 0.1
+	}
+	if state = ps.fly {pmach = 6;}
+
+	if pmach > 0.9 and (hspd = 0 || state = ps.pivot) {pmach -= 0.5}
+}
 
 if invincible > 0
 {invincible --; image_alpha = sign(invincible mod 2);}
@@ -145,24 +119,11 @@ if kjp {jumpbuffer = 7;}
 if firetimer > 0 
 {firetimer --;}
 
-if spintimer > 0 
-{spintimer --;}
-
 if starman > 0
 {starman --;}
 
 if round(invincible) = 0
 {image_alpha = 1;}
-
-if ka and hspd != 0 and mario_freeze() = 0 {pmet++;}
-else {pmet--; if pmach > 6 {pmach = 0;}}
-
-if pmet >= 35 and global.environment != e.underwater {
-	if pmach < 6 pmach += 0.1
-}
-if state = ps.fly {pmach = 6;}
-
-if pmach > 0.9 and (hspd = 0 || state = ps.pivot) {pmach -= 0.5}
 
 if grounded {combo = 0;}
 if combo > 10 {combo = 10;}
@@ -280,10 +241,10 @@ if global.rtxmode = true or global.schutmode = true
 
 if kjp {retrochance = random(100)}
 
-if starman < 130 and char = "Max_Verstappen" {starman = global.time;}
-if char = "Max_Verstappen" and (state = ps.castleending or state = ps.flagpoledescend or state = ps.flagpolefinish) {starman = 0}
+if starman < 130 and char = "Max_Verstappen" and global.abilities {starman = global.time;}
+if char = "Max_Verstappen" and (state = ps.castleending or state = ps.flagpoledescend or state = ps.flagpolefinish) and global.abilities {starman = 0}
 
 var sneeze = random_range(0, 100)
 if sneeze > 70 and char = "Feathy" and 
-instance_place(x+8*sign(hspd),y,oFireflower)
+instance_place(x+8*sign(hspd),y,oFireflower) and global.abilities
 {hspd = 2; state = ps.sneeze; oFireflower.feathy = id;}

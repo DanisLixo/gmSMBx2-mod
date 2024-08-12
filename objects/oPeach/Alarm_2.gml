@@ -1,3 +1,5 @@
-global.level = 1;
-global.world += 1;
-room_goto(rmLeveltransition)
+oLigh.image_alpha = 1
+sfx(sndDeath,0)
+sfx(sndDeathlightning,4)
+
+alarm[3] = interval*4;

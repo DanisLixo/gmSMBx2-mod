@@ -45,7 +45,7 @@ if state = es.patrol {
 	}
 }
 if state = es.die {
-	if bboxturn {y = bbox_top; bboxturn = false; points(1000,true)}
+	if bboxturn {y = bbox_top; bboxturn = false; /*points(1000,true)*/}
 }
 
 

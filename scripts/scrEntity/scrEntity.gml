@@ -29,7 +29,7 @@ function collide()
 				var block = collision_rectangle(x+1,bbox_top,x-1,bbox_top-4,oParblock,true,true)
 				
 				if block && block.blockstate = 0
-				{block.blockstate = 1; if powerup != "s" || instance_nearest(x,y,oMario).char = "Toad" {block.triggerbreak = true;}}
+				{block.blockstate = 1; if powerup != "s" || instance_nearest(x,y,oMario).char = "Toad" and global.abilities {block.triggerbreak = true;}}
 				if block && !place_meeting(x,y,block)
 				{sfx(sndBump,1);}
 			}
@@ -246,4 +246,36 @@ function mario_freeze()
 		{if state = ps.castleending {freezing = 4;}}
 	}
 	return freezing;
+}
+
+function explode(switchchar = true)
+{
+	if instance_exists(oMario) {
+		var curgp = global.player
+		var bd = instance_create_depth(oMario.x,oMario.y,oMario.depth+1,oMariodead)
+		bd.direction = irandom(360)
+		bd.hspd = choose(1,-1)*irandom(5)
+		bd.spr = ms("sMario_s_die", curgp)
+		
+		var ins = instance_create_depth(oMario.bbox_left+2,oMario.bbox_top,oMario.depth-99999,oBLAST)
+		ins.image_xscale = 0.2
+		ins.image_yscale = 0.2
+		ins.x -= (sprite_width*0.2)/2
+		ins.y -= (sprite_height*0.2)/2
+						
+		instance_destroy(oMario)
+						
+		var nm = instance_create_depth(bd.x,-300,bd.depth-1,oMario)
+		nm.state = ps.exploded
+	}
+	if switchchar {
+		global.player = oGame.chars[| irandom_range(0,ds_list_size(oGame.chars)-1)]
+		if sprite_exists(asset_get_index("sPalette_"+string_lower(global.player)))
+		{
+			if global.player = "Goomba"	{global.palettesprite = asset_get_index("sPalette_goombaplayer");}
+			else	{global.palettesprite = asset_get_index("sPalette_"+string_lower(global.player));}
+		}
+		else
+		{global.palettesprite = sPalette_mario;}
+		}
 }

@@ -32,13 +32,12 @@ if room != rmTitle {
 		draw_set_font(font);
 		draw_text(24,8*8,"Y START - " + string(o2Cheep.ystart));
 	}*/
-	if instance_exists(oHammerbro) {
+	/*if instance_exists(oHammerbro) {
 		draw_set_font(font);
 		draw_text(24,8*4,"JUMPIN - " + string(oHammerbro.jump));
 		draw_set_font(font);
 		draw_text(24,8*5,"AGRESSIVE - " + string(oHammerbro.aightcomehere));
-	}
-	
+	}*/
 	/*if instance_exists(oRope) {
 		var scheck = (instance_nearest(oMario.x, oMario.y, oRope).platformcheck)? "YES" : "NAH"
 		draw_set_font(font);
@@ -47,6 +46,28 @@ if room != rmTitle {
 		draw_text(24,8*5,"ROPE SCALE - " + string(instance_nearest(oMario.x, oMario.y, oRope).image_yscale));
 		
 	}*/
+	/*if instance_exists(oClient) {
+		draw_set_font(font);
+		draw_text(24,8*4,"WAIT - " + string(global.waiting));
+		draw_set_font(font);
+		draw_text(24,8*5,"PLAYERS - " + string(oClient.players));
+		draw_set_font(font);
+		draw_text(24,8*6,"FINISHED PLAYERS - " + string(oClient.Iended));
+		draw_set_font(font);
+		draw_text(24,8*7,"SYNCHING - " + string(global.sync));
+	}*/
+	if instance_exists(oCheckpointmask) {
+		draw_set_font(font);
+		draw_text(24,8*4,"X START - " + string(oMario.xstart));
+		draw_set_font(font);
+		draw_text(24,8*5,"X CHECK. - " + string(oCheckpointmask.x));
+	}
+	
+	draw_set_font(font);
+	draw_text(24,8*6,"XSPAWN - " + string(oGame.spawnx));
+	draw_set_font(font);
+	draw_text(24,8*7,"WILL KILL - " + string(global.killenys));
+	
 	//draw_set_font(font);
 	//draw_text(24,8*8,"CALC IS A SLANG FOR CALCULATOR CHAT - " + string(round(SCREENW/85)));
 	
@@ -65,8 +86,8 @@ if room != rmTitle {
 	draw_set_font(font);
 	draw_text(24,8*7,"SPR FRAME - " + string(oMario.ind));*/
 	
-	draw_set_font(font);
-	draw_text(24,8*7,"JUMP BUFF - " + string(oMario.jumpbuffer));
+	//draw_set_font(font);
+	//draw_text(24,8*7,"JUMP BUFF - " + string(oMario.jumpbuffer));
 
 	/*draw_set_font(font);
 	draw_text(24,8*6,"ON GROUND - " + string_upper(oMario.grounded));

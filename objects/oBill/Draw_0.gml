@@ -1,4 +1,4 @@
-if !onview()
+if !onview() and (oMario.x > x+SCREENW || oMario.x < x-SCREENW)
 {instance_destroy();}
 
 shader_set(shdColorswap);

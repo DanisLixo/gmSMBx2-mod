@@ -1,8 +1,7 @@
 if !instance_exists(m) {instance_destroy()}
 else {
 	image_alpha = m.image_alpha
-	depth = m.depth+1
+	depth = m.depth+5
 }
 
-if global.player =  "Pokey" {x = oMario.x; y = oMario.bbox_top-2;}
-else if global.player =  "Gemaplys" {x = oMario.x; y = oMario.bbox_top-2;}
+x = m.x; y = m.bbox_top-2+(gety);

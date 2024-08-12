@@ -31,7 +31,7 @@ addmenu(2,0,"CUSTOMIZE")
 addmenu(2,1,"VIDEO")
 addmenu(2,2,"AUDIO")
 addmenu(2,3,"CONTROLS")
-addmenu(2,4,"MOD SETTINGS")
+addmenu(2,4,"P2 CONTROLS")
 addmenu(2,5,"BACK")
 
 addmenu(3,0,"CATEGORY - ")
@@ -72,11 +72,6 @@ addmenu(8,4,"ACTION")
 addmenu(8,5,"JUMP")
 addmenu(8,6,"HOLDACT")
 addmenu(8,7,"BACK")
-
-addmenu(9,0,"COMMAND ENEMIES - ")
-addmenu(9,1,"COMMAND MOVABLE OBJS - ")
-addmenu(9,2,"COMMAND STATICS - ")
-addmenu(9,3,"BACK")
 
 playerlist = ds_list_create();
 creatorlist = ds_list_create();
@@ -185,9 +180,11 @@ curgunsel = 0;
 
 depth = -9999
 
-transtext = (global.aspectratio = "ORIGINAL")? 0.8 : 1
-
 if global.aspectratio = "WIDESCREEN" {inithorse = 0;}
 if global.aspectratio = "ORIGINAL" {inithorse = 1;}
 if global.aspectratio = "ULTRA WIDE" {inithorse = 2;}
+if global.aspectratio = "ROOM WIDTH" {inithorse = 0;}
+if global.aspectratio = "LINE" {inithorse = 0;}
 horse = inithorse;
+
+transtext = (global.aspectratio = "ORIGINAL")? 0.8 : 1

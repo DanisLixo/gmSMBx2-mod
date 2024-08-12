@@ -4,3 +4,8 @@ shader_set(shdColorswap);
 shader_reset();
 
 image_xscale = sign(facingdir)
+
+if !onview() and goin = false {
+	if goaway = true {instance_destroy();}
+	else {exit;}
+}

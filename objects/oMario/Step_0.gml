@@ -25,6 +25,7 @@ if instance_exists(oPaused) {ku=0;kup=0}
 
 if instance_exists(oClient)
 {
+	
 	if global.username = ""
 	{
 		global.username = (random_range(0, 100) >= 60)? choose(
@@ -42,14 +43,16 @@ if instance_exists(oClient)
 	var user = string(global.username)
 	
 	//Send Our Data
-	var buff = buffer_create(32, buffer_grow, 1);
+	var buff = buffer_create(64, buffer_grow, 1);
 	buffer_seek(buff, buffer_seek_start, 0);
 	buffer_write(buff, buffer_u8, network.move);	
 	buffer_write(buff, buffer_u16, my_id);
 	buffer_write(buff, buffer_s16, round(x));
 	buffer_write(buff, buffer_s16, round(y));
 	buffer_write(buff, buffer_f16, image_xscale*scale);					
-	buffer_write(buff, buffer_u16, spr);					
+	//buffer_write(buff, buffer_f16, image_alpha);					
+	buffer_write(buff, buffer_u16, spr);
+	buffer_write(buff, buffer_u16, depth);
 	buffer_write(buff, buffer_u16, ind);					
 	buffer_write(buff, buffer_string, user);	
 	buffer_write(buff, buffer_u8, palindex);	
@@ -60,7 +63,12 @@ if instance_exists(oClient)
 	network_send_packet(oClient.client, buff, buffer_tell(buff));
 	buffer_delete(buff);
 	
-	if invincible = 0 and global.playercol = true and carried = false {
+	if invincible = 0 and global.playercol = true {
+		if place_meeting(x,y-4,oOtherplayer) && vspd < 0
+		{
+			if !place_meeting(x,bbox_bottom+1,oCol)
+			{vspd = 1;}
+		}
 		if instance_place(x,bbox_bottom+vspd,oOtherplayer) && vspd >=0
 		{
 			while !instance_place(x,bbox_bottom+1,oOtherplayer)
@@ -138,10 +146,25 @@ if gethit = true
 	gethit = false;
 }
 
-if shoulderbash > 0 && grounded
-{shoulderbash --;}
-if shoulderbash < 0
-{shoulderbash = 0}
+if global.abilities {
+	if shoulderbash > 0 && grounded
+	{shoulderbash --;}
+	if shoulderbash < 0
+	{shoulderbash = 0}
+	
+	if spintimer > 0 
+	{spintimer --;}
+	
+	if ka and hspd != 0 and mario_freeze() = 0 {pmet++;}
+	else {pmet--; if pmach > 6 {pmach = 0;}}
+
+	if pmet >= 35 and global.environment != e.underwater {
+	if pmach < 6 pmach += 0.1
+	}
+	if state = ps.fly {pmach = 6;}
+
+	if pmach > 0.9 and (hspd = 0 || state = ps.pivot) {pmach -= 0.5}
+}
 
 if invincible > 0
 {invincible --; image_alpha = sign(invincible mod 2);}
@@ -157,24 +180,11 @@ if kjp {jumpbuffer = 7;}
 if firetimer > 0 
 {firetimer --;}
 
-if spintimer > 0 
-{spintimer --;}
-
 if starman > 0
 {starman --;}
 
 if round(invincible) = 0
 {image_alpha = 1;}
-
-if ka and hspd != 0 and mario_freeze() = 0 {pmet++;}
-else {pmet--; if pmach > 6 {pmach = 0;}}
-
-if pmet >= 35 and global.environment != e.underwater {
-	if pmach < 6 pmach += 0.1
-}
-if state = ps.fly {pmach = 6;}
-
-if pmach > 0.9 and (hspd = 0 || state = ps.pivot) {pmach -= 0.5}
 
 if grounded {combo = 0;}
 if combo > 10 {combo = 10;}
@@ -280,6 +290,9 @@ switch(state)
 	case ps.sneeze:
 		ps_sneeze();
 	break;
+	case ps.exploded:
+		ps_exploded();
+	break;
 }
 
 if global.rtxmode = true or global.schutmode = true
@@ -292,10 +305,11 @@ if global.rtxmode = true or global.schutmode = true
 
 if kjp {retrochance = random(100)}
 
-if starman < 130 and char = "Max_Verstappen" {starman = global.time;}
-if char = "Max_Verstappen" and (state = ps.castleending or state = ps.flagpoledescend or state = ps.flagpolefinish) {starman = 0}
+if starman < 130 and char = "Max_Verstappen" and global.abilities {starman = global.time;}
+if char = "Max_Verstappen" and (state = ps.castleending or state = ps.flagpoledescend or state = ps.flagpolefinish) and global.abilities
+{starman = 0}
 
 var sneeze = random_range(0, 100)
 if sneeze > 70 and char = "Feathy" and 
-instance_place(x+8*sign(hspd),y,oFireflower)
+instance_place(x+8*sign(hspd),y,oFireflower) and global.abilities
 {hspd = 2; state = ps.sneeze; oFireflower.feathy = id;}

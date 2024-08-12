@@ -2,25 +2,12 @@ hspd = 0;
 vspd = 0;
 grounded = false;
 collidecode = false;
-global.stars = 0 
 bubble = 60;
 combo = 0
 mycapeative = false;
 
 char = global.playertwo
 
-function pals() {
-	var spritestring = "sPalette_mario"
-	spritestring = string_replace(spritestring,"mario",string_lower(char))
-	
-	if sprite_exists(asset_get_index(spritestring))
-	{return asset_get_index(spritestring);}
-	else {return sPalette_mario}
-}
-
-charpal = pals()
-
-my_id = global.clientid
 dancechance = random(100)
 retrochance = random(100)
 
@@ -34,7 +21,7 @@ if instance_exists(oGame)
 {powerup = oGame.p2savedpowerup;}
 
 
-palindex = global.paletteindex
+palindex = global.p2_paletteindex
 
 spr = -1
 spr =  ms("sMario_{}_idle")

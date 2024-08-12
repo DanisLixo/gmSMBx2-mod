@@ -47,8 +47,8 @@ if room != rmTitle and room != rmServer and room != rmLeveltransition && global.
 			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*4+cy,"TRIPPY"); boolbox(global.trippymode,3);
 			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*5+cy,"COMMANDER"); boolbox(global.commandenys,4);
 			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*6+cy,"ENVIRONMENT"); boolbox(-1,5);
-			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*7+cy,"WARP"); boolbox(-1,6);
-			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*8+cy,"P2 PLAYER"); boolbox(-1,7);
+			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*7+cy,"P2 PLAYER"); boolbox(-1,6);
+			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*8+cy,"EXPLODE"); boolbox(-1,7);
 			
 			draw_set_font(FNT);
 			
@@ -62,11 +62,8 @@ if room != rmTitle and room != rmServer and room != rmLeveltransition && global.
 					case 3: global.trippymode = !global.trippymode; break;
 					case 4: global.commandenys = !global.commandenys; break;
 					case 5: if global.environment != e.night {global.environment++} else {global.environment = -1;} break;
-					case 6: 
-						var _gr = get_string("ROOM NAME", room_get_name(room));
-						if room_exists(asset_get_index(_gr))	{room_goto(asset_get_index(_gr));}
-					break;
-					case 7: if instance_exists(oLuigi) {global.playertwo = get_string("PLAYER NAME (IN-GAME CHARACTERS ONLY)", global.playertwo)} break;
+					case 6: if instance_exists(oLuigi) {global.playertwo = get_string("PLAYER NAME (IN-GAME CHARACTERS ONLY)", global.playertwo)} break;
+					case 7: explode(); break;
 				}
 			}
 		}
@@ -140,9 +137,16 @@ if instance_exists(oMario) && oMario.state = ps.die and instance_number(oMario) 
 	draw_set_halign(fa_left)
 	
 	if diec > room_speed*4
-	{diec = 0; if !instance_exists(oCheckpointmask)
-	{room_goto(asset_get_index("rm"+string(global.world)+"_"+string(global.level)));}
-	else {room_restart()} if global.time != -1 {global.time = timeunits(400)}}
+	{
+		diec = 0; 
+		if global.sync {instance_create_layer(oMario.xstart,oMario.ystart,"Instances",oMario);}
+		else {
+			if !instance_exists(oCheckpointmask) and room != rmExtra_under
+			{room_goto(asset_get_index("rm"+string(global.world)+"_"+string(global.level)));}
+			else {room_restart()} 
+			if global.time != -1 {global.time = timeunits(400)}
+		}
+	}
 	if instance_exists(oLuigi) {oLuigi.powerup = oLuigi.powerup}
 	oMario.powerup = "s";
 }

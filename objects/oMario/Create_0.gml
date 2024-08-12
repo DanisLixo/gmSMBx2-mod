@@ -11,6 +11,9 @@ firedraw = false;
 char = global.player;
 
 my_id = global.clientid
+if room = asset_get_index("rm"+string(global.world)+"_"+string(global.level)) || room = asset_get_index("rm"+string(global.world)+"_"+string(global.level)+"_under")
+{if instance_exists(oClient) instance_create_layer(x-8,y,"Instances",oDoor)}
+
 dancechance = random(100)
 retrochance = random(100)
 
@@ -43,6 +46,7 @@ retrochance = random(100)
 		dance0,
 		nah,
 		sneeze,
+		exploded,
 		title
 	} 
 state = ps.normal

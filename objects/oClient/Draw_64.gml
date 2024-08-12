@@ -1,7 +1,6 @@
 /// @description Draw Latency
-
-//draw_text(room_width/2+64, 16, "Ping: " + string(latency));
 draw_set_font(FNT);
+//draw_text(room_width/2+64, 16, "Ping: " + string(latency));
 //draw_text(16, 10, " - CONNECTED");
 draw_text(16, 24, "PING -  " + string(latency));
 
@@ -94,6 +93,26 @@ for (var i = ds_list_size(global.CHAT); i >= 0; i--)
 	yy += 16;
 }
 
+if endcounter != -1
+{
+	draw_set_color(c_yellow)
+	draw_set_font(FNT);
+	draw_text(6,SCREENH-12,"FINISHING IN "+string(round(endcounter div 60))+"...");
+	draw_set_color(-1);
+	draw_set_font(-1);
+}
+if Iended > 0
+{
+	draw_set_font(FNT);
+	draw_text(6,SCREENH-24,"PLAYERS REMAINING "+string(Iended)+"/"+string(players)+"!");
+	draw_set_font(-1);
+}
+if warntimer > 0
+{
+	draw_set_font(FNT);
+	draw_text_color(6,SCREENH-24,warning,c_green,c_green,-1,-1,warntimer/100);
+	draw_set_font(-1);
+}
 
 //Control how many messages are stored in the chat at once
 while (ds_list_size(global.CHAT) > 6) {
@@ -101,6 +120,12 @@ while (ds_list_size(global.CHAT) > 6) {
 }
 
 draw_set_font(-1);
+
+if endcounter > 0
+{endcounter --;}
+if warntimer > 0
+{warntimer --;}
+
 /*
 
 

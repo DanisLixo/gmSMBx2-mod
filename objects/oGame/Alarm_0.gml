@@ -1,1 +1,0 @@
-room_goto(rm2_2_under);

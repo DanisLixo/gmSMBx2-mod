@@ -44,7 +44,7 @@ if instance_exists(oMario) && oMario.state != ps.castleending
 	}
 	else
 	{
-		if instance_exists(oLuigi) || instance_number(oMario) > 1 {x = (oMario.x+oLuigi.x)/2}
+		if instance_number(oMario) >= 2 {x = (instance_nearest(0,0,oMario).x+instance_furthest(0,0,oMario).x)/2}
 		else {
 		if (oMario.hspd > -3.5 and oMario.hspd <= 0 or oMario.hspd < 3.5 and oMario.hspd >= 0) {
 			if wentx {

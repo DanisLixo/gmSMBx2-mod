@@ -6,8 +6,10 @@ blocksprite = sprite_index
 hitblockimage = 0;
 emptyblockimage = 0;
 
+vspd = 0
+falling = false;
 
-
+fallchance = irandom(100)
 
 arenarespawn = 0;
 if instance_exists(oIsArena)

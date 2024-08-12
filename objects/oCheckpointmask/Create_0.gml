@@ -1,1 +1,1 @@
-killenys = false;
+global.killenys = false;

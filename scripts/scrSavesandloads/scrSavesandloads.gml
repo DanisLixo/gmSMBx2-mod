@@ -10,6 +10,10 @@ function savesettings()
 	var charpaletteindex = global.paletteindex
 	var gunskin = global.gunskin
 	
+	var charnamep2 = global.playertwo
+	var charpalettep2 = global.p2_palettesprite
+	var charpaletteindexp2 = global.p2_paletteindex
+	
 	var username = global.username
 	var serverip = global.ip
 	var serverport = global.port
@@ -23,6 +27,7 @@ function savesettings()
 	var showdiscordpfp = global.showpfp
 	var resolution = global.aspectratio
 	var finisheddemo = global.demo
+	var onlinealpha = global.onlinealpha
 
 	var ku = global.keyu;
 	var kd = global.keyd;
@@ -31,6 +36,14 @@ function savesettings()
 	var ka = global.keya;
 	var kj = global.keyj;
 	var kh = global.keyh;
+	
+	var ku2 = global.p2_keyu;
+	var kd2 = global.p2_keyd;
+	var kl2 = global.p2_keyl;
+	var kr2 = global.p2_keyr;
+	var ka2 = global.p2_keya;
+	var kj2 = global.p2_keyj;
+	var kh2 = global.p2_keyh;
 	
 	var enys = global.moveenys
 	var moveobjs = global.moveobjs
@@ -41,16 +54,23 @@ function savesettings()
 	var ch2 = global.ch_allowed[2]
 	var ch3 = global.ch_allowed[3]
 	
+	var abilities = global.abilities
+	
 	var secCHAR = "character/costume"
 	ini_write_string(secCHAR,"charname",charname);
 	ini_write_real(secCHAR,"charpalette",charpalette);
 	ini_write_real(secCHAR,"charpaletteindex",charpaletteindex);
 	ini_write_string(secCHAR,"gunskin",gunskin);
 	
+	ini_write_string(secCHAR,"p2charname",charnamep2);
+	ini_write_real(secCHAR,"p2charpalette",charpalettep2);
+	ini_write_real(secCHAR,"p2charpaletteindex",charpaletteindexp2);
+	
 	var secONLINE = "online"
 	ini_write_string(secONLINE,"username",username);
 	ini_write_string(secONLINE,"serverip",serverip);
 	ini_write_real(secONLINE,"serverport",serverport);
+	ini_write_real(secONLINE,"online players alpha",onlinealpha);
 	
 	var secAUDIO = "audio"
 	ini_write_real(secAUDIO,"sfxvolume",sfxvolume);
@@ -73,6 +93,14 @@ function savesettings()
 	ini_write_real(secCTRL,"kj",kj)
 	ini_write_real(secCTRL,"kh",kh)
 	
+	ini_write_real(secCTRL,"ku2",ku2)
+	ini_write_real(secCTRL,"kd2",kd2)
+	ini_write_real(secCTRL,"kl2",kl2)
+	ini_write_real(secCTRL,"kr2",kr2)
+	ini_write_real(secCTRL,"ka2",ka2)
+	ini_write_real(secCTRL,"kj2",kj2)
+	ini_write_real(secCTRL,"kh2",kh2)
+	
 	var secMOD = "mod"
 	ini_write_real(secMOD,"commandenemies",enys);
 	ini_write_real(secMOD,"commandobjs",moveobjs);
@@ -82,6 +110,8 @@ function savesettings()
 	ini_write_real(secMOD,"playchannel1",ch1);
 	ini_write_real(secMOD,"playchannel2",ch2);
 	ini_write_real(secMOD,"playchannel3",ch3);
+	
+	ini_write_real(secMOD,"abilities",abilities);
 	
 	ini_close();
 }
@@ -102,14 +132,18 @@ function loadsettings()
 		var secMOD = "mod"
 		
 		var charname = ini_read_string(secCHAR,"charname","Mario");
-		var charpalette = ini_read_real(secCHAR,"charpalette",0);
-		var charpaletteindex = ini_read_real(secCHAR,"charpaletteindex",0);
+		var charpalette = ini_read_real(secCHAR,"charpalette",sPalette_mario);
+		var charpaletteindex = ini_read_real(secCHAR,"charpaletteindex",1);
 		var gunskin = ini_read_string(secCHAR,"gunskin","Default");
-
 		
+		var charnamep2 = ini_read_string(secCHAR,"p2charname","Mario");
+		var charpalettep2 = ini_read_real(secCHAR,"p2charpalette",sPalette_luigi);
+		var charpaletteindexp2 = ini_read_real(secCHAR,"p2charpaletteindex",1);
+	
 		var username = ini_read_string(secONLINE,"username",string(random_range(0,10000)));
 		var serverip = ini_read_string(secONLINE,"serverip","123.456.89-0");
 		var serverport = ini_read_real(secONLINE,"serverport",7676);
+		var onlinealpha = ini_read_real(secONLINE,"online players alpha",0.8);
 		
 		var sfxvolume = ini_read_real(secAUDIO,"sfxvolume",1);
 		var bgmvolume = ini_read_real(secAUDIO,"bgmvolume",1);
@@ -129,6 +163,14 @@ function loadsettings()
 		var kj = ini_read_real(secCTRL,"kj",global.keyj)
 		var kh = ini_read_real(secCTRL,"kh",global.keyh)
 		
+		var ku2 = ini_read_real(secCTRL,"ku2",global.p2_keyu)
+		var kd2 = ini_read_real(secCTRL,"kd2",global.p2_keyd)
+		var kl2 = ini_read_real(secCTRL,"kl2",global.p2_keyl)
+		var kr2 = ini_read_real(secCTRL,"kr2",global.p2_keyr)
+		var ka2 = ini_read_real(secCTRL,"ka2",global.p2_keya)
+		var kj2 = ini_read_real(secCTRL,"kj2",global.p2_keyj)
+		var kh2 = ini_read_real(secCTRL,"kh2",global.p2_keyh)
+		
 		var enys = ini_read_real(secMOD,"commandenemies",1);
 		var moveobjs = ini_read_real(secMOD,"commandobjs",1);
 		var statis = ini_read_real(secMOD,"commandstatics",0);
@@ -138,14 +180,21 @@ function loadsettings()
 		var ch2 = ini_read_real(secMOD,"playchannel2",1);
 		var ch3 = ini_read_real(secMOD,"playchannel3",1);
 		
+		var abilities = ini_read_real(secMOD,"abilities",1);
+		
 		global.player = charname;
 		global.palettesprite = charpalette
 		global.paletteindex = charpaletteindex
 		global.gunskin = gunskin
 		
+		global.playertwo = charnamep2;
+		global.p2_palettesprite = charpalettep2;
+		global.p2_paletteindex = charpaletteindexp2;
+		
 		global.username = username;
 		global.ip = serverip;
 		global.port = serverport;
+		global.onlinealpha = onlinealpha;
 		
 		global.volsfx = sfxvolume
 		global.volbgm = bgmvolume
@@ -165,6 +214,14 @@ function loadsettings()
 		global.keyj = kj
 		global.keyh = kh
 		
+		global.p2_keyu = ku2
+		global.p2_keyd = kd2
+		global.p2_keyl = kl2
+		global.p2_keyr = kr2
+		global.p2_keya = ka2
+		global.p2_keyj = kj2
+		global.p2_keyh = kh2
+		
 		global.moveenys = enys
 		global.moveobjs = moveobjs
 		global.movestatics = statis
@@ -173,6 +230,8 @@ function loadsettings()
 		global.ch_allowed[1] = ch1
 		global.ch_allowed[2] = ch2
 		global.ch_allowed[3] = ch3
+		
+		global.abilities = abilities
 	
 		ini_close();
 	}

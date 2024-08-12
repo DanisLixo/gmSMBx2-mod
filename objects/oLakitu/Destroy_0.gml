@@ -1,0 +1,1 @@
+if goaway = false {oLakituspawner.alarm[0] = 180}

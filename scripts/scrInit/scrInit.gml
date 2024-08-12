@@ -5,11 +5,9 @@ function init()
 {
 	randomize();
 	
-	var sav = "gmsmbsave.ini"
-	
-	if file_exists(sav)
+	if file_exists("gmsmbsave.ini")
 	{
-		ini_open(sav);
+		ini_open("gmsmbsave.ini");
 		var secETC = "etc";
 		var aspectratio = ini_read_string(secETC,"resolution","WIDESCREEN");
 		global.aspectratio = aspectratio;
@@ -17,33 +15,38 @@ function init()
 	else {global.aspectratio = "WIDESCREEN";}
 	
 	//#macro SCREENW 416 // 384 // 256
-	#macro SCREENW_WS 426
+	#macro SCREENW_WS 412.5
 	#macro SCREENW_OG 256
-	#macro SCREENW_UW 586
-	#macro SCREENH_WS 240 // 232 // 240 
+	#macro SCREENW_UW 569
+	#macro SCREENH_UW 240 // 232 // 240 
 	#macro SCREENH_OG 232 // 232 // 240 
 	
 	globalvar SCREENW; SCREENW = SCREENW_WS;
-	globalvar SCREENH; SCREENH = SCREENH_WS;
+	globalvar SCREENH; SCREENH = SCREENH_OG;
 	if global.aspectratio = "ORIGINAL" {
 		SCREENW = SCREENW_OG
-		SCREENH = SCREENH_OG
 	}
 	else if global.aspectratio = "ULTRA WIDE" {
 		SCREENW = SCREENW_UW
+		SCREENH = SCREENH_UW
 	}
 	
 	#macro TIMESEC 0.4
-	#macro FNT font_add_sprite_ext(sFont,"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-+*!.:©bredi_",0,0)
+	#macro FNT font_add_sprite_ext(sFont,"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-+*!.:©bredi/_",0,0)
 	#macro VERSION "MODDED 2.5"
 	
 	global.score = 0;
 	global.coins = 0;
 	global.time = -1
+	
 	global.player = "Mario"
-	global.playertwo = "Luigi"
 	global.palettesprite = sPalette_mario;
 	global.paletteindex = 1;
+	
+	global.playertwo = "Luigi";
+	global.p2_palettesprite = sPalette_luigi;
+	global.p2_paletteindex = 1;	
+	
 	global.gunskin = "Default"
 	global.letterboxSprite = sBG_0
 	
@@ -74,12 +77,21 @@ function init()
 	global.keyj = ord("Z")//vk_space;
 	global.keyh = ord("C")//ord("E");
 	
+	global.p2_keyr = ord("D");
+	global.p2_keyl = ord("A");
+	global.p2_keyu = ord("W");
+	global.p2_keyd = ord("S");
+	global.p2_keya = vk_shift
+	global.p2_keyj = vk_space;
+	global.p2_keyh = ord("E");
+	
 	//global.keyrun = vk_shift;
 	
-	global.moveenys = true
-	global.moveobjs = true
-	global.movestatics = false
-	global.multiplayer = false
+	global.moveenys = true;
+	global.moveobjs = true;
+	global.movestatics = false;
+	global.multiplayer = false;
+	global.abilities = true;
 	
 	global.ch_allowed[0] = true //Sound
 	global.ch_allowed[1] = true //Sound
@@ -122,6 +134,11 @@ function init()
 		shader_set(shdColorswap)
 		apply_palette(sPalette_background,global.environment,1)
 	}
+	function retro_palswap()
+	{
+		shader_set(shdColorswap)
+		apply_palette(sPalette_mario,global.paletteindex,1)
+	}
 	function tile_palreset()
 	{
 		shader_reset();
@@ -141,6 +158,7 @@ function init()
 		*/
 		
 		window_set_size(SCREENW*scrsizemult,SCREENH*scrsizemult);
+		window_center()
 
 		view_enabled = true;
 		view_visible[0] = true;
@@ -168,10 +186,14 @@ function init()
 	global.trippymode = false;
 	
 	global.racepos = ds_grid_create(3,1);
+	global.nextlvltimer = 10
+	global.waiting = true
+	global.sync = false
 	
 	global.arena = 0
+	//global.extra = false
 	global.goalofstars = 15;
-	
+	global.onlinealpha = 0.5;
 	
 	global.ip = "12345.ddns.net"
 	global.port = 7676;

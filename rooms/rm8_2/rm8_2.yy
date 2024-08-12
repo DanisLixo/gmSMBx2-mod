@@ -112,6 +112,8 @@
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_276162F1","properties":[],"isDnd":false,"objectId":{"name":"oBillspawner","path":"objects/oBillspawner/oBillspawner.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":2800.0,"y":192.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_51588D65","properties":[],"isDnd":false,"objectId":{"name":"oBillspawner","path":"objects/oBillspawner/oBillspawner.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":3056.0,"y":176.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_7CE3A77F","properties":[],"isDnd":false,"objectId":{"name":"oBillspawner","path":"objects/oBillspawner/oBillspawner.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":3056.0,"y":208.0,},
+        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_16824B2E","properties":[],"isDnd":false,"objectId":{"name":"oLakitu","path":"objects/oLakitu/oLakitu.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":368.0,"y":48.0,},
+        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_3FCEB77A","properties":[],"isDnd":false,"objectId":{"name":"oEndspawner","path":"objects/oEndspawner/oEndspawner.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":2.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":768.0,"y":32.0,},
       ],"visible":true,"depth":0,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"gridX":16,"gridY":16,"layers":[],"hierarchyFrozen":false,"effectEnabled":true,"effectType":null,"properties":[],},
     {"resourceType":"GMRTileLayer","resourceVersion":"1.1","name":"Tiles_brown","tilesetId":{"name":"tileBrown","path":"tilesets/tileBrown/tileBrown.yy",},"x":0,"y":0,"tiles":{"TileDataFormat":1,"SerialiseWidth":227,"SerialiseHeight":15,"TileCompressedData":[
 -181,0,-46,-2147483648,-181,0,-46,-2147483648,-181,0,-46,-2147483648,-181,0,-46,-2147483648,-251,0,-2,11,-180,0,-2,11,-42,0,-3,11,-180,0,-2,11,-41,0,-4,11,-180,0,-2,11,-20,0,-3,5,-18,0,-4,11,-160,0,1,11,-16,0,5,11,0,0,11,11,-13,0,-3,5,-4,0,3,14,15,16,-16,0,2,11,0,-4,11,-93,0,1,11,-65,0,-2,11,-16,0,5,11,0,0,11,11,-13,0,3,14,15,16,-3,0,1,5,-3,6,1,5,-14,0,-2,11,1,0,-4,11,-67,0,1,10,-31,0,1,10,-58,0,-3,11,-4,0,1,10,-9,0,7,11,0,11,0,0,11,11,-12,0,1,5,-3,6,8,5,0,0,15,15,7,15,15,-13,0,-3,11,1,0,-4,11,-59,0,1,10,-7,0,1,20,-11,0,1,10,-19,0,1,20,-49,0,1,10,-7,0,-4,11,-4,0,1,20,-8,0,-2,11,6,0,11,0,0,11,11,-12,0,-2,15,10,7,15,15,0,0,15,15,17,15,15,-6,0,6,32,0,32,33,0,33,
@@ -224,6 +226,8 @@
     {"name":"inst_276162F1","path":"rooms/rm8_2/rm8_2.yy",},
     {"name":"inst_51588D65","path":"rooms/rm8_2/rm8_2.yy",},
     {"name":"inst_7CE3A77F","path":"rooms/rm8_2/rm8_2.yy",},
+    {"name":"inst_16824B2E","path":"rooms/rm8_2/rm8_2.yy",},
+    {"name":"inst_3FCEB77A","path":"rooms/rm8_2/rm8_2.yy",},
   ],
   "inheritCreationOrder": false,
   "sequenceId": null,
@@ -248,6 +252,6 @@
   },
   "parent": {
     "name": "8-2",
-    "path": "folders/Rooms/mario brother/World 8 X/8-2.yy",
+    "path": "folders/Rooms/mario brother/World 8/8-2.yy",
   },
 }

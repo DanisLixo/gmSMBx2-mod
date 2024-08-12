@@ -1,5 +1,3 @@
-var style = 0
-
 if char = "Goldron"
 
 {
@@ -22,9 +20,8 @@ if char = "Max_Verstappen" {scale = 0.2;}
 if char = "Anton" && powerup = "s"	{scale = 0.6}
 if char = "1pixelMario" && powerup = "s"	{scale = 0.5}
 
-if powerup = "f" && !instance_exists(oHatThrow) && 
-!instance_exists(oHat) && (char = "Pokey" || char = "Gemaplys") 
-{instance_create_depth(x,y,depth-1000,oHat);}
+if powerup = "f" && (char = "Pokey" || char = "Gemaplys") and instance_number(oHat) < global.hats
+{instance_create_depth(x,y-global.hats*4,depth+1,oHat);}
 else if powerup != "f" 
 {instance_destroy(oHat);}
 
@@ -52,6 +49,7 @@ if powerup = "s" {oGame.hats = 0}
 //if char = "1pixelmario" and powerup = "f" {spr = ms("sMario_{}_idle");}
 //(image_xscale*csw/cswdiv)-(2*image_xscale)
 shader_set(shdColorswap);
+//apply_pattern(sprite_index, image_index, image_xscale, image_yscale,sTilepaltest)
 apply_palette(global.palettesprite,palindex,image_alpha)
 if firetimer > 0 && char != "Peter Griffin" && char != "Duke" && char != "Pokey" && char != "1pixelmario" && char != "Max_Verstappen" and (char != "Sonic" or char = "Sonic" and state != ps.jump)
 	{

@@ -60,7 +60,8 @@ function sprite_getpixel(argument0, argument1, argument2, argument3, returnfloat
     
 	    surface_set_target(surf);
     
-	    draw_clear_alpha(c_white, 0);
+	    draw_clear_alpha(c_white, 0);		
+		//draw_sprite_tiled(sPatterntest,0,0,0)
     
 	    gpu_set_blendmode_ext(bm_one, bm_zero);
     
@@ -103,7 +104,5 @@ function sprite_getpixel(argument0, argument1, argument2, argument3, returnfloat
 		
 		return clr;
 	}
-
-
 
 }

@@ -91,6 +91,6 @@
   },
   "parent": {
     "name": "8-4",
-    "path": "folders/Rooms/mario brother/World 8 X/8-4.yy",
+    "path": "folders/Rooms/mario brother/World 8/8-4.yy",
   },
 }

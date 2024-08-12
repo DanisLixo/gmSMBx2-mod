@@ -2,7 +2,9 @@ var m = instance_place(x,y,oMario);
 
 if m && (m.state = ps.flagpolefinish or m.state = ps.castleending)
 {
-	m.depth = 399;
+	if instance_place(m.x+1,m.y,oCol) {
+		m.depth = 399;
+	}
 	m.invincible = -2;
 	if global.level = 4
 	{

@@ -1,6 +1,3 @@
-
-myracetime = 0;
-
 counter = 0;
 
 minutes = 0;

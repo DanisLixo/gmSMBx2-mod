@@ -27,3 +27,7 @@ pufunc = function()
 	points(1000,true);
 	instance_destroy();
 }
+
+m = instance_place(x,y,oMario)
+
+instance_destroy(instance_nearest(m.x,0,oHat))

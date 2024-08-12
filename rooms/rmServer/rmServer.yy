@@ -25,7 +25,7 @@
       ],},
   ],
   "inheritLayers": false,
-  "creationCodeFile": "${project_dir}/rooms/rmTitle/RoomCreationCode.gml",
+  "creationCodeFile": "${project_dir}/rooms/rmServer/RoomCreationCode.gml",
   "inheritCode": false,
   "instanceCreationOrder": [
     {"name":"inst_1D49035D","path":"rooms/rmServer/rmServer.yy",},
