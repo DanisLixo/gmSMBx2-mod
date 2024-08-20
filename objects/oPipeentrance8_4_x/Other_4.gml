@@ -1,4 +1,4 @@
-if activated = true && room = troom
+if activated = true && room = troom and !instance_exists(oPaused) and oGame.spawnx != -2 
 {
 	if instance_exists(oMario) && instance_exists(oPipeexit)
 	{

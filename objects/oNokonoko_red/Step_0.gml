@@ -8,14 +8,18 @@ switch(state)
 {
 	case es.patrol:
 	
-	if place_meeting(x+facingdir,y,oCol) && !place_meeting(x+facingdir,y,oSlope)
+	moveshelled = true;
+	
+	if place_meeting(x+facingdir,y,oCol) && !place_meeting(x+facingdir,y,oSlope) && !collision_rectangle(bbox_left-16,bbox_top-16,bbox_right+16,bbox_bottom+16,oElevator,false,true)
 	{facingdir = -facingdir}
 	
 	if !place_meeting(x+facingdir*4,y+5,oCol) && grounded
 	{facingdir = -facingdir}
 	
-	if instance_place(x+facingdir,y,oParenemy)
-	{instance_place(x+facingdir,y,oParenemy).facingdir = -instance_place(x+facingdir,y,oParenemy).facingdir; facingdir = -facingdir;}
+	var longfunction = instance_place(x+facingdir,y,oParenemy);
+	
+	if longfunction and (longfunction.state != es.die and longfunction.state != es.shellhit)
+	{longfunction.facingdir = -longfunction.facingdir; facingdir = -facingdir;}
 	
 	hspd = maxhspd*facingdir
 	
@@ -31,7 +35,7 @@ switch(state)
 		{hspd = 0;}
 		
 		if shellcooldown <= 0
-		{shellcooldown --;}
+		{shellcooldown --; moveshelled = false;}
 		
 		if shellcooldown < -room_speed*5
 		{image_index = sin(current_time/30);}
@@ -46,6 +50,9 @@ switch(state)
 		{
 			if instance_place(x,y,oMario).x > x		{facingdir = -1;}
 			else {facingdir = 1;}
+			
+			if instance_place(x,y,oMario).combo < 1 {points(400,true)}
+			else {points(choose(500,800),true)}
 			
 			state = es.shellhit;
 			sfx(sndKick,0)

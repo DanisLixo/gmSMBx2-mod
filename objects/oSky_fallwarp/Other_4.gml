@@ -1,6 +1,6 @@
 
 
-if instance_exists(oMario) && instance_exists(oSkyexit) && room = troom
+if instance_exists(oMario) && instance_exists(oSkyexit) && room = troom and oGame.spawnx != -2 
 {
 	oMario.x = oSkyexit.x;
 	oMario.y = oSkyexit.y;

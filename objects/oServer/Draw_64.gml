@@ -5,6 +5,7 @@ var all_players = ds_list_size(total_players);
 draw_set_font(FNT);
 
 draw_text(16, 10, " - HOSTING!");
+draw_text(32, 30, "World: " +string(global.world) +"\nLevel: "+string(global.level));
 
 draw_set_halign(fa_center);
 	draw_text(SCREENW/2, SCREENH/2 - 16, "PLAYERS CONNECTED - " + string(all_players));

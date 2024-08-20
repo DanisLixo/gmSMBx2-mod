@@ -35,7 +35,7 @@ if room != rmTitle and room != rmServer and room != rmLeveltransition && global.
 			
 			
 			debugsel += keyboard_check_pressed(global.keyd) - keyboard_check_pressed(global.keyu)
-			debugsel = clamp(debugsel,0,7);
+			debugsel = clamp(debugsel,0,8);
 			
 			
 			
@@ -49,6 +49,8 @@ if room != rmTitle and room != rmServer and room != rmLeveltransition && global.
 			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*6+cy,"ENVIRONMENT"); boolbox(-1,5);
 			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*7+cy,"P2 PLAYER"); boolbox(-1,6);
 			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*8+cy,"EXPLODE"); boolbox(-1,7);
+if instance_exists(oMario) {
+			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*9+cy,"SCALE "+ string(oMario.scale)); boolbox(-1,8);}
 			
 			draw_set_font(FNT);
 			
@@ -65,6 +67,11 @@ if room != rmTitle and room != rmServer and room != rmLeveltransition && global.
 					case 6: if instance_exists(oLuigi) {global.playertwo = get_string("PLAYER NAME (IN-GAME CHARACTERS ONLY)", global.playertwo)} break;
 					case 7: explode(); break;
 				}
+			}
+			
+			var p = keyboard_check_pressed(global.keyr)-keyboard_check_pressed(global.keyl);
+			if p != 0 and debugsel = 8 {
+				oMario.scale += 0.1*p; global.scaled = true
 			}
 		}
 	}

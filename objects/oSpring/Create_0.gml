@@ -11,3 +11,6 @@ SPRINGST = 0;
 hspd = 1
 dir = -1
 moving = false
+
+givevspd = 8
+savedhspd = 0

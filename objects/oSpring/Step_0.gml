@@ -7,6 +7,7 @@ switch(SPRINGST)
 	wait = 0;
 	if m && round(ind) = 0
 	{
+		savedhspd = m.hspd
 		m.grounded = false;
 		ind = 1;
 	}
@@ -29,20 +30,21 @@ switch(SPRINGST)
 	ind = 2;
 	wait ++;
 	
-	if wait >= 5 && instance_exists(oMario) && m 
+	if instance_exists(oMario) && m and m.kjp and wait <= 5 {givevspd = 12}
+	if instance_exists(oMario) && m 
 	{
-		if m.kj
-		{m.vspd = -12;}
-		else
-		{m.vspd = -5;}
-		
-		SPRINGST = 2;
+		if wait < 5 {m.hspd = 0;}
+		else {
+			m.vspd = -givevspd;
+			m.hspd = savedhspd
+			SPRINGST = 2;
+		}
 	}
 	if instance_exists(oMario) && m 
 	{m.grounded = false;}
 	
 	if !m or wait >= 6
-	{SPRINGST = 0; ind = 0;}
+	{SPRINGST = 0; ind = 0; givevspd = 8;}
 	
 	break
 	case 2:
@@ -55,7 +57,7 @@ switch(SPRINGST)
 	if m
 	{SPRINGST = 0; m.grounded = false; ind = 0;}
 	else 
-	{wait --;}
+	{wait --; givevspd = 8;}
 	
 	
 	break;

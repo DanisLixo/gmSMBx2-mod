@@ -11,16 +11,18 @@ if char = "Goldron"
 }
 
 //scale = 2;
-scale = 1;
+if global.scaled = false {
+	scale = 1;
 
-if char = "Peter Griffin"	{scale = 0.2;}
-if char = "Duke"	{scale = 0.2;}
-if char = "Pokey" {scale = 0.2;}
-if char = "Max_Verstappen" {scale = 0.2;}
-if char = "Anton" && powerup = "s"	{scale = 0.6}
-if char = "1pixelMario" && powerup = "s"	{scale = 0.5}
+	if char = "Peter Griffin"	{scale = 0.2;}
+	if char = "Duke"	{scale = 0.2;}
+	if char = "Pokey" {scale = 0.2;}
+	if char = "Max_Verstappen" {scale = 0.2;}
+	if char = "Anton" && powerup = "s"	{scale = 0.6}
+	if char = "1pixelMario" && powerup = "s"	{scale = 0.5}
+}
 
-if powerup = "f" && (char = "Pokey" || char = "Gemaplys") and instance_number(oHat) < global.hats
+if powerup = "f" && (char = "Pokey" || char = "Gemaplys") and instance_number(oHatThrow) < global.hats
 {instance_create_depth(x,y-global.hats*4,depth+1,oHat);}
 else if powerup != "f" 
 {instance_destroy(oHat);}
@@ -35,17 +37,14 @@ else if powerup != "c" {mycapeative = false;}
 
 //👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍👍
 
-if palindex = 2 and powerup != "f" {firepal = true;}
-
 if powerup = "f"
 {
-	if firepal = true {palindex = 1;}
+	if global.paletteindex = 2 {palindex = 1;}
 	else {palindex = 2;}
 }
 else
 {palindex = global.paletteindex;}
 
-if powerup = "s" {oGame.hats = 0}
 //if char = "1pixelmario" and powerup = "f" {spr = ms("sMario_{}_idle");}
 //(image_xscale*csw/cswdiv)-(2*image_xscale)
 shader_set(shdColorswap);
@@ -64,12 +63,12 @@ if firetimer > 0 && char != "Peter Griffin" && char != "Duke" && char != "Pokey"
 			var ccs = spr
 			if spr = ms("sMario_{}_idle")
 			{ccs = ms("sMario_{}_fire");}
-			var csw = sprite_get_width(ccs); var csh = sprite_get_height(ccs); var cswsub = csw/16;
-			draw_sprite_part_ext(ccs,ind,0,csh-9,csw,9,x-(image_xscale*csw/2)-cswsub-1*-image_xscale,y-8+yoff,
+			var csw = sprite_get_width(ccs); var csh = sprite_get_height(ccs); var cswsub = csw > 16? csw/16 : 0;
+			draw_sprite_part_ext(ccs,ind,0,csh-9,csw,9,x-(image_xscale*csw/2)+cswsub*-image_alpha,y-8+yoff,
 			(image_xscale*scale),(image_yscale*scale),image_blend,image_alpha);
 		}
 	}
-else if char != "Sonic" or (ps.jump and char = "Sonic") {firedraw = false; draw_sprite_ext(spr,ind,x,y+yoff,round(image_xscale)*scale,image_yscale*scale,image_angle,image_blend,image_alpha);}
+else /*if char != "Sonic" or (char = "Sonic")*/ {firedraw = false; draw_sprite_ext(spr,ind,x,y+yoff,round(image_xscale)*scale,image_yscale*scale,image_angle,image_blend,image_alpha);}
 shader_reset()
 
 if starman != 0 and char != "Max_Verstappen"
@@ -106,12 +105,11 @@ if shoulderbash > 0 && (current_time/1000) mod 5 = 0
 }
 
 if pmach < 5 
-{pind = pmach}
-
+{global.pind = pmach}
 else 
 {
-	if pmet mod 10 < 5 {pind = 6}
-	else {pind = 7}
+	if pmet mod 10 < 5 {global.pind = 6}
+	else {global.pind = 7}
 }
 
 nes_flicker()
@@ -123,7 +121,6 @@ char != "1pixelmario" and char != "Pokey"
 {sprite_index = sMariomask1;}
 else
 {sprite_index = sMariomask0;}
-
 
 if char = "1pixelmario"
 {if powerup = "s" sprite_index = s1pixelmario_s_idle;
@@ -152,11 +149,4 @@ if instance_exists(oIsArena)
 	
 	if instance_place(x,y,oSuperstar)
 	{global.stars ++; instance_destroy(instance_place(x,y,oSuperstar))}
-}
-
-if room = rmTitle 
-{
-	if instance_place(x+15, y, oGoomba) {state = ps.nah}  
-	else {state = ps.title; ind = 0;}  
-	invincible = 1;
 }

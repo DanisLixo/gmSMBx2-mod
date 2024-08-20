@@ -9,3 +9,5 @@ if instance_place(x,y,oMario) {
 		else if global.world != 0 || global.level != 0 {room_goto(rm);} 
 	}	
 }
+
+if instance_place(x,y,oCol) {y-=1}

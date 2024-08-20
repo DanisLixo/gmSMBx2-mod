@@ -40,7 +40,7 @@ switch(state)
 		
 		hspd = choose(0.4,0.6,0.8,random_range(1,1.6));
 		var m = collision_rectangle(x-2,y-2,x+2,y,oMario,true,false);
-		if m {state = es.die; m.vspd = -3; m.holdjump = 0; BLAST()}
+		if m {state = es.die; m.vspd = -3; m.holdjump = 0; BLAST(); points(1+m.combo,true);}
 		
 		if y < 80 {vspd += 0.15}
 		if y > SCREENH+16 {instance_destroy()}

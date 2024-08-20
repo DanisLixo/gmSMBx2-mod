@@ -136,7 +136,7 @@ function loadsettings()
 		var charpaletteindex = ini_read_real(secCHAR,"charpaletteindex",1);
 		var gunskin = ini_read_string(secCHAR,"gunskin","Default");
 		
-		var charnamep2 = ini_read_string(secCHAR,"p2charname","Mario");
+		var charnamep2 = ini_read_string(secCHAR,"p2charname","Luigi");
 		var charpalettep2 = ini_read_real(secCHAR,"p2charpalette",sPalette_luigi);
 		var charpaletteindexp2 = ini_read_real(secCHAR,"p2charpaletteindex",1);
 	

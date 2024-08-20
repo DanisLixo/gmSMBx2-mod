@@ -39,8 +39,8 @@ if p2 = sDuke {scalep2 = 0.5;}
 if p2 = sPokey {scalep2 = 0.4;}
 if p2 = sMax_Verstappen_s_idle {scalep2 = 0.2;}
 if p2 = sMax_Verstappen_b_idle {scalep2 = 0.2;}
-if p2 = sPokey && oGame.savedpowerup = "s" {scalep2 = 0.2;}
-if p2 = sAnton && oGame.savedpowerup = "s" {scalep2 = 0.6;}
+if p2 = sPokey && oGame.p2savedpowerup = "s" {scalep2 = 0.2;}
+if p2 = sAnton && oGame.p2savedpowerup = "s" {scalep2 = 0.6;}
 
 var fire = (oGame.p2savedpowerup = "f")? 2 : global.paletteindex
 
@@ -54,7 +54,7 @@ draw_set_font(FNT)
 }
 
 
-if global.extra {draw_text(11*8-cx,9*8-cy,"WORLD "+"EXTRA");}
+if global.extra {draw_text(11*8-cx,9*8-cy,"WORLD EXTRA");}
 else {draw_text(11*8-cx,9*8-cy,"WORLD "+string(global.world)+"-"+string(global.level));}
 draw_text((15*8)-cx,(14*8)-cy,"* -1");
 if oGame.savedpowerup = "f" && global.player != "Pokey" {draw_text((9.5*8)-cx,(10*8)-cy,"U FIRE YEAH!!!")}

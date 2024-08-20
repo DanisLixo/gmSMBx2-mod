@@ -7,6 +7,12 @@ var tsep = 16;
 
 buttonsappear++
 
+draw_set_halign(fa_right)
+draw_set_font(FNT)
+draw_text(SCREENW,SCREENH-8,"GMSMBx2 Ver. "+ VERSION)
+draw_set_halign(-1)
+draw_set_font(-1)
+
 if section = 0
 {
 	draw_sprite(sTitle2,image_index,x-cx,y-cy+8);
@@ -56,12 +62,21 @@ if section = 6 || section = 7
 	
 	var sp = (global.aspectratio = "ORIGINAL")? 48 : 64;
 	
-	shader_set(shdColorswap)
-		if section = 6
-		{apply_palette(global.palettesprite,global.paletteindex,1); draw_sprite_ext(p,0,SCREENW/2+sp,160+32+sin(current_time/800)*5-8,scale+(marioxs*(scale/4)),scale+(marioys*(scale/4)),0,-1,1)}
-		if section = 7 
-		{apply_palette(global.p2_palettesprite,global.p2_paletteindex,1); draw_sprite_ext(p,0,SCREENW/2+sp,160+32+sin(current_time/800)*5-8,scale+(marioxs*(scale/4)),scale+(marioys*(scale/4)),0,-1,1)}
-	shader_reset();
+	
+	if section = 6
+	{
+		shader_set(shdColorswap); 
+		apply_palette(global.palettesprite,global.paletteindex,1); 
+		draw_sprite_ext(p,0,SCREENW/2+sp,160+32+sin(current_time/800)*5-8,scale+(marioxs*(scale/4)),scale+(marioys*(scale/4)),0,-1,1)
+		shader_reset();
+	}
+	else if section = 7 
+	{
+		shader_set(shdColorswap); 
+		apply_palette(global.p2_palettesprite,global.p2_paletteindex,1); 
+		draw_sprite_ext(p,0,SCREENW/2+sp,160+32+sin(current_time/800)*5-8,scale+(marioxs*(scale/4)),scale+(marioys*(scale/4)),0,-1,1)
+		shader_reset();
+	}
 	
 	draw_set_font(fntComicsmall)
 	draw_set_halign(fa_center);
@@ -84,7 +99,7 @@ draw_set_font(FNT);
 
 var categorylimit = (string_length(category) > 11)? 1-((string_length(category)-11)*0.05) : 1
 var charlimit = (string_length(global.player) > 13)? 1-((string_length(playerlist[| curplayersel])-13)*0.05) : 1
-if section = 7 {charlimit = (string_length(global.player) > 13)? 1-((string_length(playerlist[| curplayer2sel])-13)*0.05) : 1}
+if section = 7 {charlimit = (string_length(global.playertwo) > 13)? 1-((string_length(playerlist[| curplayer2sel])-13)*0.05) : 1}
 var userlimit = (string_length(global.username) > 15)? 1-((string_length(global.username)-15)*0.025) : 1
 var bii = 0;
 
@@ -391,7 +406,7 @@ if menu[# section, sel] = "PLAYER - "
 	if p != 0 //&& !(!(p = -1 && curplayersel > 0) && !(p = 1 && curplayersel < ds_list_size(playerlist)-1))
 	{marioxs = -1; marioys = 1;}
 	if section = 6 curplayersel += p;
-	if section = 7 curplayer2sel += p;
+	else if section = 7 {curplayer2sel += p;}
 	if p != 0
 	{
 		if section = 6 {
@@ -485,6 +500,7 @@ if menu[# section, sel] = "GUN - "
 
 // palette
 updtplayerpalette()
+updtplayertwopalette()
 global.paletteindex = clamp(global.paletteindex,1,sprite_get_height(global.palettesprite)-1);
 global.p2_paletteindex = clamp(global.p2_paletteindex,1,sprite_get_height(global.p2_palettesprite)-1);
 
@@ -519,7 +535,6 @@ if menu[# section, sel] = "RESOLUTION - "
 	horse += p;
 	
 	if horse != inithorse {resapply = true;}
-	else {resapply = false;}
 	
 	if horse > 4 {horse = 0}
 	else if horse < 0 {horse = 4}
@@ -529,57 +544,32 @@ if menu[# section, sel] = "RESOLUTION - "
 			SCREENW = SCREENW_WS
 			SCREENH = SCREENH_OG
 			savesettings();
-			
-			camera_set_view_size(view_camera[0], SCREENW, SCREENH)
-			surface_resize(application_surface,SCREENW,SCREENH)
-			var scrsizemult = 3;
-			window_set_size(SCREENW*scrsizemult,SCREENH*scrsizemult);
 		break;
 		case 1:
 			global.aspectratio = "ORIGINAL"
 			SCREENW = SCREENW_OG
 			SCREENH = SCREENH_OG
 			savesettings();
-			
-			camera_set_view_size(view_camera[0], SCREENW, SCREENH)
-			surface_resize(application_surface,SCREENW,SCREENH)
-			var scrsizemult = 3;
-			window_set_size(SCREENW*scrsizemult,SCREENH*scrsizemult);
 		break;
 		case 2:
 			global.aspectratio = "ULTRA WIDE"
 			SCREENW = SCREENW_UW
 			SCREENH = SCREENH_UW
 			savesettings();
-			
-			camera_set_view_size(view_camera[0], SCREENW, SCREENH)
-			surface_resize(application_surface,SCREENW,SCREENH)
-			var scrsizemult = 3;
-			window_set_size(SCREENW*scrsizemult,SCREENH*scrsizemult);
 		break;
 		case 3:
 			global.aspectratio = "ROOM WIDTH"
 			SCREENW = room_width
 			SCREENH = SCREENH_OG
 			savesettings();
-			
-			camera_set_view_size(view_camera[0], SCREENW, SCREENH)
-			surface_resize(application_surface,SCREENW,SCREENH)
-			var scrsizemult = (room_width > display_get_width())? 1-((room_width-display_get_width())*0.025) : 1;
-			window_set_size(SCREENW*scrsizemult,SCREENH*scrsizemult);
 		break;
 		case 4:
-			global.aspectratio = "LINE"
-			SCREENW = 16
-			SCREENH = display_get_height()/4.5
-			savesettings();
-			
-			camera_set_view_size(view_camera[0], SCREENW, SCREENH)
-			surface_resize(application_surface,SCREENW,SCREENH)
-			var scrsizemult = 3;
-			window_set_size(SCREENW*scrsizemult,SCREENH*scrsizemult);
+			global.aspectratio = "LINE";
+			SCREENW = 16;
+			SCREENH = display_get_height()/4.5;
 		break;
 	}
+	screenResize();
 }
 
 if menu[# section, sel] = "PLAY GANGNAM - "
@@ -712,13 +702,16 @@ if keyboard_check_pressed(global.keyj) or keyboard_check_pressed(vk_enter)
 		break;
 		case "SET IP - ":
 			global.ip = get_string("Insert IP (of server)",global.ip)
+			if global.ip = "" {loadsettings()}
 			sfx(sndStomp,0);
 			savesettings()
 		break;
 		case "SET PORT - ":
 			global.port = get_integer("Insert port (of server)",global.port)
 			sfx(sndStomp,0);
-			savesettings()
+			try {savesettings();}
+			catch(mistake) {global.port = 0;}
+			finally {savesettings();}
 		break;
 		case "JOIN":
 			section = 3
@@ -743,7 +736,8 @@ if keyboard_check_pressed(global.keyj) or keyboard_check_pressed(vk_enter)
 		break;
 		case "MAX PLAYERS - ":
 			global.maxplayers = get_integer("How many max players?",global.maxplayers)
-			global.maxplayers = clamp(global.maxplayers,0,50);
+			try {global.maxplayers = clamp(global.maxplayers,2,50);}
+			catch(mistake) {global.maxplayers = 2;}
 			sfx(sndStomp,0);
 		break;
 		case "CUSTOMIZE":
@@ -751,10 +745,18 @@ if keyboard_check_pressed(global.keyj) or keyboard_check_pressed(vk_enter)
 			sel = 0;
 			sfx(sndStomp,0);
 		break;
+		case "PLAYERS ABILITIES - ":
+			global.abilities = !global.abilities;
+			savesettings()
+		break;
 		case "AUDIO":
 			section = 9;
 			sel = 0;
 			sfx(sndStomp,0);
+		break;
+		case "SHOW FPS - ":
+			global.showfps = !global.showfps;
+			savesettings()
 		break;
 		case "VIDEO":
 			section = 8;
@@ -775,8 +777,16 @@ if keyboard_check_pressed(global.keyj) or keyboard_check_pressed(vk_enter)
 			global.showpfp = !global.showpfp;
 			savesettings()
 		break;
-		case "SHOW FPS - ":
-			global.showfps = !global.showfps;
+		case "SOUND MODE - ":
+			global.musicchannels = !global.musicchannels;
+			savesettings()
+		break;
+		case "PLAY GANGNAM - ":
+			global.opacandastar = !global.opacandastar;
+			savesettings()
+		break;
+		case "RESOLUTION - ":
+			horse++;
 			savesettings()
 		break;
 		case "CONTROLS":

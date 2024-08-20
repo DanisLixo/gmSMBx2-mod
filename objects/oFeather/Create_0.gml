@@ -15,10 +15,9 @@ pufunc = function()
 			else if powerup = "b" || powerup = "f"
 			{state = ps.capetransform;}
 			else
-			{sfx(sndPowerup,1);}
+			{sfx(sndFeather,0);}
 		}
 	}
-	points(1000,true);
 	instance_destroy();
 }
 

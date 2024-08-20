@@ -45,7 +45,9 @@ if state = es.patrol {
 	}
 }
 if state = es.die {
-	if bboxturn {y = bbox_top; bboxturn = false; /*points(1000,true)*/}
+	if bboxturn {y = bbox_top-20; bboxturn = false; /*points(1000,true)*/}
+	image_index = 0;
+	if blocked {x += hspd;}
 }
 
 
@@ -62,6 +64,7 @@ if hammertimer <= 10 and state = es.patrol {
 			spr = sHammerbro;
 		}
 	}
+	else {hammertimer = choose(45,45,120)}
 }
 
 if aightcomehere <= 500 and aightcomehere != -1 {

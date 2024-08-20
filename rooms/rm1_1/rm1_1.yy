@@ -123,6 +123,7 @@
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_53DBD6FB","properties":[],"isDnd":false,"objectId":{"name":"oPipeexit","path":"objects/oPipeexit/oPipeexit.yy",},"inheritCode":false,"hasCreationCode":true,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":624.0,"y":160.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_699D9411","properties":[],"isDnd":false,"objectId":{"name":"oMario","path":"objects/oMario/oMario.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":48.0,"y":208.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_68296E7B","properties":[],"isDnd":false,"objectId":{"name":"oCheckpointmask","path":"objects/oCheckpointmask/oCheckpointmask.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":1312.0,"y":208.0,},
+        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_3A828403","properties":[],"isDnd":false,"objectId":{"name":"oNokonoko_red","path":"objects/oNokonoko_red/oNokonoko_red.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":352.0,"y":144.0,},
       ],"visible":true,"depth":0,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"gridX":16,"gridY":16,"layers":[],"hierarchyFrozen":false,"effectEnabled":true,"effectType":null,"properties":[],},
     {"resourceType":"GMRInstanceLayer","resourceVersion":"1.0","name":"Challenge","instances":[
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_4CEFBAE1","properties":[],"isDnd":false,"objectId":{"name":"oRetro","path":"objects/oRetro/oRetro.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":0.13253014,"scaleY":0.15294118,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":400.0,"y":112.0,},
@@ -349,6 +350,7 @@
     {"name":"inst_2BBE2008","path":"rooms/rm1_1/rm1_1.yy",},
     {"name":"inst_12828B3B","path":"rooms/rm1_1/rm1_1.yy",},
     {"name":"inst_5B484902","path":"rooms/rm1_1/rm1_1.yy",},
+    {"name":"inst_3A828403","path":"rooms/rm1_1/rm1_1.yy",},
   ],
   "inheritCreationOrder": false,
   "sequenceId": null,

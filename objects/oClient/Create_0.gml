@@ -13,16 +13,16 @@ network_connect_raw(client, ip, port);
 
 //Create Our Player
 instances = ds_map_create();
+changes = ds_list_create();
+boolchanges = ds_list_create();
 idd = 0;
+fidd = 0;
+bidd = 0;
 Player = oMario//instance_create_layer(random(room_width), random(room_height), "Instances", oMario);
-f = noone
-b = noone
 
 idd = Player.my_id;
 
 ds_map_add(instances, idd, Player);
-ds_map_add(instances, idd, f);
-ds_map_add(instances, idd, b);
 
 //Latency and Timeout
 latency = 0;
@@ -38,10 +38,13 @@ buffer_write(jbuff, buffer_string, global.username);
 network_send_packet(client, jbuff, buffer_tell(jbuff));
 buffer_delete(jbuff);
 
+//Asking for sync
+alarm[9] = 120
+
 //Create the Chat
 //instance_create_layer(x, y, "Instances", oChat);
 
-//How many players ended the level?
+//How many players ended the level. for waiting others to pass thingy
 Iended = 0
 endcounter = -1
 players = 1

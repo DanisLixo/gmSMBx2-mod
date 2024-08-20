@@ -31,4 +31,4 @@ if !instance_exists(oIsArena)
 {state = es.frozen}
 
 given8000 = false
-shellcombo = 0
+shellcombo = 4

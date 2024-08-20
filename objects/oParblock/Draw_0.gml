@@ -20,7 +20,8 @@ else if instance_number(oMario) >= 2 {contents = savedcont}
 
 if triggerbreak = true && object_index = oBrickblock && contents = conts.empty
 {
-	global.score += 50;
+	if instance_nearest(x,bbox_bottom,oMario).object_index = oLuigi {global.p2_score += 50;}
+	else {global.score += 50;}
 	sfx(sndBreak,3);
 	
 	instance_create_depth(x,y,depth-1,oBlockhit).image_alpha = 0;
@@ -75,13 +76,14 @@ if blockstate = 1
 		break;
 		
 		case conts.multicoin:
-			if multicointimer > 0
+			if multicointimer >= 0
 			{
 				multicoinstart = true;
 				instance_create_depth(x,y,depth,oCoinjump);
 				blockstate = 0;
+				if multicointimer = 0 {multicointimer = -1}
 			}
-			else if multicointimer <= 0
+			else if multicointimer = -1
 			{hitblockimage = 2;}
 		break;
 	

@@ -1,6 +1,8 @@
 
 function disconnecttt() {
-	if (instance_exists(oClient)) {
+	if (!instance_exists(oClient)) {
+		show_message("client does not exist*");	
+	} else {
 		
 		if (instance_exists(oClient.Player)) {
 			
@@ -15,8 +17,6 @@ function disconnecttt() {
 		} else {
 			show_message("theres no playr****");	
 		}
-		
-	} else {
-		show_message("client does not exist*");	
+		instance_destroy(oClient)
 	}
 }

@@ -66,7 +66,7 @@ if instance_place(x+hspd,bbox_bottom-1+vspd,oParblock) && spintimer > 0
 	}
 }
 
-if y > room_height+30 && !place_meeting(x,y,oSky_fallwarp)
+if y > room_height+30 && state != ps.emerge
 {state = ps.die;}
 if y > room_height+32 && instance_place(x,y,oSky_fallwarp)
 {room_goto(instance_place(x,y,oSky_fallwarp).troom)}
@@ -103,6 +103,7 @@ if global.abilities {
 	if state = ps.fly {pmach = 6;}
 
 	if pmach > 0.9 and (hspd = 0 || state = ps.pivot) {pmach -= 0.5}
+	if pmach >= 6 and !audio_is_playing(sndP) {sfx(sndP,0)}
 }
 
 if invincible > 0
@@ -119,6 +120,9 @@ if kjp {jumpbuffer = 7;}
 if firetimer > 0 
 {firetimer --;}
 
+if swimmin > 0 
+{swimmin --;}
+
 if starman > 0
 {starman --;}
 
@@ -126,7 +130,8 @@ if round(invincible) = 0
 {image_alpha = 1;}
 
 if grounded {combo = 0;}
-if combo > 10 {combo = 10;}
+if combo > 9 {combo = 10;}
+if powerup = "s" and oMario.powerup = "s" {global.hats = 0}
 
 if kd and instance_place(x,y,oMario) and instance_place(x,y,oMario).powerup = "f" and instance_place(x,y,oMario).char = "Max_Verstappen"
 {
@@ -248,3 +253,5 @@ var sneeze = random_range(0, 100)
 if sneeze > 70 and char = "Feathy" and 
 instance_place(x+8*sign(hspd),y,oFireflower) and global.abilities
 {hspd = 2; state = ps.sneeze; oFireflower.feathy = id;}
+
+player_collider();

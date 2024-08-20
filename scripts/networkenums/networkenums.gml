@@ -4,11 +4,16 @@ enum network
 	join,
 	move,
 	fire,
+	fired,
+	hat,
+	hatd,
 	shoot,
+	shootd,
 	chat,
 	hostbegin,
 	sendraceresult,
 	finished,
-	asklevel,
+	sync,
+	raceplace,
 	disconnect
 }

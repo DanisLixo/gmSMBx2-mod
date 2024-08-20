@@ -20,3 +20,5 @@ actual = noone
 aightcomehere = timeunits(120)
 
 bboxturn = true
+
+blocked = false

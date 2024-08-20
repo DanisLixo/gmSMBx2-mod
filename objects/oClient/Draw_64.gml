@@ -111,7 +111,25 @@ if warntimer > 0
 {
 	draw_set_font(FNT);
 	draw_text_color(6,SCREENH-24,warning,c_green,c_green,-1,-1,warntimer/100);
+	
+	for (var i = 0; i < ds_list_size(changes); i++) {
+		if changes[| i] = "World" 
+		{draw_text_color(24,8*(4+i),string_upper("World set to ")+string(global.world)+"-"+string(global.level),c_red,c_red,c_red,c_red,warntimer/100);}
+		else if changes[| i] = "Waiting time" 
+		{draw_text_color(24,8*(4+i),string_upper("Waiting time set to ")+string(global.nextlvltimer),c_red,c_red,c_red,c_red,warntimer/100);}
+		else {
+			var gor = variable_global_get(boolchanges[| i])? c_green : c_red;
+			var aod = variable_global_get(boolchanges[| i])? " is activated" : " is deactivated";
+			var text = "" + changes[| i] + aod;
+		
+			draw_text_color(24,8*(4+i),string_upper(text),gor,gor,gor,gor,warntimer/100);
+		}
+	}
 	draw_set_font(-1);
+}
+else {
+	ds_list_clear(changes)
+	ds_list_clear(boolchanges)
 }
 
 //Control how many messages are stored in the chat at once

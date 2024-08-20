@@ -70,7 +70,7 @@ if !instance_exists(oAxe) && die = false
 	hspd = 0; vspd = 0;
 }
 
-if die = true && round(y) > ystart+2 && oBowser.state != -1
+if die = true && round(y) > ystart+2 && state != -1
 {
 	//if bboxturn {y = bbox_top; vspd = -2; bboxturn = false; sfx(sndBowserdie,1);}
 	sfx(sndBowserdie,1);
@@ -79,19 +79,19 @@ if die = true && round(y) > ystart+2 && oBowser.state != -1
 	hspd = 0;
 }
 
-if !grounded and state != -1
+if !grounded and state != -1 and die != true
 {vspd -= 0.3;}
 vspd = clamp(vspd,-4,3);
  
 
 var m1 = collision_rectangle(x-(sign(image_xscale)*5),y-sprite_height,x+(sign(image_xscale)*8),y-sprite_height*2+4,oMario,true,true);
 var m2 = instance_place(x,y,oMario);
-if m1		{m1.gethit = 1;}
-else if m2	{m2.gethit = 1;}
+if m1 and  state != -1		{m1.gethit = 1;}
+else if m2 and  state != -1	{m2.gethit = 1;}
 
 if place_meeting(x,y,oBullet) {state = -1; instance_destroy(oBullet)}
 
-if life <= 0 {state = -1}
+if life <= 0 {state = -1; if state != -1 {points(5000,true)}}
 	
 if place_meeting(x,y,oBowserfire) && oBowserfire.clashroyale = true {instance_destroy(); instance_destroy(oBowserfire)}
 //draw_sprite_ext(sBowser_head,sign(firetimer),x,y-sprite_height,image_xscale,image_yscale,0,image_blend,image_alpha)

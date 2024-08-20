@@ -1,4 +1,5 @@
 if !instance_exists(oButton) {instance_activate_object(oButton)}
+if !instance_exists(oNekoPresence) {instance_activate_object(oNekoPresence);}
 
 if !settingsmenu {
 	psel += (instance_exists(oMenu))? 0 : 
@@ -12,9 +13,9 @@ if !settingsmenu {
 			case 0: 
 				instance_destroy(); 
 			break;
-			case 1: 
-				settingsmenu = true; 
+			case 1: 				
 				oGame.delay = 0; 
+				settingsmenu = true; 
 			break;
 			case 2:
 				instance_activate_all(); 
@@ -27,11 +28,10 @@ if !settingsmenu {
 			case 3: 
 				instance_activate_all(); 
 				room_goto(rmTitle); 
-				instance_destroy(oClient)  
+				if instance_exists(oClient) {disconnecttt();}
 			break;
 		}
-		oGame.spawnx = -1;
-		oGame.spawny = -1;
-		instance_activate_object(oNekoPresence);
+		oGame.spawnx = -2;
+		oGame.spawny = -2;
 	}
 }

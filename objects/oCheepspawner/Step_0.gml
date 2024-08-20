@@ -10,8 +10,8 @@ if global.aspectratio = "ORIGINAL"
 	var cheepspawn = round(random_range(cx,cwview))
 }
 else {
-	var firstx =  cx+SCREENW/3
-	var endx =  cx+SCREENW-(SCREENW/3)
+	var firstx =  cx+SCREENW/4
+	var endx =  cx+SCREENW-(SCREENW/4)
 	var cheepspawn = round(random_range(firstx,endx))
 }
 

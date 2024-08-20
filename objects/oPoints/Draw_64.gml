@@ -8,5 +8,5 @@ if isfinal = false
 if isfinal = false
 {y -= 1;}
 
-if (isfinal = true && instance_exists(oFlagpole) && y > oFlagpole.bbox_top+32)
+if (isfinal = true && instance_exists(oFlagpole) && y > oFlagpole.bbox_top+32) and !instance_place(x,bbox_top,oPoints)
 {y -= 2;}

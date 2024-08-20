@@ -1,1 +1,2 @@
 disconnecttt()
+instance_destroy()

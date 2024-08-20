@@ -1,1 +1,1 @@
-lowest = bbox_bottom
+lowest = 0

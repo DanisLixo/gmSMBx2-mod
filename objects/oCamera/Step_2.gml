@@ -50,7 +50,7 @@ if instance_exists(oMario) && oMario.state != ps.castleending
 			if wentx {
 				if floor(x) > floor(oMario.x) {x += ((oMario.x-oCamera.x)/25)-0.5}
 				else if floor(x) < floor(oMario.x) {x += 1+((oMario.x-oCamera.x)/25)+0.5}
-				else if floor(x) = floor(oMario.x) {wentx = false}
+				else if sign(distance_to_object(oMario)) <= 8 {wentx = false}
 			}
 			else {x = oMario.x}
 		}

@@ -2,7 +2,7 @@ function collide()
 {
 	if object_index = oMario || object_index = oLuigi
 	{
-		
+		//ground
 		collidecode = true;
 		grounded = false;
 	
@@ -29,7 +29,8 @@ function collide()
 				var block = collision_rectangle(x+1,bbox_top,x-1,bbox_top-4,oParblock,true,true)
 				
 				if block && block.blockstate = 0
-				{block.blockstate = 1; if powerup != "s" || instance_nearest(x,y,oMario).char = "Toad" and global.abilities {block.triggerbreak = true;}}
+				{block.blockstate = 1; 
+				if powerup != "s" || instance_nearest(x,y,oMario).char = "Toad" and global.abilities {block.triggerbreak = true;}}
 				if block && !place_meeting(x,y,block)
 				{sfx(sndBump,1);}
 			}
@@ -104,13 +105,57 @@ function collide()
 		{
 			x = clamp(x,8,room_width-8);
 			x = clamp(x,camera_get_view_x(view_camera[0])+8,room_width-8);
-			y = clamp(y,-8,room_height+64);
+			y = clamp(y,0,room_height+64);
 		}
 		
 		if instance_place(x,y,oCol) //&& instance_place(x,y,oCol).object_index != oElevator
 		{x += 1;}
 		
-		exit
+		//elevator
+		
+		if !instance_place(x-5,y-4,oElevator) && vspd <= 0
+		{while instance_place(x,y-4,oElevator) && !place_meeting(x-1,y,oElevator) && !place_meeting(x,y,oElevator) {x --;}}
+		else if !instance_place(x+5,y-4,oElevator) && vspd <= 0
+		{while instance_place(x,y-4,oElevator) && !place_meeting(x+1,y,oElevator) && !place_meeting(x,y,oElevator) {x ++;}}
+	
+
+		if place_meeting(x,y-4,oElevator) && vspd < 0
+		{
+			if !place_meeting(x,bbox_bottom+1,oElevator)
+			{vspd = 1;}
+		}
+		else if instance_place(x,bbox_bottom+vspd,oElevator) && vspd >=0
+		{
+			while !instance_place(x,bbox_bottom+1,oElevator)
+			{y ++;}
+			vspd = 0;
+			grounded = true
+		}
+	
+		if vspd > 0 && !place_meeting(x+sign(hspd),y,oElevator) && place_meeting(x+hspd,y,oElevator)
+		{grounded = true; vspd = 0;}
+	
+		/*if place_meeting(x+hspd,y,oElevator)
+		{
+			// vars for up slope
+			var yincrease = 0
+		
+			while place_meeting(x+hspd,y-yincrease,oElevator) && yincrease <= abs(2*hspd) && !place_meeting(x,y,oElevator)
+			{yincrease ++;}
+		
+			//// Collision
+			if place_meeting(x+hspd,y-yincrease,oElevator)
+			{
+				while !place_meeting(x+sign(hspd),y,oElevator) && !place_meeting(x,y,oElevator)
+				{x += sign(hspd);}
+				hspd = 0;
+			}
+			else  {y -= yincrease;}
+		
+			yincrease = 0;
+		}*/
+		
+		exit;
 	}
 	grounded = false;
 	
@@ -122,62 +167,62 @@ function collide()
 	//}
 	//x += hspd;
 	
-	if !collision_rectangle(bbox_left-16,bbox_top-16,bbox_right+16,bbox_bottom+16,oElevator,false,true) || (object_index = oMario || object_index = oLuigi) {
-		if instance_place(x,y+vspd,oCol)
-		{
-			if !instance_place(x-5,y+vspd,oCol) && vspd < 0
-			{while instance_place(x,y+vspd,oCol) && !place_meeting(x-1,y,oCol) {x --;}}
-			else if !instance_place(x+5,y+vspd,oCol) && vspd < 0
-			{while instance_place(x,y+vspd,oCol) && !place_meeting(x+1,y,oCol) {x ++;}}
-			else
-			{
-				if (place_meeting(x,y,oCol) && vspd >= 0) or !place_meeting(x,y,oCol)
-				{
-					while !place_meeting(x,y+sign(vspd),oCol)
-					{y += sign(vspd);}
-					vspd = 0;
-				}
-		
-				if place_meeting(x,y+1,oCol)
-				{grounded = true;}
-				if place_meeting(x,y-1,oCol) && !grounded
-				{vspd = 1;}
-			}
-		}
-
-		if instance_place(x,y+1,oSlope) && !place_meeting(x,y,oCol) && instance_place(x+hspd,y,oCol) && instance_place(x+hspd,y,oCol).object_index = oCol
-		{
-			if sign(hspd) = 1 && instance_place(x,y+1,oSlope).image_xscale < 0
-			{while bbox_right < instance_place(x,y+1,oSlope).bbox_right {x ++;}}
-			if sign(hspd) = -1 && instance_place(x,y+1,oSlope).image_xscale > 0
-			{while bbox_left > instance_place(x,y+1,oSlope).bbox_left {x --;}}
-		
-			if place_meeting(x,y,oSlope) && !place_meeting(x,y,oCol)
-			{while !place_meeting(x,y,oSlope) {y --;}}
-		}
 	
-		if place_meeting(x+hspd,y,oCol) && object_index != oHammerbro
+	if instance_place(x,y+vspd,oCol)
+	{
+		if !instance_place(x-5,y+vspd,oCol) && vspd < 0
+		{while instance_place(x,y+vspd,oCol) && !place_meeting(x-1,y,oCol) {x --;}}
+		else if !instance_place(x+5,y+vspd,oCol) && vspd < 0
+		{while instance_place(x,y+vspd,oCol) && !place_meeting(x+1,y,oCol) {x ++;}}
+		else
 		{
-			// vars for up slope
-			var yincrease = 0
-		
-			while place_meeting(x+hspd,y-yincrease,oCol) && yincrease <= abs(2*hspd) && !place_meeting(x,y,oCol)
-			{yincrease ++;}
-		
-			//// Collision
-			if place_meeting(x+hspd,y-yincrease,oCol)
+			if (place_meeting(x,y,oCol) && vspd >= 0) or !place_meeting(x,y,oCol)
 			{
-				while !place_meeting(x+sign(hspd),y,oCol) && !place_meeting(x,y,oCol)
-				{x += sign(hspd);}
-				hspd = 0;
+				while !place_meeting(x,y+sign(vspd),oCol)
+				{y += sign(vspd);}
+				vspd = 0;
 			}
-			else  {y -= yincrease;}
 		
-			yincrease = 0;
+			if place_meeting(x,y+1,oCol)
+			{grounded = true;}
+			if place_meeting(x,y-1,oCol) && !grounded
+			{vspd = 1;}
 		}
 	}
-	x += hspd;
 	y += vspd;
+
+	if instance_place(x,y+1,oSlope) && !place_meeting(x,y,oCol) && instance_place(x+hspd,y,oCol) && instance_place(x+hspd,y,oCol).object_index = oCol
+	{
+		if sign(hspd) = 1 && instance_place(x,y+1,oSlope).image_xscale < 0
+		{while bbox_right < instance_place(x,y+1,oSlope).bbox_right {x ++;}}
+		if sign(hspd) = -1 && instance_place(x,y+1,oSlope).image_xscale > 0
+		{while bbox_left > instance_place(x,y+1,oSlope).bbox_left {x --;}}
+		
+		if place_meeting(x,y,oSlope) && !place_meeting(x,y,oCol)
+		{while !place_meeting(x,y,oSlope) {y --;}}
+	}
+	
+	if place_meeting(x+hspd,y,oCol)
+	{
+		// vars for up slope
+		var yincrease = 0
+		
+		while place_meeting(x+hspd,y-yincrease,oCol) && yincrease <= abs(2*hspd) && !place_meeting(x,y,oCol)
+		{yincrease ++;}
+		
+		//// Collision
+		if place_meeting(x+hspd,y-yincrease,oCol)
+		{
+			while !place_meeting(x+sign(hspd),y,oCol) && !place_meeting(x,y,oCol)
+			{x += sign(hspd);}
+			hspd = 0;
+		}
+		else  {y -= yincrease;}
+		
+		yincrease = 0;
+	}
+	x += hspd;
+	
 	
 	
 	// Down slope

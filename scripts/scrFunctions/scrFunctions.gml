@@ -96,6 +96,7 @@ function bgm(bgmstr,loops)
 function points(amnt,give)
 {
 	var p = instance_create_depth((bbox_left+sprite_width/2),bbox_top-8,-9999,oPoints);
+	var m = instance_nearest(p.x,p.y,oMario);
 	var ind = 0
 	switch(amnt)
 	{
@@ -124,7 +125,10 @@ function points(amnt,give)
 	if ind != 0
 	{
 		if give = true
-		{global.score += amnt;}
+		{
+			if m.object_index = oLuigi {global.p2_score += amnt;}
+			else {global.score += amnt;}
+		}
 		p.image_index = ind;
 	}
 }
@@ -135,11 +139,11 @@ function BLAST()
 	{
 		var ins = instance_create_depth(x,y,depth-99999,oBLAST)
 	
-		ins.image_xscale = sprite_width/32
-		ins.image_yscale = sprite_height/32
+		ins.image_xscale = 0.2
+		ins.image_yscale = 0.2
 	
-		ins.x -= (sprite_width)/2
-		ins.y -= (sprite_height)/2
+		ins.x -= (sprite_width)
+		ins.y -= (sprite_height)
 	}
 }
 

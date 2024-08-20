@@ -4,6 +4,6 @@ if m.powerup != "c" {instance_destroy()}
 
 x = (m.image_xscale)? m.bbox_left+2 : m.bbox_right-2;
 y = m.bbox_top
-depth = m.depth
+depth = m.depth+1
 image_alpha = m.image_alpha
 }

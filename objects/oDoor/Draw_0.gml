@@ -13,6 +13,9 @@ if instance_place(x,y,oMario) {
 	else if global.arena != 0 {
 		draw_text(x,bbox_top-16,"GO TO ARENA MAP "+string(global.arena-1))
 	}
+	else if global.race {
+		draw_text(x,bbox_top-16,"RACE IN PROGRESS... ")
+	}
 	else {
 		draw_text(x,bbox_top-16,"GO TO "+string(global.world)+"-"+string(global.level))
 	}

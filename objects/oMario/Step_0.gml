@@ -50,7 +50,7 @@ if instance_exists(oClient)
 	buffer_write(buff, buffer_s16, round(x));
 	buffer_write(buff, buffer_s16, round(y));
 	buffer_write(buff, buffer_f16, image_xscale*scale);					
-	//buffer_write(buff, buffer_f16, image_alpha);					
+	buffer_write(buff, buffer_f16, image_alpha);					
 	buffer_write(buff, buffer_u16, spr);
 	buffer_write(buff, buffer_u16, depth);
 	buffer_write(buff, buffer_u16, ind);					
@@ -127,7 +127,7 @@ if instance_place(x+hspd+h,bbox_bottom-1+vspd,oParblock) && spintimer > 0
 	}
 }
 
-if y > room_height+30 && !place_meeting(x,y,oSky_fallwarp)
+if y > room_height+30 && state != ps.emerge
 {state = ps.die;}
 if y > room_height+32 && instance_place(x,y,oSky_fallwarp)
 {room_goto(instance_place(x,y,oSky_fallwarp).troom)}
@@ -156,7 +156,7 @@ if global.abilities {
 	{spintimer --;}
 	
 	if ka and hspd != 0 and mario_freeze() = 0 {pmet++;}
-	else {pmet--; if pmach > 6 {pmach = 0;}}
+	else {pmet--; if pmach >= 6 {pmach = 0;}}
 
 	if pmet >= 35 and global.environment != e.underwater {
 	if pmach < 6 pmach += 0.1
@@ -164,6 +164,7 @@ if global.abilities {
 	if state = ps.fly {pmach = 6;}
 
 	if pmach > 0.9 and (hspd = 0 || state = ps.pivot) {pmach -= 0.5}
+	if pmach >= 6 and !audio_is_playing(sndP) {sfx(sndP,0)}
 }
 
 if invincible > 0
@@ -180,6 +181,9 @@ if kjp {jumpbuffer = 7;}
 if firetimer > 0 
 {firetimer --;}
 
+if swimmin > 0 
+{swimmin --;}
+
 if starman > 0
 {starman --;}
 
@@ -187,7 +191,11 @@ if round(invincible) = 0
 {image_alpha = 1;}
 
 if grounded {combo = 0;}
-if combo > 10 {combo = 10;}
+if combo > 9 {combo = 10;}
+if instance_exists(oLuigi) {
+	if powerup = "s" and oLuigi.powerup = "s" {global.hats = 0}
+}
+else {if powerup = "s" {global.hats = 0}}
 
 if kd and instance_place(x,y,oMario) and instance_place(x,y,oMario).powerup = "f" and instance_place(x,y,oMario).char = "Max_Verstappen"
 {
@@ -312,4 +320,13 @@ if char = "Max_Verstappen" and (state = ps.castleending or state = ps.flagpolede
 var sneeze = random_range(0, 100)
 if sneeze > 70 and char = "Feathy" and 
 instance_place(x+8*sign(hspd),y,oFireflower) and global.abilities
-{hspd = 2; state = ps.sneeze; oFireflower.feathy = id;}
+{hspd = 2; state = ps.sneeze; oFireflower.feathy = id}
+	
+player_collider();
+
+if room = rmTitle 
+{
+	if instance_place(x+15, y, oGoomba) {state = ps.nah}  
+	else {state = ps.title; ind = 0;}  
+	invincible = 1;
+}

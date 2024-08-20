@@ -1,6 +1,14 @@
 function timeunits(amt)
 {return (TIMESEC*room_speed)*amt}
 
+function screenResize()
+{
+	var scrsizemult = 3;
+	if SCREENW > 420 || SCREENW = SCREENW_WS {window_set_size(SCREENW*scrsizemult,SCREENH*scrsizemult);}
+	surface_resize(application_surface,SCREENW,SCREENH);
+	camera_set_view_size(view_camera[0], SCREENW, SCREENH)
+}
+
 function init()
 {
 	randomize();
@@ -15,9 +23,9 @@ function init()
 	else {global.aspectratio = "WIDESCREEN";}
 	
 	//#macro SCREENW 416 // 384 // 256
-	#macro SCREENW_WS 412.5
+	#macro SCREENW_WS 416
 	#macro SCREENW_OG 256
-	#macro SCREENW_UW 569
+	#macro SCREENW_UW 568
 	#macro SCREENH_UW 240 // 232 // 240 
 	#macro SCREENH_OG 232 // 232 // 240 
 	
@@ -33,7 +41,7 @@ function init()
 	
 	#macro TIMESEC 0.4
 	#macro FNT font_add_sprite_ext(sFont,"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-+*!.:©bredi/_",0,0)
-	#macro VERSION "MODDED 2.5"
+	#macro VERSION "MOD 2.5"
 	
 	global.score = 0;
 	global.coins = 0;
@@ -43,12 +51,15 @@ function init()
 	global.palettesprite = sPalette_mario;
 	global.paletteindex = 1;
 	
+	global.p2_score = 0;
+	global.p2_coins = 0;
+	
 	global.playertwo = "Luigi";
 	global.p2_palettesprite = sPalette_luigi;
 	global.p2_paletteindex = 1;	
 	
 	global.gunskin = "Default"
-	global.letterboxSprite = sBG_0
+	global.letterboxSprite = sPatterntest
 	
 	global.demo = false;
 	
@@ -112,7 +123,8 @@ function init()
 		snowday
 	}
 	global.environment = e.overworld
-
+	
+	global.hiddenoneup = false;
 
 	function tile_brownpalswap()
 	{
@@ -147,18 +159,16 @@ function init()
 	
 	#region screen
 	
-		window_set_caption("gmSMB "+VERSION);
+		window_set_caption("gmSMBx2 "+VERSION);
 		
-		
-		var scrsizemult = 3;
 		/*var displayw = display_get_width();
 		var displayh = display_get_height();
 		var xpos = (displayw / 2) - (SCREENW*scrsizemult)/2;
 		var ypos = (displayh / 2) - (SCREENH*scrsizemult)/2;
 		*/
-		
+		var scrsizemult = 3;
 		window_set_size(SCREENW*scrsizemult,SCREENH*scrsizemult);
-		window_center()
+		surface_resize(application_surface,SCREENW,SCREENH);
 
 		view_enabled = true;
 		view_visible[0] = true;
@@ -167,8 +177,6 @@ function init()
 		view_yport[0] = 0;
 		view_wport[0] = SCREENW;
 		view_hport[0] = SCREENH;
-
-		surface_resize(application_surface,SCREENW,SCREENH);
 		//display_set_gui_size(SCREENW,SCREENH)
 		
 	#endregion
@@ -187,7 +195,7 @@ function init()
 	
 	global.racepos = ds_grid_create(3,1);
 	global.nextlvltimer = 10
-	global.waiting = true
+	global.waiting = false
 	global.sync = false
 	
 	global.arena = 0

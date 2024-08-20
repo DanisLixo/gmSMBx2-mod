@@ -7,3 +7,5 @@ eggtimer = 60
 
 goin = false
 goaway = false
+
+alarm[0] = 60

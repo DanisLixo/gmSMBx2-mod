@@ -1,4 +1,4 @@
-menu = ds_grid_create(20,9)
+ menu = ds_grid_create(20,9)
 optionsnum = array_create(20,0)
 
 timetoparty = rmLeveltransition
@@ -173,19 +173,6 @@ addgunlist("Emoji")
 addgunlist("AppleEmoji")
 addgunlist("MiniGun")
 
-gamemodes = ds_list_create();
-ds_list_add(gamemodes, "CLASSIC");
-ds_list_add(gamemodes, "RACE");
-ds_list_add(gamemodes, "VERSUS");
-
-additions = ds_list_create();
-ds_list_add(additions, "NONE");
-ds_list_add(additions, "GUNS");
-ds_list_add(additions, "DARKMODE");
-ds_list_add(additions, "VERSUS");
-
-
-
 waitforcontrol = 0
 settingkey = global.keyu
 setcontrol = function(whichglobalvarname)
@@ -213,8 +200,8 @@ updtplayertwopalette = function()
 		if global.playertwo = "Goomba"	{global.p2_palettesprite = asset_get_index("sPalette_goombaplayer");}
 		else	{global.p2_palettesprite = asset_get_index("sPalette_"+string_lower(global.playertwo));}
 	}
-	else
-	{global.p2_palettesprite = sPalette_mario;}
+	/*else
+	{global.p2_palettesprite = sPalette_mario;}*/
 }
 
 

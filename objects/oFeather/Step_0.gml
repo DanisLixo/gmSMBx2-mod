@@ -29,11 +29,11 @@ if mario_freeze() != 1
 		if vspd > -0.1 {vspd -= 0.034}
 		
 		depth = 0;
-	
-		if instance_place(x,y,oMario)
+	}
+	if instance_place(x,y,oMario)
 		{
+			points(1000,true);
 			pufunc();
 		}
-	}
 }
 else if mario_freeze() {exit;}

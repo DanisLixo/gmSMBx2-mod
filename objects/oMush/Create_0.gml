@@ -18,9 +18,7 @@ pufunc = function()
 			{sfx(sndPowerup,1);}
 		}
 	}
-	
-	if m.powerup != "s" {oGame.hats += 1;}
-	points(1000,true);
+	points(1000,true)
 	instance_destroy();
 }
 

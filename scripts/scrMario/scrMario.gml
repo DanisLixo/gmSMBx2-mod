@@ -1,3 +1,36 @@
+enum ps
+{
+	normal,
+	jump,
+	pivot,
+	die,
+	enterpipedown,
+	enterpiperight,
+	exitpipeup,
+	enterpipedown8_4,
+	crouch,
+	spindash,
+	grow,
+	shrink,
+	flagpoledescend,
+	flagpolefinish,
+	firetransform,
+	capetransform,
+	castleending,
+	swim,
+	swimidle,
+	shoulderbash,
+	shoulderbashend,
+	climb,
+	emerge,
+	fly,
+	dance0,
+	nah,
+	sneeze,
+	exploded,
+	title
+} 
+
 function ms(spritestring, indexused = global.player)
 {
 	var pu = "s";
@@ -106,11 +139,12 @@ function do_jump()
 	if global.environment = e.underwater
 	{
 		if (char != "Sonic" and global.abilities) {
-			if kjp && y > 64
+			if kjp and bbox_top >= 48
 			{
 				sfx(sndStomp,0);
 				vspd = -3; 
 				state = ps.swim;
+				swimmin = 42;
 				if spintimer > 0 {ind = ind}
 				else {ind = 0};
 				grounded = false;
@@ -168,7 +202,7 @@ function do_jump()
 function do_fire()
 {
 	if global.abilities {
-		if firetimer = 0 && kap && powerup = "f" && (char =  "Pokey" or char =  "Gemaplys") && instance_number(oHatThrow) < oGame.hats
+		if firetimer = 0 && kap && powerup = "f" && (char =  "Pokey" or char =  "Gemaplys") && instance_number(oHatThrow) < global.hats
 		{
 			instance_create_depth(x,bbox_top+6,depth,oHatThrow).facing = sign(image_xscale);
 			firetimer = 10;
@@ -176,7 +210,10 @@ function do_fire()
 		}
 		if firetimer = 0 && kap && powerup = "f" && instance_number(oFireball) <= 1 && !(char =  "Pokey" or char =  "Gemaplys")
 		{
-			instance_create_depth(x,bbox_top+6,depth,oFireball).facing = sign(image_xscale);
+			var fb = instance_create_depth(x,bbox_top+6,depth,oFireball);
+			
+			fb.facing = sign(image_xscale);
+			fb.m = id;
 			firetimer = 10;
 			sfx(sndFireballthrown,1);
 		}
@@ -184,7 +221,10 @@ function do_fire()
 	else {
 		if firetimer = 0 && kap && powerup = "f" && instance_number(oFireball) <= 1
 		{
-			instance_create_depth(x,bbox_top+6,depth,oFireball).facing = sign(image_xscale);
+			var fb = instance_create_depth(x,bbox_top+6,depth,oFireball);
+			
+			fb.facing = sign(image_xscale);
+			fb.m = id;
 			firetimer = 10;
 			sfx(sndFireballthrown,1);
 		}
@@ -408,7 +448,7 @@ function ps_jump()
 	if kj and powerup = "c" and sign(vspd) = 1 {vspd -= vspd/10}
 
 	if global.abilities do_spincarp();
-	do_fire();
+	if !crouch {do_fire();}
 	
 	if char = "Luigi" or char = "Sonic" {ind += 0.4;}
 	if char = "Martin" {ind += 0.3;}		
@@ -475,21 +515,21 @@ function ps_fly()
 		else if holdjump < 0 {
 			spr = ms("sMario_{}_cape");
 			if vspd <= 0 {ind = 2}
-			if vspd >= 0.4 {ind = 1}
-			if vspd >= 0.8 {ind = 0}
+			if vspd >= 0.4 {ind = 1; sound = false;}
+			if vspd >= 0.8 {ind = 0; sound = false;}
 			
 			if moveh = 0 || fly = false {vspd += 0.1 if vspd >= 0.8 {vspd -= 0.1}}
 			if moveh = 1 {vspd += 0.1}
 			if moveh = -1 //and flytimer >= 0 
 			{
-				if fly {vspd -= 0.15;} 
+				if fly {vspd -= 0.15; if sound = false {sfx(sndAltitude,0); sound = true;}} 
 				else {moveh = 0} 
 			}
 			if vspd >= 1.25 {fly = true;}
 			else if vspd <= -2.5 {fly = false;}
 		}
 	}
-	else if !instance_place(x,y,oCol) {state = ps.jump; holdjump = -1; pmach = 0;}
+	else if !instance_place(x,y,oCol) {state = ps.jump; holdjump = -1; pmach = 0; spr = ms("sMario_{}_jump")}
 	
 	y += vspd
 	x += hspd
@@ -819,7 +859,7 @@ function ps_capetransform()
 	if spr != ms("sMario_s_grow")
 	{
 		ind = 0;
-		sfx(sndPowerup,1);
+		sfx(sndFeather,1);
 	}
 	
 	powerup = "c"
@@ -882,6 +922,11 @@ function ps_shrink()
 
 function ps_flagpoledescend()
 {
+	instance_deactivate_object(oParenemy)
+	instance_deactivate_object(oPodoboo)
+	instance_deactivate_object(oFirebar)
+	instance_deactivate_object(oFireball)
+	
 	flagpoletimer ++;
 	hspd = 0;
 	vspd = 0;
@@ -899,6 +944,11 @@ function ps_flagpoledescend()
 		{y -= 1.5; flagpoletimer -= 0.7}
 		y += 2;
 		ind += 0.25;
+
+		if round(y)  = round(oFlag.bbox_top) {
+			y -= 2;
+			ind = 0;
+		}
 	}
 	else
 	{ind = 0;}
@@ -950,8 +1000,9 @@ function ps_flagpolefinish()
 	
 	invincible = -2;
 	
-	if place_meeting(x,y,oCastlemask)
-	{image_alpha = 0;}
+	if instance_place(x+1,y,oCol) {
+		depth = 399;
+	}
 	
 	
 	if instance_place(x,y,oPipeentranceright) && instance_place(x+1,y,oCol) && grounded
@@ -962,6 +1013,10 @@ function ps_flagpolefinish()
 
 function ps_castleending()
 {
+	instance_deactivate_object(oParenemy)
+	instance_deactivate_object(oPodoboo)
+	instance_deactivate_object(oFirebar)
+	instance_deactivate_object(oFireball)
 	invincible = -2; 
 	
 	if castleendingtrigger = true
@@ -988,9 +1043,12 @@ function ps_castleending()
 
 function ps_swim()
 {
+	if swimmin > 0 {vspd = -1.5}
 	var moveh = kr-kl
 	var accel = 0.08
 	var maxhspd = 1.8
+	
+	if bbox_top <= 48 {vspd = -vspd; swimmin = 0}
 		
 	if moveh = 1 && hspd < maxhspd
 	{
@@ -1100,8 +1158,9 @@ function ps_climb()
 	if kjp 
 	{state = ps.normal; x -= image_xscale * 8; hspd = 0; vspd = 0;}
 	
-	if ku && place_meeting(x,y-16,oBeanstalk)
+	if ku
 	{y --;}
+	if !place_meeting(x,y,oBeanstalk) {state = ps.normal; hspd = 0; vspd = -2;}
 	if kd && !place_meeting(x,y+1,oCol)
 	{y ++;}
 	
@@ -1190,7 +1249,7 @@ function ps_sneeze()
 		spr = ms("sMario_{}_sneeze"); 
 		ind += 0.1;
 		if ind >= 15 and not sound {sfx(sndAtchim,0); sound = true;}
-		if ind >= 15 and instance_exists(oFireflower) {instance_nearest(x,y,oFireflower).float = true;}
+		if ind >= 17 and instance_exists(oFireflower) {instance_nearest(x,y,oFireflower).float = true;}
 		if ind >= 41 {state = ps.normal; hspd = 0 ind = 0}
 	}
 }
@@ -1203,3 +1262,103 @@ function ps_exploded()
 	
 	if place_meeting(x,y+4,oCol) {state = ps.normal;}
 }
+function player_collider()
+{
+	var eny = instance_place(x,y,oParenemy)
+
+	if eny && (starman > 0 or spin = true or shoulderbash > 0 or spintimer > 0) && eny.state != es.die && eny.state != es.stomp
+	{
+		if spintimer > 0 
+		{
+			with(eny) 
+			{
+			if state != es.shell {vspd = -2;}
+			if stomptype <= 0 or stomptype = 3 {
+				state = es.die;
+				if object_index = oGoomba {points(100,true)}
+				else if object_index = oHammerbro {points(1000,true)}
+				else {points(200,true)}
+			}
+			else if stomptype = 1 {if state = es.shell {state = es.shellhit; points(400,false);} else {state = es.shell}}
+			dieface = (instance_place(x,y,oMario).x < x? 1 : -1); 
+			}
+		}
+		else {
+			with(eny) 
+			{
+				vspd = -2; 
+				state = es.die; 
+				dieface = (instance_place(x,y,oMario).x < x? 1 : -1); 
+				if object_index = oGoomba {points(100,true)}
+				else if object_index = oHammerbro {points(1000,true)}
+				else {points(200,true)}
+			}
+		}
+		sfx(sndKick,0);
+		if shoulderbash > 0 {shoulderbash = room_speed*0.5}
+	}
+
+	if eny {
+		if eny.state = es.patrol || eny.state = es.patrolwinged {
+			if y >= eny.bbox_bottom-2 && (vspd < 0 or grounded) and state != ps.sneeze or char = "Sonic" and state != ps.jump {gethit = 1;}
+			if y < eny.bbox_bottom-2 && grounded = false && vspd >= 0 
+			or char = "Sonic" and state = ps.jump
+			{
+				if eny.stomptype = -1
+				{gethit = 1;}
+				else {
+					vspd = -3;
+					holdjump = combo < 5? 20+combo*2.5 : 20+15;
+					combo++
+					with(eny) {BLAST()}
+					if eny.object_index = oHammerbro {points(5+combo,true);}
+					else if eny.object_index = oLakitu {points(4+combo,true);}
+					else if eny.cheeptype != 2 
+					{if eny.state != es.shell {points(combo,true);}}
+					sfx(sndStomp,0)
+					if eny.stomptype = 0 {eny.state = es.stomp;}
+					if eny.stomptype >= 3 {eny.state = es.die;}
+					else if eny.stomptype >= 1 and eny.stomptype < 3
+					{
+						if eny.state = es.patrol {
+							eny.state = es.shell;
+							eny.vspd = 0; eny.hspd = 0;
+						}
+						else if eny.state = es.patrolwinged {eny.state = es.patrol;}
+						eny.shellcooldown = 10
+					}
+					if char = "Sonic" and global.abilities {eny.state = es.die;}
+				}
+			}
+		}
+	}
+
+	var pir = instance_place(x,y,oPiranha);
+
+	if pir {
+		if starman > 0 || shoulderbash > 0 || spintimer > 0
+		{sfx(sndKick,0); instance_destroy(pir); if shoulderbash > 0 {shoulderbash = room_speed*0.5;}}
+		if invincible = 0
+		{gethit = 1;}
+	}
+ 
+	var coin = instance_place(x,y,oCoin);
+
+	if coin
+	{
+		if object_index != oLuigi
+		{
+			global.coins += 1;
+			global.score += 200;
+		}
+		else
+	
+		sfx(sndCoin,0)
+	
+		with(coin) {BLAST()}	
+		instance_destroy(coin);
+	}
+
+	var cx = camera_get_view_x(view_camera[0])
+		if x < cx {x = cx+SCREENW}
+	}

@@ -13,10 +13,9 @@ settingsmenu = false;
 image_xscale = 0;
 image_yscale = 1;
 
-menu = ds_grid_create(10,9)
-optionsnum = array_create(10,0)
-
-timetoparty = rmLeveltransition
+buttonsappear = 0;
+menu = ds_grid_create(20,9)
+optionsnum = array_create(20,0)
 
 section = 2;
 sel = 0;
@@ -31,47 +30,73 @@ addmenu(2,0,"CUSTOMIZE")
 addmenu(2,1,"VIDEO")
 addmenu(2,2,"AUDIO")
 addmenu(2,3,"CONTROLS")
-addmenu(2,4,"P2 CONTROLS")
+addmenu(2,4,"OTHER")
 addmenu(2,5,"BACK")
 
-addmenu(3,0,"CATEGORY - ")
-addmenu(3,1,"PLAYER - ")
-addmenu(3,2,"PALETTE - ")
-addmenu(3,3,"GUN - ")
-addmenu(3,4,"BACK")
+addmenu(5,0,"PLAYER 1")
+addmenu(5,1,"PLAYER 2")
+addmenu(5,2,"BACK")
 
-addmenu(4,0,"USERNAME - ")
-addmenu(4,1,"SET IP - ")
-addmenu(4,2,"SET PORT - ")
-addmenu(4,3,"JOIN GAME")
-addmenu(4,4,"BACK")
-
-addmenu(5,0,"SET PORT - ")
-addmenu(5,1,"MAX PLAYERS - ")
-addmenu(5,2,"HOST GAME")
-addmenu(5,3,"BACK")
-
-addmenu(6,0,"SOUND MODE - ")
-addmenu(6,1,"SFX")
-addmenu(6,2,"BGM")
-addmenu(6,3,"PLAY GANGNAM - ")
+addmenu(6,0,"CATEGORY - ")
+addmenu(6,1,"PLAYER - ")
+addmenu(6,2,"PALETTE - ")
+addmenu(6,3,"GUN - ")
 addmenu(6,4,"BACK")
 
-addmenu(7,0,"TOGGLE FULLSCREEN")
-addmenu(7,1,"RESET WINDOW")
-addmenu(7,2,"DISCORD PFP - ")
-addmenu(7,3,"SHOW FPS - ")
-addmenu(7,4,"RESOLUTION - ")
-addmenu(7,5,"BACK")
+addmenu(7,0,"CATEGORY - ")
+addmenu(7,1,"PLAYER - ")
+addmenu(7,2,"PALETTE - ")
+addmenu(7,3,"BACK")
 
-addmenu(8,0,"UP")
-addmenu(8,1,"DOWN")
-addmenu(8,2,"LEFT")
-addmenu(8,3,"RIGHT")
-addmenu(8,4,"ACTION")
-addmenu(8,5,"JUMP")
-addmenu(8,6,"HOLDACT")
-addmenu(8,7,"BACK")
+addmenu(8,0,"TOGGLE FULLSCREEN")
+addmenu(8,1,"RESET WINDOW")
+addmenu(8,2,"DISCORD PFP - ")
+addmenu(8,3,"SHOW FPS - ")
+addmenu(8,4,"RESOLUTION - ")
+addmenu(8,5,"BACK")
+
+addmenu(9,0,"SOUND MODE - ")
+addmenu(9,1,"SFX")
+addmenu(9,2,"BGM")
+addmenu(9,3,"PLAY GANGNAM - ")
+addmenu(9,4,"BACK")
+
+addmenu(10,0,"PLAYER 1")
+addmenu(10,1,"PLAYER 2")
+addmenu(10,2,"BACK")
+
+addmenu(11,0,"UP")
+addmenu(11,1,"DOWN")
+addmenu(11,2,"LEFT")
+addmenu(11,3,"RIGHT")
+addmenu(11,4,"ACTION")
+addmenu(11,5,"JUMP")
+addmenu(11,6,"HOLDACT")
+addmenu(11,7,"BACK")
+
+addmenu(12,0,"UP")
+addmenu(12,1,"DOWN")
+addmenu(12,2,"LEFT")
+addmenu(12,3,"RIGHT")
+addmenu(12,4,"ACTION")
+addmenu(12,5,"JUMP")
+addmenu(12,6,"HOLDACT")
+addmenu(12,7,"BACK")
+
+addmenu(13,0,"COMMANDER SETTINGS")
+addmenu(13,1,"CLASSIC AUDIO MODIFIER")
+addmenu(13,2,"BACK")
+
+addmenu(14,0,"COMMAND ENEMIES - ")
+addmenu(14,1,"COMMAND MOVABLE OBJS - ")
+addmenu(14,2,"COMMAND STATICS - ")
+addmenu(14,3,"BACK")
+
+addmenu(15,0,"SQUARE 0 - ")
+addmenu(15,1,"SQUARE 1 - ")
+addmenu(15,2,"TRIANGLE 2 - ")
+addmenu(15,3,"NOISE 3 - ")
+addmenu(15,4,"BACK")
 
 playerlist = ds_list_create();
 creatorlist = ds_list_create();
@@ -94,7 +119,7 @@ addgunlist = function(name)
 category = "Characters"
 categorysel = 0;
 //Characters
-charslist = 6
+charslist = 7
 
 addplist("Mario","nintendo")
 addplist("Luigi","bredi")
@@ -102,6 +127,7 @@ addplist("Toad","nintendo")
 addplist("Wario","sans1m0n")
 addplist("Goomba","seven")
 addplist("Sonic","pixelmarioxp")
+addplist("Syobon","Syobon Action")
 //OCs
 ocslist = charslist + 9
 
@@ -136,19 +162,6 @@ addgunlist("Emoji")
 addgunlist("AppleEmoji")
 addgunlist("MiniGun")
 
-gamemodes = ds_list_create();
-ds_list_add(gamemodes, "CLASSIC");
-ds_list_add(gamemodes, "RACE");
-ds_list_add(gamemodes, "VERSUS");
-
-additions = ds_list_create();
-ds_list_add(additions, "NONE");
-ds_list_add(additions, "GUNS");
-ds_list_add(additions, "DARKMODE");
-ds_list_add(additions, "VERSUS");
-
-
-
 waitforcontrol = 0
 settingkey = global.keyu
 setcontrol = function(whichglobalvarname)
@@ -168,7 +181,16 @@ updtplayerpalette = function()
 	else
 	{global.palettesprite = sPalette_mario;}
 }
-
+updtplayertwopalette = function()
+{
+	if sprite_exists(asset_get_index("sPalette_"+string_lower(global.playertwo)))
+	{
+		if global.playertwo = "Goomba"	{global.p2_palettesprite = asset_get_index("sPalette_goombaplayer");}
+		else	{global.p2_palettesprite = asset_get_index("sPalette_"+string_lower(global.playertwo));}
+	}
+	/*else
+	{global.p2_palettesprite = sPalette_mario;}*/
+}
 
 marioxs = 0;
 marioys = 0;
@@ -176,6 +198,7 @@ gunxs = 0;
 gunys = 0;
 
 curplayersel = 0;
+curplayer2sel = 0;
 curgunsel = 0;
 
 depth = -9999

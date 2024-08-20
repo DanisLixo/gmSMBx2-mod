@@ -7,8 +7,8 @@ dep = depth;
 savedpowerup = "s";
 p2savedpowerup = "s";
 
-global.hats = 0
-global.p2_hats = 0
+global.pind = 0
+global.p2_pind = 0
 
 lastenv = e.underground
 loadscreen = 20;

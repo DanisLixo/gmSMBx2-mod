@@ -2,13 +2,6 @@
 Player = oMario
 players = instance_number(oOtherplayer)+1
 
-if global.level = 0 {
-	var lvlbuff = buffer_create(4, buffer_grow, 1);
-	buffer_write(lvlbuff, buffer_u8, network.asklevel);
-	network_send_packet(client, lvlbuff, buffer_tell(lvlbuff));
-	buffer_delete(lvlbuff);
-}
-
 //Send over the current time to the server
 var lbuff = buffer_create(32, buffer_grow, 1);
 buffer_seek(lbuff, buffer_seek_start, 0);
@@ -32,5 +25,5 @@ if (timeout > room_speed*3) {
 if room = rmTitle
 {
 	disconnecttt()
-	instance_destroy();
+	//instance_destroy();
 }

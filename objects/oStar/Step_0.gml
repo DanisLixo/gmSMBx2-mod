@@ -8,7 +8,7 @@ if mario_freeze() != 1
 	
 		if place_meeting(x+face,y,oCol)
 		{face = -face;}
-	
+		
 		collide();
 	
 		if !grounded

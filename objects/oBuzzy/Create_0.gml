@@ -5,3 +5,4 @@ hspd = -maxhspd
 imgspd = image_speed;
 stomptype = 2;
 
+moveshelled = true;

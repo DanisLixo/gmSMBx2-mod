@@ -13,4 +13,4 @@ alarm[0] = 5
 
 mystars = 0;
 
-
+image_alpha = global.onlinealpha

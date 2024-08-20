@@ -8,5 +8,3 @@ my_id = random_range(0,9999)
 m = instance_nearest(x,y,oMario)
 
 
-
-

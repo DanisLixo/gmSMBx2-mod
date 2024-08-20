@@ -7,3 +7,5 @@ stomptype = 1;
 
 gspd = 0;
 g = 1;
+
+moveshelled = true;

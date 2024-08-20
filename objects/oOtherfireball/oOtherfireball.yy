@@ -34,7 +34,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "fun",
-    "path": "folders/Network/fun.yy",
+    "name": "Network",
+    "path": "folders/Network.yy",
   },
 }

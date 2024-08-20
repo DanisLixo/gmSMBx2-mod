@@ -79,7 +79,8 @@ if type = 3
 	x += gspd
 	if m {
 		if m.vspd >= 0
-		{m.x += gspd; m.y = bbox_top-1; m.vspd = 0; m.grounded = true}
+		{	if !instance_place(x,y,oCol) {m.x += gspd;}
+			m.y = bbox_top-1; m.vspd = 0; m.grounded = true}
 	}
 }
 
@@ -96,7 +97,8 @@ if type = 4
 		x += gspd;
 		
 		if m.vspd >= 0
-		{m.x += gspd; m.y = bbox_top-1; m.vspd = 0; m.grounded = true}
+		{	if !instance_place(x,y,oCol) {m.x += gspd;}
+			m.x += gspd; m.y = bbox_top-1; m.vspd = 0; m.grounded = true}
 	}
 }
 
