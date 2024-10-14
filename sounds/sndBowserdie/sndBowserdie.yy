@@ -17,7 +17,7 @@
   "soundFile": "sndBowserdie.wav",
   "duration": 0.738146,
   "parent": {
-    "name": "group1",
-    "path": "folders/Sounds/group1.yy",
+    "name": "sounds",
+    "path": "folders/Sounds/sounds.yy",
   },
 }

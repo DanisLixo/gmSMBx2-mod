@@ -1,2 +1,2 @@
 m = instance_nearest(x,y,oMario)
-gety = y-m.y+4
+//if instance_exists(m) {gety = y - m.y + 4}

@@ -17,7 +17,7 @@
   "soundFile": "sndPehdeh.wav",
   "duration": 0.427256,
   "parent": {
-    "name": "group1",
-    "path": "folders/Sounds/group1.yy",
+    "name": "sounds",
+    "path": "folders/Sounds/sounds.yy",
   },
 }

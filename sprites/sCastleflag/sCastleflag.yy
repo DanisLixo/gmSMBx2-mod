@@ -68,7 +68,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "entity",
-    "path": "folders/Sprites/entity.yy",
+    "name": "miscfx",
+    "path": "folders/Sprites/miscfx.yy",
   },
 }

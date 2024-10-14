@@ -1,0 +1,1 @@
+oCamera.y = room_height;

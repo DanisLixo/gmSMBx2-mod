@@ -18,6 +18,19 @@ pufunc = function()
 			{sfx(sndFeather,0);}
 		}
 	}
+	
+	if instance_place(x,y,oPartner) 
+	{
+		with(oPlayer)
+		{
+			if powerup = "s"
+			{state = ps.grow;}
+			else if powerup = "b" || powerup = "c"
+			{state = ps.capetransform;}
+			else
+			{sfx(sndPowerup,1);}
+		}
+	}
 	instance_destroy();
 }
 

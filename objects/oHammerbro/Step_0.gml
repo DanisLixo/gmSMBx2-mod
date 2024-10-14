@@ -12,10 +12,10 @@ else if x > xstart {
 	c = -1;
 }
 
-if onview() and state = es.patrol {
-if jump > 0 {jump--}
-if hammertimer > 0 {hammertimer--}
-if aightcomehere > 0 {aightcomehere--}
+if onview() and state == es.patrol {
+	if jump > 0 {jump--}
+	if hammertimer > 0 {hammertimer--}
+	if aightcomehere > 0 {aightcomehere--}
 }
 
 if state = es.patrol {
@@ -24,6 +24,8 @@ if state = es.patrol {
 		
 		if jump = 1 {
 			if actual < lowest {place = choose(-10,-3)}
+			if (actual) < 72 {place = -3}
+			
 			if place = -3 {smalljump = true;}
 			vspd = place;
 			jump = 0;
@@ -33,11 +35,12 @@ if state = es.patrol {
 
 		collide()
 	}
-	else if jump = 0 {
+	else if jump <= 0 {
 		vspd += 0.3
 		
-		if smalljump = true and vspd > 6.2 {smalljump = false;}
-		if vspd > 0 and smalljump = false {
+		if smalljump && vspd > 6.2 {smalljump = false;}
+		
+		if vspd > 0 and !smalljump {
 			jump = 181; //vspd = 0;
 		}
 		x += hspd;
@@ -46,6 +49,7 @@ if state = es.patrol {
 }
 if state = es.die {
 	if bboxturn {y = bbox_top-20; bboxturn = false; /*points(1000,true)*/}
+	hspd = dieface*1.5;
 	image_index = 0;
 	if blocked {x += hspd;}
 }
@@ -58,10 +62,10 @@ if hammertimer <= 10 and state = es.patrol {
 	if instance_exists(hammer) {
 		hammer.facingdir = oMario.x > x? 1 : -1;
 		hammer.holder = id;
-		if hammertimer = 0 {
-			hammer.throwed = true;
-			hammertimer = choose(45,45,120)
+		hammer.alarm[0] = 10;
+		if hammertimer == 0 {
 			spr = sHammerbro;
+			hammertimer = choose(45,45,120)
 		}
 	}
 	else {hammertimer = choose(45,45,120)}
@@ -70,7 +74,7 @@ if hammertimer <= 10 and state = es.patrol {
 if aightcomehere <= 500 and aightcomehere != -1 {
 	if aightcomehere <= 0 || instance_nearest(x,y,oMario).x > x {aightcomehere = -1; xstart = x}
 	c = sign(instance_nearest(x,y,oMario).x-x)*1.75; 
-	if instance_place(x+facingdir*16,bbox_top,oCol) {jump = 0; vspd = -10;} else {jump = 50}
+	if instance_place(x+facingdir*16,y,oCol) {jump = 0; vspd = -10;} else {jump = 50; lowest = bbox_bottom;}
 }
 
 if place_meeting(x,y,oBullet) {state = es.die; instance_destroy(oBullet)}

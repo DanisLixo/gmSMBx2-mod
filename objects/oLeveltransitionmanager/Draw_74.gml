@@ -2,7 +2,7 @@ var cx = camera_get_view_x(view_camera[0]);
 var cy = camera_get_view_y(view_camera[0]);
 
 
-draw_set_font(FNT)
+draw_set_font(global.fnt)
 
 var p = sMario_s_idle
 if sprite_exists(ms("sMario_s_idle")) && oGame.savedpowerup = "s"
@@ -16,6 +16,7 @@ if p = sDuke {scale = 0.5;}
 if p = sPokey {scale = 0.4;}
 if p = sMax_Verstappen_s_idle {scale = 0.2;}
 if p = sMax_Verstappen_b_idle {scale = 0.2;}
+if p = sPeppino {scale = 0.2;}
 if p = sPokey && oGame.savedpowerup = "s" {scale = 0.2;}
 if p = sAnton && oGame.savedpowerup = "s" {scale = 0.6;}
 
@@ -28,10 +29,10 @@ shader_reset();
 
 if global.multiplayer {
 var p2 = sLuigi_s_idle
-if sprite_exists(ls("sMario_s_idle")) && oGame.p2savedpowerup = "s"
-{p2 = ls("sMario_s_idle");}
-else if sprite_exists(ls("sMario_b_idle")) && oGame.p2savedpowerup = "b" || oGame.p2savedpowerup = "f" || oGame.p2savedpowerup = "c"
-{p2 = ls("sMario_b_idle");}
+if sprite_exists(ms("sMario_s_idle", global.playertwo)) && oGame.p2savedpowerup = "s"
+{p2 = ms("sMario_s_idle", global.playertwo);}
+else if sprite_exists(ms("sMario_b_idle", global.playertwo)) && oGame.p2savedpowerup = "b" || oGame.p2savedpowerup = "f" || oGame.p2savedpowerup = "c"
+{p2 = ms("sMario_b_idle", global.playertwo);}
 
 var scalep2 = 1;
 if p2 = sPeterGriffin {scalep2 = 0.5;}
@@ -42,15 +43,15 @@ if p2 = sMax_Verstappen_b_idle {scalep2 = 0.2;}
 if p2 = sPokey && oGame.p2savedpowerup = "s" {scalep2 = 0.2;}
 if p2 = sAnton && oGame.p2savedpowerup = "s" {scalep2 = 0.6;}
 
-var fire = (oGame.p2savedpowerup = "f")? 2 : global.paletteindex
+var fire = (oGame.p2savedpowerup = "f")? 2 : global.p2_paletteindex
 
 shader_set(shdColorswap)
-	apply_palette(palp2,fire,image_alpha)
+	apply_palette(global.p2_palettesprite,fire,image_alpha)
 	draw_sprite_ext(p2,0,(13*8)-cx,(19*8)-cy,scalep2,scalep2,0,-1,1)
 shader_reset();
 
 draw_text((15*8)-cx,(18*8)-cy,"* -1");
-draw_set_font(FNT)
+draw_set_font(global.fnt)
 }
 
 
@@ -62,6 +63,6 @@ else if oGame.savedpowerup = "f" && oGame.p2savedpowerup = "f" && global.player 
 if oGame.savedpowerup = "c" && global.player != "Pokey" {draw_text((9*8)-cx,(10*8)-cy,"U GOT DA CAPE!!!")}
 else if oGame.savedpowerup = "c" && oGame.p2savedpowerup = "c" && global.player != "Pokey" {draw_text((9*8)-cx,(10*8)-cy,"U ALL GOT DA CAPE WHAT!!!")}
 if global.player = "Pokey" {draw_text((4*8)-cx,(10*6)-cy,"O MAIOR COMEDOR DE CASADAS")}
-draw_set_font(FNT)
+draw_set_font(global.fnt)
 
 

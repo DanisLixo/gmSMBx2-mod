@@ -21,8 +21,8 @@
   "width": 16,
   "height": 16,
   "textureGroupId": {
-    "name": "Default",
-    "path": "texturegroups/Default",
+    "name": "phonecontroller",
+    "path": "texturegroups/phonecontroller",
   },
   "swatchColours": null,
   "gridX": 0,

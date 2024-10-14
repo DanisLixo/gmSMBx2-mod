@@ -1,5 +1,27 @@
 var m = instance_place(x,y-4,oMario);
 
+if issecret != false 
+{
+	if place_meeting(x,y+1,oSecretblock) and vspd >= 0 and issecret != 3
+	{
+		vspd = 0;
+		issecret = 2;
+	}
+	if issecret = 1 
+	{
+		vspd += 0.3;
+	}
+	if issecret = 3
+	{
+		with(oMario) {
+			if instance_place(x,y,oBeanstalktopwarp) {room_goto(instance_place(x,y,oBeanstalktopwarp).troom)}
+		}
+	}
+	
+	y += vspd
+	col.y += vspd
+}
+
 switch(SPRINGST)
 {
 	case 0:
@@ -30,7 +52,7 @@ switch(SPRINGST)
 	ind = 2;
 	wait ++;
 	
-	if instance_exists(oMario) && m and m.kjp and wait <= 5 {givevspd = 12}
+	if instance_exists(oMario) && m and m.kjp and wait <= 5 {givevspd = 12; if issecret = 2 {givevspd += 8; if issecret != false {issecret = 3;}}}
 	if instance_exists(oMario) && m 
 	{
 		if wait < 5 {m.hspd = 0;}
@@ -38,6 +60,7 @@ switch(SPRINGST)
 			m.vspd = -givevspd;
 			m.hspd = savedhspd
 			SPRINGST = 2;
+			alarm[0] = 360
 		}
 	}
 	if instance_exists(oMario) && m 

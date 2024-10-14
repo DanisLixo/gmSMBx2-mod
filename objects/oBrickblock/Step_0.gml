@@ -1,6 +1,10 @@
-event_inherited();
+if !instance_exists(oIsArena)
+{
+	if !onview()
+	{exit;}
+}
 
-var m = collision_rectangle(bbox_left-2,bbox_bottom,bbox_right+2,SCREENH,oMario,false,true)
+var m = collision_rectangle(bbox_left-2,bbox_bottom,bbox_right+2,SCREENH,oMario,false,false)
 
 if m {
 	if m.char = "Syobon" and global.abilities and fallchance <= 20 {
@@ -16,3 +20,6 @@ if falling {
 	
 	y += vspd;
 }
+
+event_inherited();
+

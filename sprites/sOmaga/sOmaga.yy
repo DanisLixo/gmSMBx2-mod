@@ -93,7 +93,7 @@
     "resourceType": "GMNineSliceData",
   },
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "name": "menus",
+    "path": "folders/Sprites/gui/menus.yy",
   },
 }

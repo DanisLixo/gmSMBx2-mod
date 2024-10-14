@@ -1,4 +1,4 @@
-depth = 299
+depth = 301
 
 if instance_exists(oMario) and !(oMario.x > bbox_left - 20 && oMario.x < bbox_right + 20) && moving = false
 	&& st = 1

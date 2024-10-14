@@ -76,7 +76,7 @@
     {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"5e9fc434-3036-4a85-865b-b3153b20592b",},
     {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"d036635b-c08e-450f-bf7f-f0c3b2a1031b",},
     {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"92cc54ec-4335-4d31-aa43-331806df9033",},
-    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"9d913c10-b64e-4793-a2ce-2082275ec546",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"ede8bb98-219a-4664-a23f-eec860a8e539",},
   ],
   "sequence": {
     "resourceType": "GMSequence",
@@ -141,7 +141,7 @@
             {"id":"b7c1eaad-1d68-4137-bef7-b186ddb5e1ac","Key":45.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"5e9fc434-3036-4a85-865b-b3153b20592b","path":"sprites/sFont/sFont.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"42514a26-ecca-4793-8af5-7aba47940fe9","Key":46.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"d036635b-c08e-450f-bf7f-f0c3b2a1031b","path":"sprites/sFont/sFont.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"30ac4c2d-f52a-4487-886c-d488c1c57b77","Key":47.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"92cc54ec-4335-4d31-aa43-331806df9033","path":"sprites/sFont/sFont.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
-            {"id":"d66b347f-523e-4dc4-b760-59d8f51f2597","Key":48.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"9d913c10-b64e-4793-a2ce-2082275ec546","path":"sprites/sFont/sFont.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
+            {"id":"73e43838-e01e-449c-a2ba-2652abfcf340","Key":48.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"ede8bb98-219a-4664-a23f-eec860a8e539","path":"sprites/sFont/sFont.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
           ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"modifiers":[],},
     ],
     "visibleRange": null,
@@ -164,7 +164,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "gui",
-    "path": "folders/Sprites/gui.yy",
+    "name": "font_related",
+    "path": "folders/Sprites/gui/font_related.yy",
   },
 }

@@ -4,6 +4,7 @@ facing = 1
 throwed = false
 back = false
 
+my_id = random_range(0,9999)
 expire = 0;
 
 pufunc = function()
@@ -23,11 +24,9 @@ pufunc = function()
 		}
 	}
 	
-	if oMario.powerup = "b" or oMario.powerup = "f" {oGame.hats += 1;}
+	if oMario.powerup = "b" or oMario.powerup = "f" {global.hats += 1;}
 	points(1000,true);
 	instance_destroy();
 }
 
 m = instance_place(x,y,oMario)
-
-instance_destroy(instance_nearest(m.x,0,oHat))

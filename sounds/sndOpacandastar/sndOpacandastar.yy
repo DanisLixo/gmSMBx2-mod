@@ -17,7 +17,7 @@
   "soundFile": "sndOpacandastar.mp3",
   "duration": 3.672,
   "parent": {
-    "name": "group1",
-    "path": "folders/Sounds/group1.yy",
+    "name": "sounds",
+    "path": "folders/Sounds/sounds.yy",
   },
 }

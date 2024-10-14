@@ -15,7 +15,8 @@ if instance_place(x+facingdir,y,oParenemy) && instance_place(x+facingdir,y,oPare
 	points(instance_place(x+facingdir,y,oParenemy).shellcombo,true)
 	sfx(sndKick,0);
 	vspd = -2;
-	state = es.die;
+	if instance_place(x+facingdir,y,oParenemy).object_index = oFakeBowser {die = true;}
+	else {state = es.die;}
 	dieface = sign(instance_place(x+facingdir,y,oParenemy).hspd);
 }
 

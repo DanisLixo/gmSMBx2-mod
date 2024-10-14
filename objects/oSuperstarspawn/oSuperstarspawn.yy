@@ -31,7 +31,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Addition",
-    "path": "folders/Objects/Addition.yy",
+    "name": "AppearsOnline",
+    "path": "folders/Objects/Addition/AppearsOnline.yy",
   },
 }

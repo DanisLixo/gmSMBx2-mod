@@ -68,7 +68,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "TouchedgmSMB",
-    "path": "TouchedgmSMB.yyp",
+    "name": "Sprites",
+    "path": "folders/Sprites.yy",
   },
 }

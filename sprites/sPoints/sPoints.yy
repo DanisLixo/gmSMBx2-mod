@@ -88,7 +88,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "gui",
-    "path": "folders/Sprites/gui.yy",
+    "name": "font_related",
+    "path": "folders/Sprites/gui/font_related.yy",
   },
 }

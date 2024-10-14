@@ -15,6 +15,7 @@ window_set_size(SCREENW*scrsizemult,SCREENH*scrsizemult);
 port = global.port
 max_players = global.maxplayers
 
+global.teleport_tolvl = true;
 
 server = network_create_server_raw(network_socket_tcp, port, max_players);
 //server = network_create_server(network_socket_tcp, port, max_players);
@@ -36,8 +37,8 @@ c = 0
 choosingmode = false;
 cmsel = 0;
 cmsec = 0;
-cmoptions = ds_grid_create(2,8)
-cmbool = ds_grid_create(2,8)
+cmoptions = ds_grid_create(2,9)
+cmbool = ds_grid_create(2,9)
 
 addcm = function(sec,pos,label,isforbool)
 {
@@ -57,7 +58,8 @@ addcm(0,3,"Dark mode", false)
 addcm(0,4,"Commander", false)
 addcm(0,5,"Arena NOT WORKING - ", false)
 addcm(0,6,"Challenge", false)
-addcm(0,7,"", false)
+addcm(0,7,"PvP", false)
+addcm(0,8,"", false) addcm(0,8,-1, true)
 addcm(1,0,"Wait others to advance", false)
 addcm(1,1,"Begin on extra", false)
 addcm(1,2,"Players collide", false)
@@ -73,6 +75,7 @@ addcm(0,3,"rtxmode", true)
 addcm(0,4,"commandenys", true)
 addcm(0,5,"arena", true)
 addcm(0,6,"challenge", true)
+addcm(0,7,"pvp", true)
 addcm(1,0,"waiting", true)
 addcm(1,1,"extra", true)
 addcm(1,2,"playercol", true)
@@ -80,6 +83,7 @@ addcm(1,3,"abilities", true)
 addcm(1,4,"world", true)
 addcm(1,5,"level", true)
 
-addcm(1,6,"Begin game", false)	addcm(1,6,-1, true)
-addcm(1,7,"Disconnect", false)	addcm(1,7,-1, true)
+addcm(1,6,"Begin game", false)			addcm(1,6,-1, true)
+addcm(1,7,"Teleport to level", false)	addcm(1,7,"teleport_tolvl", true)
+addcm(1,8,"Disconnect", false)			addcm(1,8,-1, true)
 

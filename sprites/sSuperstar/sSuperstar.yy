@@ -74,7 +74,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "entity",
-    "path": "folders/Sprites/entity.yy",
+    "name": "powerups",
+    "path": "folders/Sprites/powerups.yy",
   },
 }

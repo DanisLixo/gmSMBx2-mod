@@ -1,0 +1,1 @@
+spawnEny = 75;

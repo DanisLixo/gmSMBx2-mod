@@ -3,7 +3,8 @@ expl.image_speed *= 1.5;
 expl.arrow = true; 
 expl.m = m; 
 
-if instance_exists(oClient) {
+if instance_exists(oClient) && instance_exists(oClient.Player)
+{
 	var dis_buff = buffer_create(32, buffer_grow, 1);
 	buffer_seek(dis_buff, buffer_seek_start, 0);
 	buffer_write(dis_buff, buffer_u8, network.fired);

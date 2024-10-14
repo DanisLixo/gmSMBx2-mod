@@ -20,5 +20,7 @@ facts = ds_list_create();
 ds_list_add(facts, "Super Mario Bros. wasn’t the first game to feature Mario")
 ds_list_add(facts, "The Super Mario Bros. sequel wasn’t released in the US because it was too difficult")
 
+fact = string(facts[| irandom_range(0,ds_list_size(facts)-1)]);
+
 envspr = "ow"
 where = "waiting..."

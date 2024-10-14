@@ -17,7 +17,7 @@
   "soundFile": "sndBreak.wav",
   "duration": 0.528083,
   "parent": {
-    "name": "group1",
-    "path": "folders/Sounds/group1.yy",
+    "name": "sounds",
+    "path": "folders/Sounds/sounds.yy",
   },
 }

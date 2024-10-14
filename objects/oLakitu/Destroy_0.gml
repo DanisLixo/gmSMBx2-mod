@@ -1,1 +1,1 @@
-if goaway = false {oLakituspawner.alarm[0] = 180}
+if goaway = false && instance_exists(oLakituspawner) {oLakituspawner.alarm[0] = 180}

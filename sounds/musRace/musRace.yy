@@ -17,7 +17,7 @@
   "soundFile": "musRace.ogg",
   "duration": 29.09551,
   "parent": {
-    "name": "addition",
-    "path": "folders/Sounds/addition.yy",
+    "name": "music",
+    "path": "folders/Sounds/addition/music.yy",
   },
 }

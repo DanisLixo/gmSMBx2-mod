@@ -3,6 +3,6 @@ else	{var t = instance_create_depth(camera_get_view_x(view_camera[0])+SCREENW/2,
 
 t.text = "THANK YOU "+string_upper(global.player)+"!";
 if global.player = "Dawn" {t.text = "GOOD ONE DAWN!";}
-if global.world = 1 and global.player = "Max_Verstappen" {t.text = "MAX VERSTAPPEN CAREER UNTIL NOW";}
+if global.world = 1 and global.player = "Max Verstappen" {t.text = "MAX VERSTAPPEN CAREER UNTIL NOW";}
 
 alarm[1] = interval

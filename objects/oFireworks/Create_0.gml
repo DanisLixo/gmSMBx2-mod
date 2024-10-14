@@ -3,3 +3,5 @@ imgspd = image_speed;
 arrow = false;
 
 m = noone
+
+ds = false;

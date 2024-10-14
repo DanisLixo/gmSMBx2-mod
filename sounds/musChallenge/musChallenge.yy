@@ -4,7 +4,7 @@
   "name": "musChallenge",
   "conversionMode": 0,
   "compression": 2,
-  "volume": 1.0,
+  "volume": 0.85,
   "preload": false,
   "bitRate": 128,
   "sampleRate": 44100,
@@ -17,7 +17,7 @@
   "soundFile": "musChallenge.ogg",
   "duration": 86.418755,
   "parent": {
-    "name": "addition",
-    "path": "folders/Sounds/addition.yy",
+    "name": "music",
+    "path": "folders/Sounds/addition/music.yy",
   },
 }

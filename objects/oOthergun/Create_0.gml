@@ -1,0 +1,3 @@
+myroom = room
+
+warning = false;

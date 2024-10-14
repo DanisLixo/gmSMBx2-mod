@@ -21,8 +21,8 @@
   "width": 64,
   "height": 16,
   "textureGroupId": {
-    "name": "Default",
-    "path": "texturegroups/Default",
+    "name": "unused",
+    "path": "texturegroups/unused",
   },
   "swatchColours": null,
   "gridX": 0,
@@ -83,7 +83,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "name": "online",
+    "path": "folders/Sprites/gui/online.yy",
   },
 }

@@ -14,4 +14,4 @@ image_alpha = 0
 memesdemaise = false;
 alarm_is_mid = 0
 
-view_camera[0] = camera_create_view(0,0,view_wport[0],view_hport[0],0,noone,-1,-1,view_wport[0]/2,view_hport[0]/2);
+view_camera[0] = camera_create_view(0,0,view_wport[0],view_hport[0],0,noone,-1,-1,view_wport[0],view_hport[0]);

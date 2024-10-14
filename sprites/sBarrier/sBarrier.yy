@@ -92,7 +92,7 @@
     "resourceType": "GMNineSliceData",
   },
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "name": "object_sprites",
+    "path": "folders/Sprites/object_sprites.yy",
   },
 }

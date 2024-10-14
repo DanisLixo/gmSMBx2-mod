@@ -35,7 +35,7 @@
   "option_android_screen_depth": 1,
   "option_android_device_support": 0,
   "option_android_scale": 0,
-  "option_android_texture_page": "512x512",
+  "option_android_texture_page": "256x256",
   "option_android_icon_ldpi": "icons/ldpi.png",
   "option_android_icon_mdpi": "icons/mdpi.png",
   "option_android_icon_hdpi": "icons/hdpi.png",
@@ -71,6 +71,6 @@
   "option_android_google_dynamic_asset_delivery": false,
   "option_android_google_licensing_public_key": "",
   "option_android_tv_isgame": true,
-  "option_android_proguard_minifying": false,
-  "option_android_proguard_shrinking": false,
+  "option_android_proguard_minifying": true,
+  "option_android_proguard_shrinking": true,
 }

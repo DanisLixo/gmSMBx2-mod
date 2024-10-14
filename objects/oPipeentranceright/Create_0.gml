@@ -1,4 +1,4 @@
-troom = rm1_1
+troom = room;
 activated = false;
 
 num = -1

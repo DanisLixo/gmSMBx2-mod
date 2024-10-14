@@ -5,10 +5,17 @@
 
 if instance_exists(oMario) && oMario.state != ps.castleending
 {
-	if instance_exists(oLuigi) {global.freecam = true}
-	var cx = camera_get_view_x(view_camera[0])
+	if (room_height > 240) {
+		if (oMario.y > SCREENH) {y += (((SCREENH*2-SCREENH/2+8)-oCamera.y)/25);}
+		if (oMario.y < SCREENH) {y += ((SCREENH/2-oCamera.y)/25)}
+	}
+	
+	if instance_exists(oLuigi) {global.freecam = true;}
+	
+	var cx = camera_get_view_x(view_camera[0]);
 	var eighth =  cx+(SCREENW/4);
 	var halfmiddle =  cx+(SCREENW/1.5);
+	
 	if global.freecam = false && !instance_exists(oIsArena)
 	{
 	/*
@@ -26,7 +33,7 @@ if instance_exists(oMario) && oMario.state != ps.castleending
 		var quarter =  cx+(SCREENW/3)
 		var middle =  cx+(SCREENW/2)-16
 	
-		if oMario.hspd >= 0 and oMario.hspd <= 3.5 && (oMario.collidecode = true || oMario.state = ps.fly)
+		if oMario.hspd >= 0 && !(oMario.hspd >= 3.5 && oMario.char = "Sonic") && (oMario.collidecode = true || oMario.state = ps.fly)
 		{
 			if oMario.x > middle
 			{x += oMario.hspd;}
@@ -34,7 +41,7 @@ if instance_exists(oMario) && oMario.state != ps.castleending
 			{x += oMario.hspd/2;}
 		}
 		//Sonic extended camera
-		else if oMario.hspd >= 3.5 and !(oMario.state = ps.grow or oMario.state = ps.shrink or oMario.state = ps.firetransform or oMario.state = ps.sneeze) 
+		else if oMario.hspd >= 3.5 && oMario.char = "Sonic" && oMario.state != ps.sneeze && mario_freeze() = 0
 		{
 			if oMario.x > eighth {x += oMario.hspd*1.25;}
 			else if oMario.x < eighth {x += oMario.hspd; if oMario.x < eighth-8 {x -= oMario.hspd;}}
@@ -44,33 +51,40 @@ if instance_exists(oMario) && oMario.state != ps.castleending
 	}
 	else
 	{
-		if instance_number(oMario) >= 2 {x = (instance_nearest(0,0,oMario).x+instance_furthest(0,0,oMario).x)/2}
-		else {
-		if (oMario.hspd > -3.5 and oMario.hspd <= 0 or oMario.hspd < 3.5 and oMario.hspd >= 0) {
-			if wentx {
-				if floor(x) > floor(oMario.x) {x += ((oMario.x-oCamera.x)/25)-0.5}
-				else if floor(x) < floor(oMario.x) {x += 1+((oMario.x-oCamera.x)/25)+0.5}
-				else if sign(distance_to_object(oMario)) <= 8 {wentx = false}
-			}
-			else {x = oMario.x}
+		if instance_number(oMario) >= 2 {
+			x = (instance_nearest(0,0,oMario).x+instance_furthest(0,0,oMario).x)/2
+			if (room_height > 240) {y = (instance_nearest(0,0,oMario).y+instance_furthest(0,0,oMario).y)/2}
 		}
-		else if !(oMario.state = ps.grow or oMario.state = ps.shrink or oMario.state = ps.firetransform or oMario.state = ps.sneeze) 
-			{
-				if !wentx {x += oMario.hspd*0.8;}
-				if oMario.hspd >= 3.5 {
-				if oMario.x > eighth {x += oMario.hspd*1.25; wentx = true;}
-				else if oMario.x < eighth {x += oMario.hspd; if !wentx {x -= oMario.hspd;}}
-				}
-				else if oMario.hspd <= -3.5 {
-				if oMario.x < halfmiddle {x += oMario.hspd*1.25; wentx = true;}
-				else if oMario.x > halfmiddle {x += oMario.hspd; if !wentx {x += oMario.hspd;}}
-				}
-			}
-		else if (oMario.state = ps.grow or oMario.state = ps.shrink or oMario.state = ps.firetransform or oMario.state = ps.sneeze) 
+		else 
 		{
-			if x > oMario.x {x--;}
-			else if x < oMario.x {x++;}
-		}
+			if oMario.char != "Sonic" {x = oMario.x}
+			else {
+				if (abs(oMario.hspd) < 3.5 && abs(oMario.hspd) >= 0) {
+					if wentx {
+						
+						x += ((oMario.x-oCamera.x)/25)
+						if abs(oMario.x-oCamera.x) <= 1 {wentx = false}
+					}
+					else {x = oMario.x}
+				}
+				else if mario_freeze() = 0
+				{
+					if !wentx {x += oMario.hspd*0.8;}
+					if oMario.hspd >= 3.5 {
+					if oMario.x > eighth {x += oMario.hspd*1.25; wentx = true;}
+					else if oMario.x < eighth {x += oMario.hspd; if !wentx {x -= oMario.hspd;}}
+					}
+					else if oMario.hspd <= -3.5 {
+					if oMario.x < halfmiddle {x += oMario.hspd*1.25; wentx = true;}
+					else if oMario.x > halfmiddle {x += oMario.hspd; if !wentx {x += oMario.hspd;}}
+					}
+				}
+				else if mario_freeze() = 0
+				{
+					if x > oMario.x {x--;}
+					else if x < oMario.x {x++;}
+				}
+			}
 		}
 	}
 }
@@ -91,10 +105,7 @@ else
 	x = room_width/2;
 }
 
-
-
 y = clamp(y,SCREENH/2,room_height-SCREENH/2);
-
 
 var cameraposx = x-camera_get_view_width(view_camera[0])/2;
 var cameraposy = y-camera_get_view_height(view_camera[0])/2;

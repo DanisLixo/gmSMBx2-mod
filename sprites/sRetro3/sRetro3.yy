@@ -498,11 +498,12 @@
     "eventStubScript": null,
   },
   "layers": [
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"e6b569c7-feb0-4088-b3d8-f452a5e87bfa","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"Layer 1",},
     {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"d314ed1e-cc30-44cb-b1fe-3fa3dac77cf2","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
   ],
   "nineSlice": null,
   "parent": {
-    "name": "addition",
-    "path": "folders/Sprites/addition.yy",
+    "name": "retros",
+    "path": "folders/Sprites/addition/retros.yy",
   },
 }

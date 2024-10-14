@@ -17,7 +17,7 @@
   "soundFile": "sndSpinrelease.wav",
   "duration": 0.593832,
   "parent": {
-    "name": "group1",
-    "path": "folders/Sounds/group1.yy",
+    "name": "sounds",
+    "path": "folders/Sounds/sounds.yy",
   },
 }

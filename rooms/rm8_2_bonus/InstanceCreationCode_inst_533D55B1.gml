@@ -1,2 +1,2 @@
-troom = rm4_2_under
-num = 1;
+troom = rm8_2
+num = 0;

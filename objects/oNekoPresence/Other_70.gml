@@ -9,7 +9,7 @@ if (ev_type == "DiscordReady")
 	ready = true;
 	show_debug_message("date: " + string(date_current_datetime()));
 	np_setpresence_timestamps(date_current_datetime(), 0, false);
-	np_setpresence_more("Small image text", "Large image text", false);
+	np_setpresence_more("Small image text", "If Mario then only Bros! :fire:", false);
 	
 	// bruh
 	// np_setpresence_buttons(0, "Kremlin", "https://kremlin.ru");

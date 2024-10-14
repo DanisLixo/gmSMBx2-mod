@@ -13,6 +13,7 @@ cheeptype = -1
 shellcooldown = 0;
 
 dieface = 1;
+flyt_delay = 0;
 
 enum es
 {

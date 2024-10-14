@@ -7,7 +7,7 @@ if global.level != 0 && global.race = true
 	{instance_destroy(oRacemanager);}
 }
 if room = rmExtra_under || global.challenge
-	{
-		if instance_exists(oClient) {room_goto(rmLobby); global.challenge = false;}
-		else {room_goto(rmTitle)}
-	 }
+{
+	if instance_exists(oClient) {room_goto(rmLobby); global.challenge = false;}
+	else {room_goto(rmTitle)}
+}

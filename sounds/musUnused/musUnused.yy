@@ -15,9 +15,9 @@
     "path": "audiogroups/audiogroup_default",
   },
   "soundFile": "musUnused.ogg",
-  "duration": 10.983787,
+  "duration": 82.76621,
   "parent": {
-    "name": "addition",
-    "path": "folders/Sounds/addition.yy",
+    "name": "music",
+    "path": "folders/Sounds/addition/music.yy",
   },
 }

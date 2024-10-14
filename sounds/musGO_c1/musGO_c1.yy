@@ -11,13 +11,13 @@
   "type": 0,
   "bitDepth": 1,
   "audioGroupId": {
-    "name": "audiogroup_default",
-    "path": "audiogroups/audiogroup_default",
+    "name": "classic",
+    "path": "audiogroups/classic",
   },
   "soundFile": "musGO_c1.wav",
   "duration": 2.448104,
   "parent": {
-    "name": "mus",
-    "path": "folders/Sounds/mus.yy",
+    "name": "classic",
+    "path": "folders/Sounds/mus/classic.yy",
   },
 }

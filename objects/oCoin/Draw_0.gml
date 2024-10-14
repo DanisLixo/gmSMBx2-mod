@@ -1,11 +1,22 @@
-if global.environment = e.underwater
-{sprite_index = sCoinunderwater;}
-else
-{sprite_index = sCoin;}
-
-
 if !onview()
 {exit;}
+
+if instance_exists(oMario) {
+	var m_char = instance_nearest(x,y,oMario).char
+
+	if m_char == "Sonic" 
+	{
+		if global.environment = e.underwater
+		{sprite_index = sRingunderwater;}
+		else
+		{sprite_index = sRing;}
+	} else {
+		if global.environment = e.underwater
+		{sprite_index = sCoinunderwater;}
+		else
+		{sprite_index = sCoin;}
+	}
+}
 
 shader_set(shdColorswap);
 	apply_palette(sPalette_gold,global.environment+1,image_alpha)

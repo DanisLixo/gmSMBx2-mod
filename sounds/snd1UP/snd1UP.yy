@@ -17,7 +17,7 @@
   "soundFile": "snd1UP.wav",
   "duration": 0.816979,
   "parent": {
-    "name": "group1",
-    "path": "folders/Sounds/group1.yy",
+    "name": "sounds",
+    "path": "folders/Sounds/sounds.yy",
   },
 }

@@ -1,0 +1,1 @@
+if hspd != 0 {other.state = es.die; points(100, true,true, m);}

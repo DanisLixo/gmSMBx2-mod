@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oParenemy",
   "spriteId": {
-    "name": "sMariomask0",
-    "path": "sprites/sMariomask0/sMariomask0.yy",
+    "name": "sEnemypar",
+    "path": "sprites/sEnemypar/sEnemypar.yy",
   },
   "solid": false,
   "visible": true,

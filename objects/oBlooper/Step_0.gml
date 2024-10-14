@@ -9,6 +9,7 @@ if state = es.die {
 	hspd = 0;
 	bstate = -1;
 	image_index = 1;
+	image_yscale = -1;
 	anim = -1
 }
 

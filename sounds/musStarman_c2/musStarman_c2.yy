@@ -11,13 +11,13 @@
   "type": 0,
   "bitDepth": 1,
   "audioGroupId": {
-    "name": "audiogroup_default",
-    "path": "audiogroups/audiogroup_default",
+    "name": "classic",
+    "path": "audiogroups/classic",
   },
   "soundFile": "musStarman_c2.ogg",
   "duration": 3.206312,
   "parent": {
-    "name": "mus",
-    "path": "folders/Sounds/mus.yy",
+    "name": "classic",
+    "path": "folders/Sounds/mus/classic.yy",
   },
 }

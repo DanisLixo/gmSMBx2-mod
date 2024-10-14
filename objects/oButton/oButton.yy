@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oButton",
   "spriteId": {
-    "name": "sUp",
-    "path": "sprites/sUp/sUp.yy",
+    "name": "sB",
+    "path": "sprites/sB/sB.yy",
   },
   "solid": false,
   "visible": true,
@@ -33,7 +33,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Game",
-    "path": "folders/Objects/Game.yy",
+    "name": "Phone",
+    "path": "folders/Objects/Game/Phone.yy",
   },
 }

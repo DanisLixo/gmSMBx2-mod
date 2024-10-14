@@ -1,1 +1,1 @@
-if room = rmDemoend {room_goto(rm5_1_hello)}
+if room = rmDemoend {room_goto(rmSecret5)}

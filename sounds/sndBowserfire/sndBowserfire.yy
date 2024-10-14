@@ -17,7 +17,7 @@
   "soundFile": "sndBowserfire.wav",
   "duration": 1.076125,
   "parent": {
-    "name": "group1",
-    "path": "folders/Sounds/group1.yy",
+    "name": "sounds",
+    "path": "folders/Sounds/sounds.yy",
   },
 }

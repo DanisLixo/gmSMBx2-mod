@@ -68,7 +68,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "addition",
-    "path": "folders/Sprites/addition.yy",
+    "name": "max_sprites",
+    "path": "folders/Sprites/addition/max_sprites.yy",
   },
 }

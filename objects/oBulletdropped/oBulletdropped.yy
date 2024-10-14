@@ -34,7 +34,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Addition",
-    "path": "folders/Objects/Addition.yy",
+    "name": "Gun",
+    "path": "folders/Objects/Addition/AppearsOnline/Gun.yy",
   },
 }

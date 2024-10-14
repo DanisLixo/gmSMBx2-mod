@@ -190,7 +190,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "addition",
-    "path": "folders/Sprites/addition.yy",
+    "name": "retros",
+    "path": "folders/Sprites/addition/retros.yy",
   },
 }

@@ -2,10 +2,12 @@
 
 var all_players = ds_list_size(total_players);
 
-draw_set_font(FNT);
+event_user(0)
+
+draw_set_font(global.fnt);
 
 draw_text(16, 10, " - HOSTING!");
-draw_text(32, 30, "World: " +string(global.world) +"\nLevel: "+string(global.level));
+draw_text(32, 30, "WORLD: " +string(global.world) +"\nLEVEL: "+string(global.level));
 
 draw_set_halign(fa_center);
 	draw_text(SCREENW/2, SCREENH/2 - 16, "PLAYERS CONNECTED - " + string(all_players));
@@ -67,15 +69,14 @@ if choosingmode = true
 		{cmsec = 0;}
 	if cmsec < 0
 		{cmsec = 1;}
-	if cmsec = 0 and cmsel > 6 {cmsel = 6}
 		
 	if cmoptions[# cmsec,cmsel] = "Arena NOT WORKING - " and changemode = 1
 		{
 			if (c = 1 || c >= 35) ga += p;
-			if ga > 1
+			if ga > 2
 			{ga = 0;}
 			if ga < 0
-			{ga = 1;}
+			{ga = 2;}
 			variable_global_set(cmbool[# cmsec,cmsel],ga)
 		}
 	if cmoptions[# cmsec,cmsel] = "Level - " and changemode = 1
@@ -90,10 +91,10 @@ if choosingmode = true
 	if cmoptions[# cmsec,cmsel] = "World - " and changemode = 1
 		{
 			if (c = 1 || c >= 35) gwor += p
-			if gwor > 5
+			if gwor > 8
 			{gwor = 1;}
 			if gwor < 1
-			{gwor = 5;}
+			{gwor = 8;}
 		}
 	if cmoptions[# cmsec,cmsel] = "Time to wait for others - " and changemode = 1
 		{
@@ -104,7 +105,7 @@ if choosingmode = true
 			{secs = 30;}
 		}
 
-	if keyboard_check_pressed(global.keyj)
+	if keyboard_check_pressed(global.keyj) || keyboard_check_pressed(vk_enter)
 	{
 		if cmoptions[# cmsec,cmsel] = "Arena NOT WORKING - "
 		{
@@ -136,8 +137,10 @@ if choosingmode = true
 			if cmoptions[# cmsec,cmsel] = "Begin game"
 			{
 				global.arena = ga;
-				global.world = gwor;
-				global.level = glev;
+				if global.challenge {
+					global.world = 1; global.level = 1
+				} else {
+					global.world = gwor; global.level = glev;}
 				global.nextlvltimer = secs;
 				
 				var jbuff = buffer_create(32, buffer_grow, 1);
@@ -150,12 +153,14 @@ if choosingmode = true
 				buffer_write(jbuff, buffer_bool, global.commandenys);
 				buffer_write(jbuff, buffer_u8, global.arena);	
 				buffer_write(jbuff, buffer_bool, global.challenge);
+				buffer_write(jbuff, buffer_bool, global.pvp);
 				buffer_write(jbuff, buffer_bool, global.waiting);
 				buffer_write(jbuff, buffer_bool, global.extra);
 				buffer_write(jbuff, buffer_bool, global.playercol);
 				buffer_write(jbuff, buffer_bool, global.abilities);
 				buffer_write(jbuff, buffer_u8, global.world);	
 				buffer_write(jbuff, buffer_u8, global.level);	
+				buffer_write(jbuff, buffer_bool, global.teleport_tolvl);
 
 				//network_send_packet(client, jbuff, buffer_tell(jbuff));
 				
@@ -175,5 +180,6 @@ if choosingmode = true
 	draw_text(SCREENW/2, SCREENH-32, "Press ESCAPE to return");
 	draw_set_halign(fa_left);
 }
+
 
 draw_set_font(-1);

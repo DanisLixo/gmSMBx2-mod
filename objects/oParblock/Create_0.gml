@@ -8,7 +8,8 @@ enum conts
 	powerup,
 	star,
 	life,
-	beanstalk
+	beanstalk,
+	spring
 }
 contents = conts.empty;
 savedcont = conts.empty;

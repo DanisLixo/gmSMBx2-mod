@@ -21,8 +21,8 @@
   "width": 16,
   "height": 256,
   "textureGroupId": {
-    "name": "Default",
-    "path": "texturegroups/Default",
+    "name": "unused",
+    "path": "texturegroups/unused",
   },
   "swatchColours": null,
   "gridX": 0,
@@ -68,7 +68,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "tileset",
-    "path": "folders/Sprites/tileset.yy",
+    "name": "bgs",
+    "path": "folders/Sprites/bgs.yy",
   },
 }

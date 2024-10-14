@@ -17,7 +17,7 @@
   "soundFile": "musAnton.ogg",
   "duration": 262.1792,
   "parent": {
-    "name": "addition",
-    "path": "folders/Sounds/addition.yy",
+    "name": "chars",
+    "path": "folders/Sounds/addition/music/chars.yy",
   },
 }

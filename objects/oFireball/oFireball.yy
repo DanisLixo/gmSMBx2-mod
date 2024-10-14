@@ -33,7 +33,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Miscfx",
-    "path": "folders/Objects/Miscfx.yy",
+    "name": "AppearsOnline",
+    "path": "folders/Objects/Miscfx/AppearsOnline.yy",
   },
 }

@@ -2,7 +2,10 @@
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
   "name": "oText",
-  "spriteId": null,
+  "spriteId": {
+    "name": "sText",
+    "path": "sprites/sText/sText.yy",
+  },
   "solid": false,
   "visible": true,
   "managed": true,

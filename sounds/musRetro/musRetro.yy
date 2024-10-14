@@ -17,7 +17,7 @@
   "soundFile": "musRetro.wav",
   "duration": 110.80188,
   "parent": {
-    "name": "addition",
-    "path": "folders/Sounds/addition.yy",
+    "name": "music",
+    "path": "folders/Sounds/addition/music.yy",
   },
 }

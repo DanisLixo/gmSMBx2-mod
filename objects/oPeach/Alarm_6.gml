@@ -1,0 +1,1 @@
+oLigh.show_text = true;

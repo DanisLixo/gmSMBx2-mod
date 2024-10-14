@@ -1,7 +1,7 @@
 global.environment = e.overworld
 if global.challenge = false {
-global.curbgm = "OW"
-bgm(global.curbgm,true)
+	global.curbgm = "OW"
+	bgm(global.curbgm,true)
 }
 
 global.level = 1;

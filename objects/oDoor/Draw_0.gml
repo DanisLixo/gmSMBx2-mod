@@ -1,5 +1,8 @@
-if instance_place(x,y,oMario) {
-	draw_set_font(FNT)
+if !onview()
+{exit;}
+
+if instance_place(x,y,oMario) || instance_place(x,y,oOtherplayer) {
+	draw_set_font(global.fnt)
 	draw_set_halign(fa_center);
 	if toLobby {
 		draw_text(x,bbox_top-16,"BACK TO LOBBY")

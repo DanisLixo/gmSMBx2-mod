@@ -1,0 +1,89 @@
+draw_set_font(fntComicsmall)
+
+if keyboard_check_pressed(vk_tab)
+{
+	global.chatfocus = !global.chatfocus;
+	text = "";
+	keyboard_string = "";
+}
+
+var maxchar = 32
+
+if (global.chatfocus)
+{
+	if string_length(text) < maxchar
+	{
+		text = keyboard_string;
+	}
+	
+	//If the user presses enter to send the chat:
+	if keyboard_check_released(vk_enter)
+	{
+		var usr = global.username != ""? global.username : "???"
+		var messag = "[HOST: " + usr + "]: " + string(text);
+		
+		ds_list_add(global.CHAT, messag);	
+		
+		//Create a buffer (packet) to send to the server	
+		var text_buff = buffer_create(32, buffer_grow, 1);
+		buffer_seek(text_buff, buffer_seek_start, 0);
+		buffer_write(text_buff, buffer_u8, network.chat);
+		buffer_write(text_buff, buffer_string, messag);
+		
+		for (var i = 0; i < ds_list_size(total_players); i++) {
+			network_send_packet(ds_list_find_value(total_players, i), text_buff, buffer_tell(text_buff));	
+		}
+		
+		//Delete the buffer
+		buffer_delete(text_buff);
+		
+
+		
+		//Reset the text back to nothing, and exit the chat
+		text = "";
+		keyboard_string = "";
+		global.chatfocus = !global.chatfocus;
+		
+	}
+}
+
+//Draw the input box and text
+var chatx = SCREENW/2+24
+var chaty = SCREENH/2+48
+
+if (global.chatfocus)
+{
+	draw_set_color(c_black)
+	draw_set_alpha(0.5)
+	draw_rectangle(chatx-2, chaty-2, SCREENW+2, SCREENH,false)
+	draw_set_color(-1)
+	draw_set_alpha(1)
+	draw_rectangle(chatx, chaty, SCREENW-8, SCREENH/2+48+8, true);
+	draw_text(chatx+2, chaty, string(text) + "_");
+}
+else
+{
+	draw_set_color(c_black)
+	draw_set_alpha(0.1)
+	draw_rectangle(chatx-2, chaty-2, SCREENW+2, SCREENH,false)
+	draw_set_color(-1)
+	draw_set_alpha(1)
+	draw_set_alpha(0.5)
+	draw_text(chatx+2, chaty, "Press TAB to chat.");
+	draw_set_alpha(1);
+}
+
+
+//Draw messages from the chat
+var yy = chaty;
+
+//Loop through the list and draw the messages
+for (var i = ds_list_size(global.CHAT); i >= 0; i--)
+{
+	if is_string(global.CHAT[| i])
+	{
+		draw_text_ext(chatx+2,yy,string(global.CHAT[| i]),-1,99999);
+	}
+	
+	yy += 16;
+}

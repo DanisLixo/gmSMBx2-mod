@@ -1,7 +1,7 @@
 if !instance_exists(m) {instance_destroy()}
 else {
 	image_alpha = m.image_alpha
-	depth = m.depth+5
+	depth = m.depth-5
+	x = m.x; y = m.bbox_top-2;
 }
 
-x = m.x; y = m.bbox_top-2+(gety);

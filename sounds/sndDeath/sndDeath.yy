@@ -3,7 +3,7 @@
   "resourceVersion": "1.0",
   "name": "sndDeath",
   "conversionMode": 0,
-  "compression": 2,
+  "compression": 1,
   "volume": 1.0,
   "preload": false,
   "bitRate": 128,
@@ -17,7 +17,7 @@
   "soundFile": "sndDeath.mp3",
   "duration": 5.146063,
   "parent": {
-    "name": "TouchedgmSMB",
-    "path": "TouchedgmSMB.yyp",
+    "name": "addition",
+    "path": "folders/Sounds/addition.yy",
   },
 }

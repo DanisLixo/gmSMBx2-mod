@@ -1,2 +1,2 @@
-my_id = 0
 myroom = room
+image_alpha = global.onlinealpha

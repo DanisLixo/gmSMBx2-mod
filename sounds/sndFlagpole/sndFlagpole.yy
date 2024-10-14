@@ -17,7 +17,7 @@
   "soundFile": "sndFlagpole.wav",
   "duration": 2.0,
   "parent": {
-    "name": "group1",
-    "path": "folders/Sounds/group1.yy",
+    "name": "sounds",
+    "path": "folders/Sounds/sounds.yy",
   },
 }

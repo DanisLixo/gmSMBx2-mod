@@ -70,7 +70,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "entity",
-    "path": "folders/Sprites/entity.yy",
+    "name": "shell",
+    "path": "folders/Sprites/enemies/shell.yy",
   },
 }

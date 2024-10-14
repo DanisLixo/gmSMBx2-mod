@@ -48,7 +48,11 @@ if /*instance_exists(oClient) && */showresults = false && round(image_index) >= 
 	if !(instance_exists(oMario) && oMario.state = ps.die)
 	{
 		if !audio_is_playing(racemusic)
-		{racemusic = audio_play_sound(musRace,1,0,global.volbgm);}
+		{
+			if global.musicchannels {racemusic = musRace_c0}
+			else {racemusic = musRace}
+			bgm("Race",true) 
+		}
 		if audio_sound_get_track_position(racemusic) >= 29.07
 		{audio_sound_set_track_position(racemusic,3.4);}
 	}
@@ -78,7 +82,7 @@ if showresults = true && instance_exists(oClient)
 	buffer_write(buff, buffer_u8, network.sendraceresult);	
 	buffer_write(buff, buffer_u16, counter);
 	buffer_write(buff, buffer_string, timestr);
-	buffer_write(buff, buffer_string, global.username);
+ 	buffer_write(buff, buffer_string, global.username);
 	network_send_packet(oClient.client, buff, buffer_tell(buff));
 	buffer_delete(buff);
 	

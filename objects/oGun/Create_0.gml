@@ -8,4 +8,4 @@ can = true
 
 spr = gs("sGun_Default")
 
-m = instance_nearest(x,y,oMario);
+m = -1

@@ -93,7 +93,7 @@ switch(state)
 		
 		if place_meeting(x+facingdir,y,oCol)  && !place_meeting(x+facingdir,y,oSlope)
 		{facingdir = -facingdir;
-			sfx(sndBump,0)
+			if onview() {sfx(sndBump,0)}
 		}
 		
 		hspd = 3*facingdir
@@ -120,8 +120,7 @@ switch(state)
 	break;
 }
 
-
-
+if flyt_delay > 0 {flyt_delay--;}
 
 if state = es.die
 {sprite_index = sNokonoko_shell; image_index = 0;}

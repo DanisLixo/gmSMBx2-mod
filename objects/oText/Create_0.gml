@@ -1,3 +1,3 @@
- text = "TEXT"
-font = FNT
+text = "TEXT"
+font = global.fnt
 center = true

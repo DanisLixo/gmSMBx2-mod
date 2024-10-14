@@ -1,0 +1,1 @@
+button = global.keyd

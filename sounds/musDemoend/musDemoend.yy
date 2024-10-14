@@ -4,7 +4,7 @@
   "name": "musDemoend",
   "conversionMode": 0,
   "compression": 2,
-  "volume": 1.0,
+  "volume": 0.8,
   "preload": false,
   "bitRate": 128,
   "sampleRate": 44100,
@@ -15,9 +15,9 @@
     "path": "audiogroups/audiogroup_default",
   },
   "soundFile": "musDemoend.ogg",
-  "duration": 82.30358,
+  "duration": 56.501225,
   "parent": {
-    "name": "mus",
-    "path": "folders/Sounds/mus.yy",
+    "name": "x2",
+    "path": "folders/Sounds/mus/x2.yy",
   },
 }

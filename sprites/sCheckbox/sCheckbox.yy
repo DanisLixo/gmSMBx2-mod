@@ -70,7 +70,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "gui",
-    "path": "folders/Sprites/gui.yy",
+    "name": "menus",
+    "path": "folders/Sprites/gui/menus.yy",
   },
 }

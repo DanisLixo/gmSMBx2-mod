@@ -1,7 +1,7 @@
-if !instance_exists(oClient) || !onview
+if !instance_exists(oClient)
 {instance_destroy();}
 
-if room != myroom
+if room != myroom || !onview()
 {exit;}
 
 draw_self();

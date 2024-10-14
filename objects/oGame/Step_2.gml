@@ -1,12 +1,4 @@
-if instance_exists(oMario) && oMario.starman > 120 && (!audio_is_playing(musStarman_c0) && !audio_is_playing(musStarman) && !audio_is_playing(musFamilyGuyStarman) && !audio_is_playing(musHerewego) && !audio_is_playing(musMaxVerstappenStarman))
-{
-	bgm("Starman",true);
-}
-
-if os_device = os_android and SCREENW != display_get_width()/4.5 {SCREENW = display_get_width()/4.5; screenResize();}
-
-if instance_exists(oMario) &&  oMario.starman = 120
-{audio_stop_all(); bgm(global.curbgm,true);}
+if os_type == os_android && SCREENW != display_get_width()/4.5 {SCREENW = display_get_width()/4.5; resize_screen();}
 
 // handle music channels
 if global.sfx[0] != -1 && audio_is_playing(global.sfx[0])
@@ -82,66 +74,70 @@ if keyboard_check_pressed(vk_f11)
 
 
 // TIME UP
-if global.race = false
+if global.race == false
 {
 	if global.time <= timeunits(100) && global.time >= 0 && timeup >= 0 && room != rmLeveltransition
-		{timeup ++;
-		if instance_exists(oMario) && (oMario.state = ps.castleending or oMario.state = ps.flagpolefinish)
-		{warned = 2;}
-		}
-		
-	if timeup = 1 && warned = false {
-		pitch = 0;
-		audio_sound_pitch(global.ch[0],pitch)
-		audio_sound_pitch(global.ch[1],pitch)
-		audio_sound_pitch(global.ch[2],pitch)
-		audio_sound_pitch(global.ch[3],pitch)
-		audio_sound_pitch(global.ch[4],pitch)
-		bgm("Warning",false);
-		} 
-	else if timeup > 180 // or warned = 1
+	{timeup ++;}
+	if timeup == 1 && warned == false 
+	{bgm("Warning",false);} 
+	if timeup > 180 && warned == false // or warned = 1
 	{
 		warned = true;
-		
-		/*audio_resume_sound(global.ch[0])
-		audio_resume_sound(global.ch[1])
-		audio_resume_sound(global.ch[2])
-		audio_resume_sound(global.ch[3])
-		audio_resume_sound(global.ch[4])*/
+		if instance_exists(oMario) &&  oMario.starman > 120 && (!audio_is_playing(musStarman_c0) && !audio_is_playing(musStarman) && !audio_is_playing(musStarman_Peter_Griffin) && !audio_is_playing(musStarman_Pokey) && !audio_is_playing(musStarman_Max_Verstappen)) 
+		{bgm("Starman",true);}
+		else {bgm(global.curbgm,true);}
 		pitch = 1.3
-	
-	
-		if instance_exists(oMario) && (oMario.state = ps.castleending or oMario.state = ps.flagpolefinish)
-		{pitch = 1;}
+	}
 
+	if instance_exists(oMario) &&  global.time = 0 &&
+	  !(oMario.state = ps.castleending ||
+		oMario.state = ps.emerge ||
+		oMario.state = ps.flagpolefinish ||
+		oMario.state = ps.flagpoledescend ||
+		oMario.state = ps.title ||
+		oMario.state = ps.die)
+	{oMario.state = ps.die;}
+	
+	if instance_exists(oMario) &&  (oMario.state = ps.castleending || oMario.state = ps.flagpolefinish || oMario.state = ps.die)
+	{
+		warned = 2;
+		pitch = 1;
+		
 		audio_sound_pitch(global.ch[0],pitch)
 		audio_sound_pitch(global.ch[1],pitch)
 		audio_sound_pitch(global.ch[2],pitch)
 		audio_sound_pitch(global.ch[3],pitch)
 		audio_sound_pitch(global.ch[4],pitch)
-		}
-
-	if global.time = 0 && instance_exists(oMario) &&
-	  !(oMario.state = ps.castleending or
-		oMario.state = ps.emerge or
-		oMario.state = ps.flagpolefinish or
-		oMario.state = ps.flagpoledescend or
-		oMario.state = ps.title or
-		oMario.state = ps.die)
-	{oMario.state = ps.die;}
+	}
 }
 else
 {global.time = 999;}
 
-if room = rmLeveltransition or room = rmTitle {warned = 0}
+if warned == true {
+	if global.time <= timeunits(100) && global.time != -1 {
+		pitch = 1.3;
+	
+		audio_sound_pitch(global.ch[0],pitch)
+		audio_sound_pitch(global.ch[1],pitch)
+		audio_sound_pitch(global.ch[2],pitch)
+		audio_sound_pitch(global.ch[3],pitch)
+		audio_sound_pitch(global.ch[4],pitch)
+	}
+	else {warned = false; pitch = 1;}
+}
 
 if instance_exists(oClient) {global.multiplayer = false;}
 
 if global.race = true && instance_exists(oMario) && (oMario.state = ps.normal or oMario.state = ps.jump)
-	&& !instance_exists(oRacemanager) && room != rmLobby and room != rmTitle
+	&& !instance_exists(oRacemanager) && room != rmLobby and string_pos("Title",room_get_name(room)) == 0 
 {
 	instance_create_depth(x,y,depth,oRacemanager);
 }
 
-if !instance_exists(oCoin) and global.level = 3 {global.hiddenoneup = true;}
-
+if string_pos("Title",room_get_name(room)) != 0 and instance_exists(oMario) && oMario.playDemo < room_speed*8 {
+	if global.multiplayer and !instance_exists(oLuigi) {
+		instance_create_depth(oMario.x+16,oMario.y,oMario.depth,oLuigi);
+	}
+	else if !global.multiplayer and instance_exists(oLuigi) 
+	{instance_create_depth(oLuigi.x,oLuigi.bbox_top+6,oLuigi.depth-1,oBlow); instance_destroy(oLuigi);}
+}

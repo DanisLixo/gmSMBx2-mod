@@ -10,4 +10,5 @@ if instance_place(x,y,oMario) {
 	}	
 }
 
-if instance_place(x,y,oCol) {y-=1}
+while instance_place(x,y,oCol) {y -= 1;}
+while !instance_place(x,y+1,oCol) {y += 1;}

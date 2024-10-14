@@ -17,7 +17,7 @@
   "soundFile": "sndFireballthrown.wav",
   "duration": 0.074667,
   "parent": {
-    "name": "group1",
-    "path": "folders/Sounds/group1.yy",
+    "name": "sounds",
+    "path": "folders/Sounds/sounds.yy",
   },
 }

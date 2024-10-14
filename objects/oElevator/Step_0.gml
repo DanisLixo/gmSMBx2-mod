@@ -1,27 +1,27 @@
 if mario_freeze() != 0
 {exit;}
 
-var m = instance_place(x,y-4,oMario)
+var m = instance_place(x,bbox_top-2,oMario);
 
 if m {if m.vspd >= 0 
-	{if m.x > camera_get_view_x(view_camera[0])+SCREENW/2 {oCamera.x += gspd;}}}
+	{if m.x > camera_get_view_x(view_camera[0])+SCREENW/2 {oCamera.x += gspd;}}
+}
 
 if isskylift != false
 {
 	type = -1;
 	sprite_index = sSkylift;
-	m = instance_place(x,y-1,oMario)
-	if m {if isskylift = 1
-	{gspd = 1; isskylift = 2;}}
+	
+	if m && isskylift = 1
+	{gspd = 1; isskylift = 2;}
+	
+	if m && m.vspd >= 0
+	{oMario.x += gspd; if oMario.x > camera_get_view_x(view_camera[0])+SCREENW/2 {oCamera.x += gspd;}}
 	
 	x += gspd
 	
 	if isskylift = 1
 	{gspd = 0;}
-	
-	m = instance_place(x,y-1,oMario)
-	if m {if m.vspd >= 0
-	{oMario.x += gspd; if oMario.x > camera_get_view_x(view_camera[0])+SCREENW/2 {oCamera.x += gspd;}}}
 }
 
 if type = 0
@@ -77,11 +77,9 @@ if type = 3
 	
 	gspd = lerp(gspd,g*1.3,.02);
 	x += gspd
-	if m {
-		if m.vspd >= 0
-		{	if !instance_place(x,y,oCol) {m.x += gspd;}
-			m.y = bbox_top-1; m.vspd = 0; m.grounded = true}
-	}
+	
+	if m && m.vspd >= 0
+	{oMario.x += gspd; if oMario.x > camera_get_view_x(view_camera[0])+SCREENW/2 {oCamera.x += gspd;}}
 }
 
 if type = 4 
@@ -97,8 +95,10 @@ if type = 4
 		x += gspd;
 		
 		if m.vspd >= 0
-		{	if !instance_place(x,y,oCol) {m.x += gspd;}
-			m.x += gspd; m.y = bbox_top-1; m.vspd = 0; m.grounded = true}
+		{
+			with(m)
+			{if !instance_place(x+1,y,oCol) {x += other.gspd;}}
+			m.y = bbox_top-1; m.vspd = 0; m.grounded = true}
 	}
 }
 

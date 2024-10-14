@@ -1,3 +1,5 @@
+if instance_number(oCoin) == 0 and global.level == 3 {global.hiddenoneup = true;}
+
 if other.x >= bbox_left+8 && other.state != ps.flagpoledescend && other.state != ps.flagpolefinish
 	&& other.finishedrace = false
 {
@@ -14,7 +16,7 @@ if other.x >= bbox_left+8 && other.state != ps.flagpoledescend && other.state !=
 	if instance_exists(oFlag)
 	{instance_nearest(x,y,oFlag).down = true}
 	
-	//bgm(-1,0)
+	bgm(-1,0)
 	
 	
 	var amnt = 0;

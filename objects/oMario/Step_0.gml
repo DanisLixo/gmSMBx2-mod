@@ -1,95 +1,4 @@
-kr = keyboard_check(global.keyr)
-kl = keyboard_check(global.keyl)
-kd = keyboard_check(global.keyd)
-ku = keyboard_check(global.keyu)
-
-kj = keyboard_check(global.keyj)
-ka = keyboard_check(global.keya)
-kh = keyboard_check(global.keyh)
-
-kjp = keyboard_check_pressed(global.keyj)
-kap = keyboard_check_pressed(global.keya)
-khp = keyboard_check_pressed(global.keyh)
-
-kar = keyboard_check_released(global.keya)
-khr = keyboard_check_released(global.keyh)
-
-krp = keyboard_check_pressed(global.keyr)
-klp = keyboard_check_pressed(global.keyl)
-kup = keyboard_check_pressed(global.keyu)
-kdp = keyboard_check_pressed(global.keyd)
-
-if global.chatfocus = true or instance_exists(oPaused)
-{kr=0;kl=0;krp=0;klp=0;kd=0;kj=0;ka=0;kjp=0;kar=0;kdp=0;kh=0;khp=0;khr=0;}
-if instance_exists(oPaused) {ku=0;kup=0}
-
-if instance_exists(oClient)
-{
-	
-	if global.username = ""
-	{
-		global.username = (random_range(0, 100) >= 60)? choose(
-		"All-Games Tupra",
-		"Jalin Rabbei",
-		"Ulma Maria",
-		"Banana", 
-		"Goku",
-		"Mario", 
-		"Luigi", 
-		"YourAverageSMBFan", 
-		"SampleText", 
-		"Unnamed 0") : global.clientid;}
-	
-	var user = string(global.username)
-	
-	//Send Our Data
-	var buff = buffer_create(64, buffer_grow, 1);
-	buffer_seek(buff, buffer_seek_start, 0);
-	buffer_write(buff, buffer_u8, network.move);	
-	buffer_write(buff, buffer_u16, my_id);
-	buffer_write(buff, buffer_s16, round(x));
-	buffer_write(buff, buffer_s16, round(y));
-	buffer_write(buff, buffer_f16, image_xscale*scale);					
-	buffer_write(buff, buffer_f16, image_alpha);					
-	buffer_write(buff, buffer_u16, spr);
-	buffer_write(buff, buffer_u16, depth);
-	buffer_write(buff, buffer_u16, ind);					
-	buffer_write(buff, buffer_string, user);	
-	buffer_write(buff, buffer_u8, palindex);	
-	buffer_write(buff, buffer_u16, global.palettesprite);		
-	buffer_write(buff, buffer_s8, room);
-	
-	buffer_write(buff, buffer_s8, global.stars);
-	network_send_packet(oClient.client, buff, buffer_tell(buff));
-	buffer_delete(buff);
-	
-	if invincible = 0 and global.playercol = true {
-		if place_meeting(x,y-4,oOtherplayer) && vspd < 0
-		{
-			if !place_meeting(x,bbox_bottom+1,oCol)
-			{vspd = 1;}
-		}
-		if instance_place(x,bbox_bottom+vspd,oOtherplayer) && vspd >=0
-		{
-			while !instance_place(x,bbox_bottom+1,oOtherplayer)
-			{y ++;}
-			vspd = 0;
-			grounded = true
-		}
-	
-		if vspd > 0 && !place_meeting(x+sign(hspd),y,oOtherplayer) && place_meeting(x+hspd,y,oOtherplayer)
-		{grounded = true; vspd = 0;}
-		
-		if place_meeting(x+hspd,y,oOtherplayer)
-		{
-			x -= hspd;
-		}
-	}
-}
-
 collidecode = false;
-
-if char != global.player {char = global.player;}
 
 if global.environment = e.underwater {
 	bubble--;
@@ -112,6 +21,13 @@ if instance_place(x+hspd,bbox_bottom-1+vspd,oParblock) && shoulderbash > 0
 		{sfx(sndBump,1);}
 	}
 }
+if starman > 120 && !bgm_is_playing("Starman")
+{
+	bgm("Starman",true);
+}
+if starman = 120
+{audio_stop_all(); bgm(global.curbgm,true);}
+if starman == 1 {instance_create_depth(x,y,depth,oPudestroy).sprite_index = sSuperstar;}
 
 var h = hspd > 0? 8 : -8
 if instance_place(x+hspd+h,bbox_bottom-1+vspd,oParblock) && spintimer > 0
@@ -127,22 +43,29 @@ if instance_place(x+hspd+h,bbox_bottom-1+vspd,oParblock) && spintimer > 0
 	}
 }
 
-if y > room_height+30 && state != ps.emerge
-{state = ps.die;}
-if y > room_height+32 && instance_place(x,y,oSky_fallwarp)
-{room_goto(instance_place(x,y,oSky_fallwarp).troom)}
+if y > room_height+32 && state != ps.emerge && state != ps.jumpcut {
+	if instance_place(x,y,oSky_fallwarp)
+	{room_goto(instance_place(x,y,oSky_fallwarp).troom)}
+	else {state = ps.die;}
+}
 
 
-if gethit = true
+if gethit
 {
-	if invincible = 0
+	if !instance_place(x,y,other) 
 	{
-		invincible = room_speed*3
-		if powerup = "s"
-		{state = ps.die;}
-		else
-		{state = ps.shrink; invincible = room_speed*4;}
+		if invincible = 0
+		{
+			invincible = room_speed*3
+			if powerup = "s"
+			{state = ps.die;}
+			else
+			{
+				state = ps.shrink; invincible = room_speed*4;
+			}
+		}
 	}
+	else if invincible <= 1 {invincible = 2;}
 	gethit = false;
 }
 
@@ -154,6 +77,17 @@ if global.abilities {
 	
 	if spintimer > 0 
 	{spintimer --;}
+	if taunttimer > 0 
+	{taunttimer --;}
+	
+	if state = ps.normal || state == ps.pivot 
+	|| state == ps.jump || state == ps.crouch 
+	|| state == ps.swim || state == ps.swimidle
+	{
+		do_taunt();
+		
+		//if char == "Peppino" && ku && grounded {state = ps.dancepep}
+	} 
 	
 	if ka and hspd != 0 and mario_freeze() = 0 {pmet++;}
 	else {pmet--; if pmach >= 6 {pmach = 0;}}
@@ -164,7 +98,7 @@ if global.abilities {
 	if state = ps.fly {pmach = 6;}
 
 	if pmach > 0.9 and (hspd = 0 || state = ps.pivot) {pmach -= 0.5}
-	if pmach >= 6 and !audio_is_playing(sndP) {sfx(sndP,0)}
+	if pmach >= 6 and !audio_is_playing(sndP) and char = "Feathy" {sfx(sndP,0)}
 }
 
 if invincible > 0
@@ -192,12 +126,8 @@ if round(invincible) = 0
 
 if grounded {combo = 0;}
 if combo > 9 {combo = 10;}
-if instance_exists(oLuigi) {
-	if powerup = "s" and oLuigi.powerup = "s" {global.hats = 0}
-}
-else {if powerup = "s" {global.hats = 0}}
 
-if kd and instance_place(x,y,oMario) and instance_place(x,y,oMario).powerup = "f" and instance_place(x,y,oMario).char = "Max_Verstappen"
+if kd and instance_place(x,y,oMario) and instance_place(x,y,oMario).powerup = "f" and instance_place(x,y,oMario).char = "Max Verstappen"
 {
 	insidecar = true;
 }
@@ -208,12 +138,6 @@ if insidecar {
 	image_alpha = 0;
 	invincible = 10
 }
-
-if state = ps.title
-{spr = ms("sMario_s_idle"); exit;}
-
-if instance_exists(oRacemanager) && !(oRacemanager.start = 0)
-{exit;}
 
 switch(state)
 {
@@ -237,9 +161,6 @@ switch(state)
 	break;
 	case ps.exitpipeup:
 		ps_exitpipeup();
-	break;
-	case ps.enterpipedown8_4:
-		ps_enterpipedown8_4()
 	break;
 	case ps.crouch:
 		ps_crouch();
@@ -301,6 +222,29 @@ switch(state)
 	case ps.exploded:
 		ps_exploded();
 	break;
+	case ps.taunt:
+		ps_taunt();
+	break;
+	case ps.dancepep:
+		ps_dancepep();
+	break;
+	case ps.jumpcut:
+		spr = ms("sMario_{}_jump"); 
+		
+		collidecode = true;
+		grounded = false;
+		vspd += 0.3
+		
+		x += hspd
+		y += vspd
+		if instance_place(x,bbox_bottom+vspd,oCol) 
+		{state = ps.normal;}
+	break;
+	case -1:
+		player_collision();
+		exit;
+	break;
+	default: spr = ms("sMario_{}_idle");  exit; break;
 }
 
 if global.rtxmode = true or global.schutmode = true
@@ -313,20 +257,13 @@ if global.rtxmode = true or global.schutmode = true
 
 if kjp {retrochance = random(100)}
 
-if starman < 130 and char = "Max_Verstappen" and global.abilities {starman = global.time;}
-if char = "Max_Verstappen" and (state = ps.castleending or state = ps.flagpoledescend or state = ps.flagpolefinish) and global.abilities
+if starman < 130 and char = "Max Verstappen" and global.abilities {starman = global.time;}
+if char = "Max Verstappen" and (state = ps.castleending or state = ps.flagpoledescend or state = ps.flagpolefinish) and global.abilities
 {starman = 0}
 
 var sneeze = random_range(0, 100)
 if sneeze > 70 and char = "Feathy" and 
 instance_place(x+8*sign(hspd),y,oFireflower) and global.abilities
 {hspd = 2; state = ps.sneeze; oFireflower.feathy = id}
-	
-player_collider();
 
-if room = rmTitle 
-{
-	if instance_place(x+15, y, oGoomba) {state = ps.nah}  
-	else {state = ps.title; ind = 0;}  
-	invincible = 1;
-}
+//if (state != ps.die) {player_collision();}

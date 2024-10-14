@@ -17,7 +17,7 @@
   "soundFile": "sndBeanstalk.wav",
   "duration": 1.050146,
   "parent": {
-    "name": "group1",
-    "path": "folders/Sounds/group1.yy",
+    "name": "sounds",
+    "path": "folders/Sounds/sounds.yy",
   },
 }

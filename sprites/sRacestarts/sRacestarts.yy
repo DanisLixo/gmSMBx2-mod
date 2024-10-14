@@ -92,7 +92,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "gui",
-    "path": "folders/Sprites/gui.yy",
+    "name": "online",
+    "path": "folders/Sprites/gui/online.yy",
   },
 }

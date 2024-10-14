@@ -1,10 +1,8 @@
 /// @description Draw Latency
-draw_set_font(FNT);
+draw_set_font(global.fnt);
 //draw_text(room_width/2+64, 16, "Ping: " + string(latency));
 //draw_text(16, 10, " - CONNECTED");
-draw_text(16, 24, "PING -  " + string(latency));
-
-
+draw_text(24,32, "PING -  " + string(latency));
 
 draw_set_font(fntComicsmall)
 
@@ -27,18 +25,23 @@ if (global.chatfocus = true)
 	//If the user presses enter to send the chat:
 	if keyboard_check_released(vk_enter)
 	{
-		//Create a buffer (packet) to send to the server	
-		var text_buff = buffer_create(32, buffer_grow, 1);
-		buffer_seek(text_buff, buffer_seek_start, 0);
-		buffer_write(text_buff, buffer_u8, network.chat);
-		buffer_write(text_buff, buffer_string, "[" + global.username + "]: " + string(text));
+		warntimer = 2000
+		try {
+			var usr = global.username != ""? global.username : "???"
+			var messag = "[" + usr + "]: " + string(text);
+			//Create a buffer (packet) to send to the server	
+			var text_buff = buffer_create(32, buffer_grow, 1);
+			buffer_seek(text_buff, buffer_seek_start, 0);
+			buffer_write(text_buff, buffer_u8, network.chat);
+			buffer_write(text_buff, buffer_string, messag);
 		
-		network_send_packet(client, text_buff, buffer_tell(text_buff));
+			network_send_packet(client, text_buff, buffer_tell(text_buff));
 		
-		//Delete the buffer
-		buffer_delete(text_buff);
-		
-
+			//Delete the buffer
+			buffer_delete(text_buff);
+		} catch(comida) {
+			ds_list_add(global.CHAT,"Couldn't send message.")
+		}
 		
 		//Reset the text back to nothing, and exit the chat
 		text = "";
@@ -56,6 +59,11 @@ if (global.chatfocus = true)
 var chatx = SCREENW/2+24
 var chaty = SCREENH/2+48
 
+if global.aspectratio = "Original" {
+	chatx = SCREENW/2;
+	chaty = SCREENH/2;
+}
+
 if (global.chatfocus)
 {
 	draw_set_color(c_black)
@@ -69,11 +77,11 @@ if (global.chatfocus)
 else
 {
 	draw_set_color(c_black)
-	draw_set_alpha(0.1)
+	draw_set_alpha(warntimer/5000)
 	draw_rectangle(chatx-2, chaty-2, SCREENW+2, SCREENH,false)
 	draw_set_color(-1)
 	draw_set_alpha(1)
-	draw_set_alpha(0.5)
+	draw_set_alpha(warntimer/1000)
 	draw_text(chatx+2, chaty, "Press TAB to chat.");
 	draw_set_alpha(1);
 }
@@ -87,7 +95,9 @@ for (var i = ds_list_size(global.CHAT); i >= 0; i--)
 {
 	if is_string(global.CHAT[| i])
 	{
-		draw_text_ext(chatx+2,yy,global.CHAT[| i],-1,99999);
+		draw_set_alpha(warntimer/100);
+		draw_text_ext(chatx+2,yy,string(global.CHAT[| i]),-1,99999);
+		draw_set_alpha(1);
 	}
 	
 	yy += 16;
@@ -96,40 +106,16 @@ for (var i = ds_list_size(global.CHAT); i >= 0; i--)
 if endcounter != -1
 {
 	draw_set_color(c_yellow)
-	draw_set_font(FNT);
+	draw_set_font(global.fnt);
 	draw_text(6,SCREENH-12,"FINISHING IN "+string(round(endcounter div 60))+"...");
 	draw_set_color(-1);
 	draw_set_font(-1);
 }
 if Iended > 0
 {
-	draw_set_font(FNT);
+	draw_set_font(global.fnt);
 	draw_text(6,SCREENH-24,"PLAYERS REMAINING "+string(Iended)+"/"+string(players)+"!");
 	draw_set_font(-1);
-}
-if warntimer > 0
-{
-	draw_set_font(FNT);
-	draw_text_color(6,SCREENH-24,warning,c_green,c_green,-1,-1,warntimer/100);
-	
-	for (var i = 0; i < ds_list_size(changes); i++) {
-		if changes[| i] = "World" 
-		{draw_text_color(24,8*(4+i),string_upper("World set to ")+string(global.world)+"-"+string(global.level),c_red,c_red,c_red,c_red,warntimer/100);}
-		else if changes[| i] = "Waiting time" 
-		{draw_text_color(24,8*(4+i),string_upper("Waiting time set to ")+string(global.nextlvltimer),c_red,c_red,c_red,c_red,warntimer/100);}
-		else {
-			var gor = variable_global_get(boolchanges[| i])? c_green : c_red;
-			var aod = variable_global_get(boolchanges[| i])? " is activated" : " is deactivated";
-			var text = "" + changes[| i] + aod;
-		
-			draw_text_color(24,8*(4+i),string_upper(text),gor,gor,gor,gor,warntimer/100);
-		}
-	}
-	draw_set_font(-1);
-}
-else {
-	ds_list_clear(changes)
-	ds_list_clear(boolchanges)
 }
 
 //Control how many messages are stored in the chat at once

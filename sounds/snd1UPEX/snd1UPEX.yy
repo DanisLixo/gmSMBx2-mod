@@ -17,7 +17,7 @@
   "soundFile": "snd1UPEX.wav",
   "duration": 4.139433,
   "parent": {
-    "name": "group1",
-    "path": "folders/Sounds/group1.yy",
+    "name": "sounds",
+    "path": "folders/Sounds/sounds.yy",
   },
 }

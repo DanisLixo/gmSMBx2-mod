@@ -1,4 +1,4 @@
-instance_create_depth(x,y-12,depth,oCol);
+col = instance_create_depth(x,y-12,depth,oCol);
 
 image_speed = 0;
 
@@ -14,3 +14,6 @@ moving = false
 
 givevspd = 8
 savedhspd = 0
+
+vspd = 0
+issecret = false

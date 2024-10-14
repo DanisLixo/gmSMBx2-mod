@@ -17,7 +17,7 @@
   "soundFile": "sndAltitude.mp3",
   "duration": 0.548542,
   "parent": {
-    "name": "group1",
-    "path": "folders/Sounds/group1.yy",
+    "name": "sounds",
+    "path": "folders/Sounds/sounds.yy",
   },
 }

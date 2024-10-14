@@ -69,7 +69,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "entity",
-    "path": "folders/Sprites/entity.yy",
+    "name": "custompups",
+    "path": "folders/Sprites/addition/custompups.yy",
   },
 }

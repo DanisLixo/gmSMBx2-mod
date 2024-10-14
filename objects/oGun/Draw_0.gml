@@ -1,3 +1,6 @@
+if instance_exists(oMario) {m = instance_nearest(x,y,oMario);}
+else {m = instance_nearest(x,y,oGame);}
+
 if global.schutmode = false && can = true
 {instance_destroy();}
 
@@ -32,11 +35,14 @@ if mouse_check_button(mb_left) && image_index = 0
 	audio_stop_sound(sndGunshot)
 	audio_play_sound(sndGunshot,0,0,global.volsfx);
 	var xm = global.gunskin = "MiniGun"? x+8 : x
-	var ym = global.gunskin = "MiniGun"? y+4 : y
-	instance_create_depth(xm,ym,depth,oBullet).direction = mdir
-	var bd = instance_create_depth(x,y,depth,oBulletdropped)
-	bd.direction = mdir
-	bd.hspd = -face*5
+	var ym = global.gunskin = "MiniGun"? y-2 : y
+	var b = instance_create_depth(xm,ym,depth,oBullet)
+	if instance_exists(b) {b.direction = mdir}
+	var bd = instance_create_depth(x,y,depth,oBulletdropped);
+	if instance_exists(bd) {
+		bd.direction = mdir
+		bd.hspd = -face*5
+	}
 }
 
 spr = gs("sGun_Default");

@@ -17,7 +17,7 @@
   "soundFile": "sndWarp.wav",
   "duration": 0.789167,
   "parent": {
-    "name": "group1",
-    "path": "folders/Sounds/group1.yy",
+    "name": "sounds",
+    "path": "folders/Sounds/sounds.yy",
   },
 }

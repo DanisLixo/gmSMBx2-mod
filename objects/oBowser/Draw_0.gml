@@ -1,25 +1,49 @@
+if oMario.x < xstart-16*96
+{exit;}
+
 if die = 2 && !onview()
 {instance_destroy();}
 
-if global.player = "Max_Verstappen" {
-draw_sprite_ext(sHamilton_feet,0,x,y-sprite_height,image_xscale,image_yscale,0,image_blend,image_alpha)
-draw_sprite_ext(sHamilton_head,sign(firetimer),x,y-sprite_height,image_xscale,image_yscale,0,image_blend,image_alpha)
-}
-else {
-draw_self()
-draw_sprite_ext(sBowser_head,sign(firetimer),x,y-sprite_height,image_xscale,image_yscale,0,image_blend,image_alpha)
+if state != -1 {
+	if global.player = "Max Verstappen" {sprite_index = sHamilton_feet
+		draw_sprite_ext(sHamilton_head,sign(firetimer),x-1,y-sprite_height+3,image_xscale,image_yscale,0,image_blend,image_alpha)
+		} else {draw_sprite_ext(sBowser_head,sign(firetimer),x,y-sprite_height,image_xscale,image_yscale,0,image_blend,image_alpha)}
+		draw_self(); 
+} else {
+	switch (global.world) {
+	    case 1:
+	        sprite_index = sGoomba;
+	    break;
+	    case 2:
+	        sprite_index = sNokonoko_shell;
+	    break;
+	    case 3:
+	        sprite_index = sBuzzy_shell;
+	    break;
+	    case 4:
+	        sprite_index = sSpiny;
+	    break;
+	    case 5:
+	        sprite_index = sLakitu;
+	    break;
+	    case 6:
+	        sprite_index = sBlooper;
+	    break;
+	    case 7:
+	        sprite_index = sHammerbro;
+	    break;
+	    case 8:
+	        if global.player = "Max Verstappen" {sprite_index = sHamilton_feet
+			draw_sprite_ext(sHamilton_head,sign(firetimer),x-1,y-sprite_height+3,image_xscale,image_yscale,0,image_blend,image_alpha)
+			} else {draw_sprite_ext(sBowser_head,sign(firetimer),x,y-sprite_height,image_xscale,image_yscale,0,image_blend,image_alpha)}
+	    break;
+	}
+	shader_set(shdColorswap);
+		apply_palette(sPalette_goomba,global.environment,image_alpha)
+		if sprite_index = sBlooper {image_index = 1;}
+		draw_self();
+	shader_reset()
 }
 
-if /*!onview() or */!(mario_freeze() = 0 or mario_freeze() = 4) or oMario.x < xstart-16*100
+if !(mario_freeze() = 0 or mario_freeze() = 4)
 {exit;}
-
-if !onview() {hspd = 0;}
-
-if die != false
-{firetimer = 0;}
-
-
-if firetimer > 0 
-{firetimer --;}
-if firetimer = 1
-{instance_create_depth(bbox_left-8,bbox_top,depth,oBowserfire).readjust = true;}

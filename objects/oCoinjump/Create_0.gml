@@ -13,4 +13,4 @@ sfx(sndCoin,0)
 
 alarm[0] = 27
 
-
+coinspr = sCoin;

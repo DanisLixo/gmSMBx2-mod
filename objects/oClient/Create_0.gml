@@ -6,18 +6,20 @@ ip = global.ip;
 
 warning = ""
 warntimer = 0;
+addwarn = 500
 
 network_set_config(network_config_connect_timeout, 3000);
 client = network_create_socket(network_socket_tcp);
 network_connect_raw(client, ip, port);
 
+allfinished = false;
+
 //Create Our Player
 instances = ds_map_create();
-changes = ds_list_create();
-boolchanges = ds_list_create();
 idd = 0;
 fidd = 0;
 bidd = 0;
+hidd = 0;
 Player = oMario//instance_create_layer(random(room_width), random(room_height), "Instances", oMario);
 
 idd = Player.my_id;
@@ -55,6 +57,7 @@ if (client < 0) {
 	game_restart();
 }
 
-
+global.warpzone = false;
+global.hardmode = false;
 
 text = ""

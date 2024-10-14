@@ -10,6 +10,17 @@ if (global.environment = e.castle or global.environment = e.underground) && imag
 if (global.environment != e.castle && global.environment != e.underground) && image_index = 1
 {image_index = 0;}
 
+switch(global.game) {
+	case gm.SMB:
+		sprite_index = sHitblock;
+	break;
+	case gm.LL:
+		sprite_index = sHitblock_LL;
+	break;
+	case gm.ANN:
+		sprite_index = sHitblock_LL;
+	break;
+}
 
 shader_set(shdColorswap)
 	if image_index = 1

@@ -1,5 +1,7 @@
 if mario_freeze()	{image_speed = 0; exit;}
 
+image_speed = 1;
+
 event_inherited();
 
 switch(state)

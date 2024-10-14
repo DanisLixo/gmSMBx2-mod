@@ -18,3 +18,5 @@ ry = y+tile;
 alarm[0] = 3;
 
 fall = false;
+
+if global.hardmode {x+=8}

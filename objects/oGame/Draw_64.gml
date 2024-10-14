@@ -2,17 +2,16 @@ if room = rmServer
 {;}
 
 /// handle gui
-draw_set_font(FNT)
-
+draw_set_font(global.fnt)
 
 #region DEBUG gui
 
 var cx = 0; cy = 0;//camera_get_view_x(view_camera[0]); var cy = camera_get_view_y(view_camera[0]);
 var tile = 8
 
-draw_set_font(FNT);
+draw_set_font(global.fnt);
 
-if room != rmTitle and room != rmServer and room != rmLeveltransition && global.debug = true
+if string_pos("Title",room_get_name(room)) == 0 and room != rmServer and room != rmLeveltransition && global.debug = true
 {
 	
 	if !instance_exists(oClient)
@@ -47,12 +46,12 @@ if room != rmTitle and room != rmServer and room != rmLeveltransition && global.
 			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*4+cy,"TRIPPY"); boolbox(global.trippymode,3);
 			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*5+cy,"COMMANDER"); boolbox(global.commandenys,4);
 			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*6+cy,"ENVIRONMENT"); boolbox(-1,5);
-			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*7+cy,"P2 PLAYER"); boolbox(-1,6);
-			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*8+cy,"EXPLODE"); boolbox(-1,7);
-if instance_exists(oMario) {
+			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*7+cy,"EXPLODE"); boolbox(-1,6);
+			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*8+cy,"TILESET"); boolbox(-1,7);
+			if instance_exists(oMario) {
 			draw_text((SCREENW-(256/2))+(tile*2)+cx,(tile*3)+tile*9+cy,"SCALE "+ string(oMario.scale)); boolbox(-1,8);}
 			
-			draw_set_font(FNT);
+			draw_set_font(global.fnt);
 			
 			if keyboard_check_pressed(vk_enter)
 			{
@@ -64,8 +63,8 @@ if instance_exists(oMario) {
 					case 3: global.trippymode = !global.trippymode; break;
 					case 4: global.commandenys = !global.commandenys; break;
 					case 5: if global.environment != e.night {global.environment++} else {global.environment = -1;} break;
-					case 6: if instance_exists(oLuigi) {global.playertwo = get_string("PLAYER NAME (IN-GAME CHARACTERS ONLY)", global.playertwo)} break;
-					case 7: explode(); break;
+					case 6: explode(); break;
+					case 7: if global.game != gm.LL {global.game++} else {global.game = 0;} break;
 				}
 			}
 			
@@ -79,7 +78,8 @@ if instance_exists(oMario) {
 	{global.freecam = true; debug = false;}
 
 
-	if global.schutmode = true && !instance_exists(oGun) && instance_exists(oMario) {instance_create_depth(oMario.x,oMario.y,depth,oGun);}
+	if global.schutmode = true && !instance_exists(oGun) && instance_exists(oMario) 
+	{instance_create_depth(oMario.x,oMario.y,depth,oGun);}
 	//if global.schutmode = true && instance_exists(oLuigi) && instance_number(oGun) < 2 {instance_create_depth(oLuigi.x,oLuigi.y,depth,oGun);}
 
 	/*
@@ -119,8 +119,12 @@ if loadscreen > -1
 	shader_reset();
 	
 	instance_deactivate_all(true)
+	instance_activate_object(oClient)
+	instance_activate_object(oRacemanager)
+	instance_activate_object(oIsArena)
+	instance_activate_object(oPaused)
 	
-	if loadscreen = -1
+	if loadscreen = -1 && !instance_exists(oPaused)
 	{instance_activate_all();}
 }
 
@@ -140,7 +144,10 @@ if instance_exists(oMario) && oMario.state = ps.die and instance_number(oMario) 
 	draw_set_alpha(1)
 	
 	draw_set_halign(fa_center)
-	draw_text(SCREENW/2,SCREENH/2,"YOU DIED!1!! RESPAWNING...")
+	if global.player == "Gemaplys" 
+	|| !instance_exists(oPlayer) && instance_exists(oLuigi) && global.playertwo == "Gemaplys"
+	{draw_text(SCREENW/2,SCREENH/2,"SE FODEU!")}
+	else {draw_text(SCREENW/2,SCREENH/2,"YOU DIED!1!! RESPAWNING...")}
 	draw_set_halign(fa_left)
 	
 	if diec > room_speed*4
@@ -148,14 +155,18 @@ if instance_exists(oMario) && oMario.state = ps.die and instance_number(oMario) 
 		diec = 0; 
 		if global.sync {instance_create_layer(oMario.xstart,oMario.ystart,"Instances",oMario);}
 		else {
-			if !instance_exists(oCheckpointmask) and room != rmExtra_under
-			{room_goto(asset_get_index("rm"+string(global.world)+"_"+string(global.level)));}
-			else {room_restart()} 
-			if global.time != -1 {global.time = timeunits(400)}
+			try {
+				if !instance_exists(oCheckpointmask) && room_exists(asset_get_index("rm"+string(global.world)+"_"+string(global.level))) && room != rmExtra_under
+				{room_goto(asset_get_index("rm"+string(global.world)+"_"+string(global.level)));} 
+				else 
+				{room_restart()}
+			} catch (bruh) {show_message("I guess the level just doesn't exist? IDK either way, back to the title screen..."); room_goto(rmTitle); if instance_exists(oClient) {disconnecttt(); oClient.alarm[3] = 20;}}
+			if global.time != -1 
+			{setTimer();}
 		}
 	}
-	if instance_exists(oLuigi) {oLuigi.powerup = oLuigi.powerup}
 	oMario.powerup = "s";
+	if instance_exists(oLuigi) {oLuigi.powerup = oMario.powerup}
 }
 
 
